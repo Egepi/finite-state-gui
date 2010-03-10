@@ -76,8 +76,9 @@ public class NewAction extends RestrictedAction {
 	public static void showNew() {
 		if (DIALOG == null)
 			DIALOG = new NewDialog();
-		DIALOG.setVisible(true);
+		//DIALOG.setVisible(true);
 		DIALOG.toFront();
+		createWindow(new automata.fsa.FiniteStateAutomaton());
 	}
 
 	/**
