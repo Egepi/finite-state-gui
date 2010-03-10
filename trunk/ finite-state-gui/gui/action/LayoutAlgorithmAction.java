@@ -21,6 +21,7 @@ package gui.action;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import automata.turing.TuringMachine;
 import automata.pda.PushdownAutomaton;
 import automata.Automaton;
 import automata.graph.*;
@@ -74,7 +75,9 @@ public class LayoutAlgorithmAction extends AutomatonAction {
 	
 	public void actionPerformed(ActionEvent e) {		
 		double vertexBuffer;
-		if (automaton instanceof PushdownAutomaton)
+		if (automaton instanceof TuringMachine)
+			vertexBuffer = 80 * ((TuringMachine) automaton).tapes();
+		else if (automaton instanceof PushdownAutomaton)
 			vertexBuffer = 80;
 		//else if (automaton instanceof MealyMachine)
 		//	vertexBuffer = 65;

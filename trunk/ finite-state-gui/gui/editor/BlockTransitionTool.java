@@ -79,6 +79,13 @@ public class BlockTransitionTool extends TransitionTool {
 		if (first == null)
 			return;
 		State state = getDrawer().stateAtPoint(event.getPoint());
+		if (state != null) {
+			if (creator instanceof TMTransitionCreator) {
+				TMTransitionCreator tmCreator = (TMTransitionCreator) creator;
+				tmCreator.setBlockTransition(true);
+				tmCreator.createTransition(first, state);
+			}
+		}
 		first = null;
 		getView().repaint();
 	}

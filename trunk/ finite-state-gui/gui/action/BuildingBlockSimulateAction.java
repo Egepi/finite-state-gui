@@ -40,6 +40,8 @@ import javax.swing.KeyStroke;
 import automata.Automaton;
 import automata.AutomatonSimulator;
 import automata.Configuration;
+import automata.turing.TMSimulator;
+import automata.turing.TuringMachine;
 
 /**
  * @author Andrew
@@ -83,6 +85,13 @@ public class BuildingBlockSimulateAction extends SimulateAction {
 		Configuration[] configs = null;
 		AutomatonSimulator simulator = getSimulator(automaton);
 		// Get the initial configurations.
+		if (getObject() instanceof TuringMachine) {
+			String[] s = (String[]) input;
+			configs = ((TMSimulator) simulator).getInitialConfigurations(s);
+		} else {
+			String s = (String) input;
+			configs = simulator.getInitialConfigurations(s);
+		}
 		handleInteraction(automaton, simulator, configs, input);
 	}
 
@@ -113,6 +122,18 @@ public class BuildingBlockSimulateAction extends SimulateAction {
 				new CriticalTag() {
 				});
 		environment.setActive(simpane);
+	}
+
+	/**
+	 * This particular action may only be applied to finite state automata.
+	 * 
+	 * @param object
+	 *            the object to test for applicability
+	 * @return <CODE>true</CODE> if the passed in object is a finite state
+	 *         automaton, <CODE>false</CODE> otherwise
+	 */
+	public static boolean isApplicable(Serializable object) {
+		return object instanceof TuringMachine;
 	}
 
 	/** The automaton this simulate action runs simulations on! */

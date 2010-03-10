@@ -25,6 +25,8 @@ import gui.viewer.AutomatonPane;
 
 import java.util.List;
 
+import automata.turing.TuringMachine;
+
 /**
  * The <CODE>DefaultToolBox</CODE> has all the tools for general editing of an
  * automaton.
