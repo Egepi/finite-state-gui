@@ -26,7 +26,6 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 import automata.Automaton;
-import automata.turing.TuringMachine;
 import debug.EDebug;
 
 /**
@@ -136,9 +135,6 @@ public class UndoKeeper {
 		sensitive = true;
         myBackDeck.push((Automaton) myMaster.clone());
 
-        if (myMaster instanceof TuringMachine)
-            TuringMachine.become((TuringMachine) myMaster,(TuringMachine) p);
-        else
             Automaton.become(myMaster, p); //pop off head
 
 		sensitive = false;
@@ -152,9 +148,6 @@ public class UndoKeeper {
 //
         myDeck.push((Automaton)myMaster.clone()); //push on head
 
-        if (myMaster instanceof TuringMachine)
-            TuringMachine.become((TuringMachine)myMaster, (TuringMachine)myBackDeck.pop()); //casting to the high heavens
-        else
             Automaton.become(myMaster, myBackDeck.pop());
 
 		myMaster.getEnvironmentFrame().repaint();

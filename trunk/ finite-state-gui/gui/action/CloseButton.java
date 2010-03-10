@@ -30,7 +30,6 @@ import javax.swing.event.ChangeListener;
 
 import automata.Automaton;
 import automata.State;
-import automata.turing.TuringMachine;
 
 import gui.editor.EditBlockPane;
 import gui.editor.EditorPane;
@@ -92,9 +91,6 @@ public class CloseButton extends javax.swing.JButton
                     if(editor) 
                     {
                         EditorPane higherEditor = (EditorPane) env.getActive();
-                        assert(higherEditor.getAutomaton() instanceof TuringMachine);
-                        TuringMachine higher = (TuringMachine) higherEditor.getAutomaton();
-                        //MERLIN MERLIN MERLIN MERLIN MERLIN//
 
 //                        higher.replaceBlock(block, inside); this shouldn't be necessary if we are not making a clone, but editing the real thing.
                     }

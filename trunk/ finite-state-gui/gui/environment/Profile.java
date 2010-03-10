@@ -43,7 +43,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import file.xml.DOMPrettier;
-import gui.editor.TMTransitionCreator;
 
 public class Profile {
     public static String LAMBDA = "\u03BB";     // Jinghui Lim added stuff
@@ -214,7 +213,7 @@ public class Profile {
 	public void setAllowStay(boolean t) {
 		turingAllowStay = t;
 		turingAllowStayCheckBox.setSelected(t);
-        TMTransitionCreator.setDirs(t);
+        //TMTransitionCreator.setDirs(t);
 	}
 
 	/**

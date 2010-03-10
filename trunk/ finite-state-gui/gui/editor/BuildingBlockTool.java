@@ -35,8 +35,6 @@ import javax.swing.Icon;
 import javax.swing.KeyStroke;
 
 import automata.State;
-import automata.turing.TuringMachine;
-import automata.turing.TMState;
 
 /**
  * @author Andrew
@@ -99,7 +97,7 @@ public class BuildingBlockTool extends Tool {
 	public void mousePressed(MouseEvent event) {
 //MERLIN MERLIN MERLIN MERLIN MERLIN//
 
-		block = ((TuringMachine) getAutomaton()).createBlock(event.getPoint());
+		//block = ((TuringMachine) getAutomaton()).createBlock(event.getPoint());
 		getView().repaint();
 	}
 
@@ -152,5 +150,5 @@ public class BuildingBlockTool extends Tool {
 	protected Point hover;
 
 	/** The state that was created. */
-	automata.turing.TMState block = null;
+	//automata.turing.TMState block = null;
 }

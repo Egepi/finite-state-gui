@@ -43,8 +43,6 @@ public class LambdaCheckerFactory {
 			return new automata.fsa.FSALambdaTransitionChecker();
 		else if (automaton instanceof automata.pda.PushdownAutomaton)
 			return new automata.pda.PDALambdaTransitionChecker();
-		else if (automaton instanceof automata.turing.TuringMachine)
-			return new automata.turing.TMLambdaTransitionChecker();
 		return null;
 	}
 

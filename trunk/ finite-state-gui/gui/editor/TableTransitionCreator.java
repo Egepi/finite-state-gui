@@ -167,10 +167,6 @@ public abstract class TableTransitionCreator extends TransitionCreator {
 				}
 			}
 		}
-		if (this instanceof TMTransitionCreator) {
-			TMTransitionCreator stop = (TMTransitionCreator) this;
-			stop.setBlockTransition(false);
-		}
 		getParent().remove(editingTable);
 		getParent().validate();
 		getParent().repaint();

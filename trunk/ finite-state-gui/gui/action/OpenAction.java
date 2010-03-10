@@ -41,7 +41,6 @@ import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileFilter;
 
 import automata.Automaton;
-import automata.turing.TuringMachine;
 
 /**
  * The <CODE>OpenAction</CODE> is an action to load a structure from a file,
@@ -166,13 +165,6 @@ public class OpenAction extends RestrictedAction {
 		for (int i = 0; i < codecs.length; i++) {
 			try {
 				Serializable object = codecs[i].decode(file, null);
-				if (openOrRead && !(object instanceof TuringMachine)) {
-                    JOptionPane.showMessageDialog(null,
-                            "Only Turing Machine files can be added as building blocks.", "Wrong File Type",
-                            JOptionPane.ERROR_MESSAGE);
-                    return;
-					
-				}
 				lastObject = object;
 				lastFile = file;
 				// Set the file on the thing.
