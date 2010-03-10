@@ -60,7 +60,8 @@ public class MenuBarCreator {
 		menu = getInputMenu(frame);
 		if (menu.getItemCount() > 0)
 			bar.add(menu);
-
+		
+		/* Hiding menu options "view", "convert" and "Test"
 		menu = getTestMenu(frame);
 		if (menu.getItemCount() > 0)
 			bar.add(menu);
@@ -72,47 +73,7 @@ public class MenuBarCreator {
 		menu = getConvertMenu(frame);
 		if (menu.getItemCount() > 0)
 			bar.add(menu);
-
-		menu = getHelpMenu(frame);
-		if (menu.getItemCount() > 0)
-			bar.add(menu);
-
-        CloseButton dismiss = new CloseButton(frame.getEnvironment());
-        bar.add(Box.createGlue());
-        bar.add(dismiss);
-        
-		return bar;
-	}
-	
-	/**
-	 * Special case to deal with turing converted grammar
-	 * @param frame
-	 * @param isTuring
-	 * @return
-	 */
-	public static JMenuBar getMenuBar(EnvironmentFrame frame, int isTuring) {
-		JMenuBar bar = new JMenuBar();
-		JMenu menu;
-
-		menu = getFileMenu(frame);
-		if (menu.getItemCount() > 0)
-			bar.add(menu);
-
-		menu = getInputMenu(frame, isTuring);
-		if (menu.getItemCount() > 0)
-			bar.add(menu);
-
-		menu = getTestMenu(frame);
-		if (menu.getItemCount() > 0)
-			bar.add(menu);
-		
-		menu = getViewMenu(frame);
-		if (menu.getItemCount() > 0)
-			bar.add(menu);
-
-		menu = getConvertMenu(frame, isTuring);
-		if (menu.getItemCount() > 0)
-			bar.add(menu);
+		*/
 
 		menu = getHelpMenu(frame);
 		if (menu.getItemCount() > 0)

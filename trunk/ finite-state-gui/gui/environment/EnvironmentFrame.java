@@ -76,33 +76,6 @@ public class EnvironmentFrame extends JFrame {
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		resizeWatcher();
 	}
-	
-	/**
-	 * Special constructor to create grammar environment from turing converted 
-	 * @param environment
-	 * @param isTuring
-	 */
-	public EnvironmentFrame(Environment environment, int isTuring) {
-		this.environment = environment;
-		environment.addFileChangeListener(new FileChangeListener() {
-			public void fileChanged(FileChangeEvent e) {
-				refreshTitle();
-			}
-		});
-		this.setJMenuBar(gui.menu.MenuBarCreator.getMenuBar(this, 0));
-		
-		this.getContentPane().setLayout(new BorderLayout());
-		this.getContentPane().add(environment, BorderLayout.CENTER);
-
-		// Register this frame with the universe.
-		myNumber = Universe.registerFrame(this);
-		refreshTitle();
-
-		this.addWindowListener(new Listener());
-		this.setLocation(50, 50);
-		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		resizeWatcher();
-	}
 
 	/**
 	 * Returns a simple identifying string for this frame.
