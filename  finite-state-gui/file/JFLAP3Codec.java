@@ -138,6 +138,8 @@ public class JFLAP3Codec extends Codec {
 				return readFA(reader);
 			if (line.equals(PUSHDOWN_AUTOMATON_CODE))
 				return readPDA(reader);
+			if (line.equals(TURING_MACHINE_CODE))
+				return readTM(reader);
 			throw new ParseException("Unknown machine type " + line + "!");
 		} catch (NullPointerException e) {
 			throw new ParseException("Unexpected end of file!");
@@ -223,7 +225,7 @@ public class JFLAP3Codec extends Codec {
 	 * @param reader
 	 *            the source of lines in the file
 	 */
-	/*private automata.turing.TuringMachine readTM(BufferedReader reader)
+	private automata.turing.TuringMachine readTM(BufferedReader reader)
 			throws IOException {
 		if (!reader.readLine().trim().equals("TAPE"))
 			throw new ParseException("Expected TAPE line absent!");
@@ -272,7 +274,7 @@ public class JFLAP3Codec extends Codec {
 		}
 		readStateMove(states, reader);
 		return tm;
-	}*/
+	}
 
 	/**
 	 * Reads the number of states for the automaton.
