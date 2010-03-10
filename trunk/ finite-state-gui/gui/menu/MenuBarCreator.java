@@ -316,10 +316,6 @@ public class MenuBarCreator {
 		JMenu menu = new JMenu("Test");
 		Serializable object = environment.getObject();
 
-		if (DFAEqualityAction.isApplicable(object))
-			addItem(menu, new DFAEqualityAction(
-					(automata.fsa.FiniteStateAutomaton) object, environment));
-
 		/*
 		 * if (MinimizeAction.isApplicable(object)) addItem(menu, new
 		 * MinimizeAction ((automata.fsa.FiniteStateAutomaton) object,
@@ -351,13 +347,6 @@ public class MenuBarCreator {
 		JMenu menu = new JMenu("Convert");
 		Serializable object = environment.getObject();
 
-		//boolean isTuring=TuringChecker.check(object);
-		//if (isTuring)
-		//	return getConvertMenu(frame, 0);
-		
-		if (NFAToDFAAction.isApplicable(object))
-			addItem(menu, new NFAToDFAAction(
-					(automata.fsa.FiniteStateAutomaton) object, environment));
 		if (MinimizeTreeAction.isApplicable(object))
 			addItem(menu, new MinimizeTreeAction(
 					(automata.fsa.FiniteStateAutomaton) object, environment));
