@@ -84,6 +84,11 @@ public class NewAction extends RestrictedAction {
 			createWindow(new automata.fsa.FiniteStateAutomaton());
 			secondWindow = false;
 		}
+		else
+		{
+			System.exit(0);
+		}
+		
 	}
 
 	/**
