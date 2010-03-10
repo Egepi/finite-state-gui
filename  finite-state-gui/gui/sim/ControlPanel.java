@@ -74,22 +74,6 @@ public class ControlPanel extends JToolBar {
 			}
 		});
 
-        /*
-         * Add Focus and Defocus buttons only if it is a Turing machine.
-         */
-        if(controller.isTuringMachine()) {
-    		this.add(new AbstractAction("Focus") {
-    			public void actionPerformed(ActionEvent e) {
-    				controller.focus();
-    			}
-    		});
-    
-    		this.add(new AbstractAction("Defocus") {
-    			public void actionPerformed(ActionEvent e) {
-    				controller.defocus();
-    			}
-    		});
-        }
 		this.add(new AbstractAction("Freeze") {
 			public void actionPerformed(ActionEvent e) {
 				controller.freeze();

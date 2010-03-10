@@ -93,14 +93,6 @@ public abstract class TransitionCreator {
 			return new FSATransitionCreator(parent);
 		if (automaton instanceof automata.pda.PushdownAutomaton)
 			return new PDATransitionCreator(parent);
-		if (automaton instanceof automata.turing.TuringMachine)
-			return new TMTransitionCreator(parent);
-		if (automaton instanceof automata.vdg.VariableDependencyGraph)
-			return new VDGTransitionCreator(parent);
-        //if(automaton instanceof automata.mealy.MooreMachine)
-        //   return new MooreTransitionCreator(parent);
-        //if(automaton instanceof automata.mealy.MealyMachine)
-        //   return new MealyTransitionCreator(parent);
 		return null;
 	}
 

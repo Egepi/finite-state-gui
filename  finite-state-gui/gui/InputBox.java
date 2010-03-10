@@ -35,8 +35,6 @@ import javax.swing.*;
 import automata.Automaton;
 import automata.AutomatonSimulator;
 import automata.Configuration;
-import automata.turing.TMSimulator;
-import automata.turing.TuringMachine;
 
 /**
  * Input GUI BOX

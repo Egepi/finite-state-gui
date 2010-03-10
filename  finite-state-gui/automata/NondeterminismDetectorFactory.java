@@ -47,8 +47,6 @@ public class NondeterminismDetectorFactory {
 			return new FSANondeterminismDetector();
 		else if (automaton instanceof automata.pda.PushdownAutomaton)
 			return new PDANondeterminismDetector();
-		else if (automaton instanceof automata.turing.TuringMachine)
-			return new TMNondeterminismDetector();
 		return null;
 	}
 }

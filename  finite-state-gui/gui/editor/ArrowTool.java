@@ -59,8 +59,6 @@ import automata.graph.AutomatonGraph;
 import automata.graph.LayoutAlgorithm;
 import automata.graph.layout.GEMLayoutAlgorithm;
 import automata.turing.TMTransition;
-import automata.turing.TMState;
-import automata.turing.TuringMachine;
 import debug.EDebug;
 
 /**
@@ -482,14 +480,6 @@ public class ArrowTool extends Tool {
 			this.remove(editBlock);
 			this.state = state;
 //			if (state.getInternalName() != null) {
-			if (state instanceof TMState) {
-				this.add(editBlock);
-				this.add(copyBlock);
-				editBlock.setEnabled(true);
-				copyBlock.setEnabled(true);
-				this.add(replaceSymbol);
-				replaceSymbol.setEnabled(true);
-			}
 			makeFinal.setSelected(getAutomaton().isFinalState(state));
 			makeInitial.setSelected(getAutomaton().getInitialState() == state);
 			deleteLabel.setEnabled(state.getLabel() != null);
@@ -528,23 +518,6 @@ public class ArrowTool extends Tool {
 				State[] states = getAutomaton().getStates();
 				for (int i = 0; i < states.length; i++)
 					states[i].setLabel(null);
-			} else if (item == editBlock) { //this implies that this was a TMState to begin with, because only TM states would have this menu option
-			
-                //not sure why need highest level automaton, but okay
-				TMState parent = (TMState) state;
-				while (((TuringMachine)parent.getAutomaton()).getParent() != null) {
-					parent = ((TuringMachine)parent.getAutomaton()).getParent();
-				}
-				EditBlockPane editor = new EditBlockPane(((TMState)state).getInnerTM()); //give it a Turing Machine //just edit the Automaton directly; there is no need for a repaint either, because the other guy does not paint it
-
-				EnvironmentFrame rootFrame = parent.getAutomaton().getEnvironmentFrame();
-
-				editor.setBlock(state);
-				Environment envir = rootFrame.getEnvironment();
-				envir.add(editor, "Edit Block", new CriticalTag() {
-				});
-
-				envir.setActive(editor);
 			} else if (item == setName) {
 				String oldName = state.getName();
 				oldName = oldName == null ? "" : oldName;
@@ -558,18 +531,10 @@ public class ArrowTool extends Tool {
 					name = null;
 				state.setName(name);
 
-			}else if (item == copyBlock) { 
-                //MERLIN MERLIN MERLIN MERLIN MERLIN// 
-
-//				TMState buffer = ((TuringMachine) getAutomaton()).createTMState((Point)state.getPoint()); //again, we assume that the cast will work, since copyBlock hould never be there except with Turing.
-				TMState buffer = ((TuringMachine) getAutomaton()).createTMState(new Point(state.getPoint().x+4, state.getPoint().y)); //again, we assume that the cast will work, since copyBlock hould never be there except with Turing.
-                buffer.setInnerTM((TuringMachine)((TMState) state).getInnerTM().clone()); //all states have an inner TM, although this inner TM might have zero states within it, in which case it acts as a simple state.
-
-
 			}
             else if (item == replaceSymbol) {
 				
-                assert state instanceof TMState;
+                //assert state instanceof TMState;
 
 				String replaceWith = null;
 				String toReplace = null;						
@@ -587,7 +552,7 @@ public class ArrowTool extends Tool {
     				replaceWith = (String)newString;
     			}
 
-                replaceCharactersInBlock((TMState) state, toReplace, replaceWith);
+                //replaceCharactersInBlock((TMState) state, toReplace, replaceWith);
 				}
 			
 
@@ -595,14 +560,14 @@ public class ArrowTool extends Tool {
 			getView().repaint();
 		}
 		
-		private void replaceCharactersInBlock(TMState start, String toReplace, String replaceWith){ //this shall be a recursive method, replacing the inside and then the out
+		/*private void replaceCharactersInBlock(TMState start, String toReplace, String replaceWith){ //this shall be a recursive method, replacing the inside and then the out
 
-            TuringMachine tm = start.getInnerTM();
+            //TuringMachine tm = start.getInnerTM();
                 
             for (int i = 0; i < tm.getStates().length; i++)
                 replaceCharactersInBlock((TMState)tm.getStates()[i], toReplace, replaceWith);      
             
-            Transition[] trans = tm.getTransitions();
+            //Transition[] trans = tm.getTransitions();
             
             for (int i = 0; i < trans.length; ++i){
                 TMTransition tmTrans = (TMTransition)trans[i];
@@ -614,7 +579,7 @@ public class ArrowTool extends Tool {
                 }
 
             }
-        }
+        }*/
 		
 
         private State state;
