@@ -74,11 +74,16 @@ public class NewAction extends RestrictedAction {
 	 * Shows the new environment dialog.
 	 */
 	public static void showNew() {
+
 		if (DIALOG == null)
 			DIALOG = new NewDialog();
 		//DIALOG.setVisible(true);
-		DIALOG.toFront();
-		createWindow(new automata.fsa.FiniteStateAutomaton());
+		//DIALOG.toFront();
+		if (secondWindow)
+		{
+			createWindow(new automata.fsa.FiniteStateAutomaton());
+			secondWindow = false;
+		}
 	}
 
 	/**
@@ -185,4 +190,5 @@ public class NewAction extends RestrictedAction {
 
 	/** The universal dialog. */
 	private static NewDialog DIALOG = null;
+	private static boolean secondWindow = true;
 }

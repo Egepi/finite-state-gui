@@ -123,7 +123,6 @@ public class Main {
 		}
 		// Prompt the user for newness.
 		NewAction.showNew();
-
 		if (args.length > 0) {
 			if(args[0].equals("text")){
 				
