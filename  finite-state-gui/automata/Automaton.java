@@ -52,7 +52,6 @@ import automata.event.AutomataTransitionEvent;
 import automata.event.AutomataTransitionListener;
 import automata.event.AutomataNoteEvent;
 import automata.event.AutomataNoteListener;
-import automata.turing.TuringMachine;
 
 import gui.viewer.AutomatonPane;
 

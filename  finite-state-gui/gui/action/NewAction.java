@@ -178,6 +178,7 @@ public class NewAction extends RestrictedAction {
 				}
 			});
 			getContentPane().add(button);
+ 
 		}
 	}
 
