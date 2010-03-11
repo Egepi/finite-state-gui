@@ -40,7 +40,6 @@ import javax.swing.KeyStroke;
 import automata.Automaton;
 import automata.AutomatonSimulator;
 import automata.Configuration;
-import automata.turing.TuringMachine;
 
 /**
  * @author Andrew
@@ -118,17 +117,6 @@ public class BuildingBlockSimulateAction extends SimulateAction {
 		environment.setActive(simpane);
 	}
 
-	/**
-	 * This particular action may only be applied to finite state automata.
-	 * 
-	 * @param object
-	 *            the object to test for applicability
-	 * @return <CODE>true</CODE> if the passed in object is a finite state
-	 *         automaton, <CODE>false</CODE> otherwise
-	 */
-	public static boolean isApplicable(Serializable object) {
-		return object instanceof TuringMachine;
-	}
 
 	/** The automaton this simulate action runs simulations on! */
 	private Automaton automaton;

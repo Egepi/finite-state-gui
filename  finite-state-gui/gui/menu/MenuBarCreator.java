@@ -31,8 +31,6 @@ import gui.environment.EnvironmentFrame;
 import gui.environment.Universe;
 import gui.action.*;
 import automata.Automaton;
-import automata.graph.LayoutAlgorithmFactory;
-import automata.graph.layout.VertexMover;
 
 /**
  * The <CODE>MenuBarCreator</CODE> is a creator of the menu bars for the FLAP

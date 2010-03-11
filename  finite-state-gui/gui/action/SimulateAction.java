@@ -41,8 +41,6 @@ import java.awt.GridLayout;
 import java.awt.Component;
 import java.util.*;
 import java.io.*;
-import automata.graph.AutomatonDirectedGraph;
-import automata.turing.TuringMachine;
 
 /**
  * This is the action used for the stepwise simulation of data. This method can
@@ -136,30 +134,14 @@ public class SimulateAction extends AutomatonAction {
 	 */
 	protected Object initialInput(Component component, String title) {
         if(title.equals("")) title = "Input";
-        if(getObject() instanceof TuringMachine){
-    		// Do the multitape stuff.
-    		TuringMachine tm = (TuringMachine) getObject();       
-    		int tapes = tm.tapes();
-            if(title.equals("Expected Result? (Accept or Reject)")){
-                title = "Result";
-                tapes = 1;
-            }
-            if(title.equals("Expected Output?")){
-                title = "Output";
-            }
-    		return openInputGUI(component, title, tapes);
+        if (title.equals("")){
+        	return openInputGUI(component, "Input?", 0);
+            //return JOptionPane.showInputDialog(component, "Input?");                
         }
-        else{
-            if (title.equals("")){
-            	return openInputGUI(component, "Input?", 0);
-                //return JOptionPane.showInputDialog(component, "Input?");
-                
-            }
-            else
-            {
-            	return openInputGUI(component, title, 0);
-            	//return JOptionPane.showInputDialog(component, title+ "?!!!!");
-            }
+        else
+        {
+        	return openInputGUI(component, title, 0);
+          	//return JOptionPane.showInputDialog(component, title+ "?!!!!");
         }
 	}
 
@@ -333,30 +315,7 @@ public class SimulateAction extends AutomatonAction {
 							+ "with an initial state!", "No Initial State",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
-		}
-        /*
-         * If it is a Moore or Mealy machine, don't let it start if it has
-         * nondeterministic states.
-         */
-       
-        /*
-         * If it is a Turing machine, there are transitions from the final state, and that preference
-         * hasn't been enabled, give a warning and return. 
-         */
-        else if (automaton instanceof TuringMachine &&
-        	!Universe.curProfile.transitionsFromTuringFinalStateAllowed()) {
-        	TuringMachine turingMachine = (TuringMachine) automaton;
-        	Object[] finalStates = turingMachine.getFinalStates();
-        	AutomatonDirectedGraph graph = new AutomatonDirectedGraph(turingMachine);
-        	for (int i=0; i<finalStates.length; i++)
-        		if (graph.fromDegree(finalStates[i], false) > 0) {
-        			JOptionPane.showMessageDialog(source,
-                            "There are transitions from final states.  Please remove them or change " +
-                            "\nthe preference in the \"Preferences\" menu in the JFLAP main menu.",
-                            "Transitions From Final States", JOptionPane.ERROR_MESSAGE);
-        			return false;
-        		}        	
-        }
+		}       
         return true;
 	}
 
