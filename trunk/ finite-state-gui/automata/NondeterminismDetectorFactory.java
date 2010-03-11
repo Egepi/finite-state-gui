@@ -21,8 +21,6 @@
 package automata;
 
 import automata.fsa.FSANondeterminismDetector;
-import automata.pda.PDANondeterminismDetector;
-import automata.turing.TMNondeterminismDetector;
 
 /**
  * The <CODE>NondeterminismDetectorFactory</CODE> is a factory class for
@@ -45,10 +43,6 @@ public class NondeterminismDetectorFactory {
 	public static NondeterminismDetector getDetector(Automaton automaton) {
 		if (automaton instanceof automata.fsa.FiniteStateAutomaton)
 			return new FSANondeterminismDetector();
-		else if (automaton instanceof automata.pda.PushdownAutomaton)
-			return new PDANondeterminismDetector();
-		else if (automaton instanceof automata.turing.TuringMachine)
-			return new TMNondeterminismDetector();
 		return null;
 	}
 }

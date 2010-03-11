@@ -136,8 +136,6 @@ public class JFLAP3Codec extends Codec {
 			String line = reader.readLine().trim();
 			if (line.equals(FINITE_AUTOMATON_CODE))
 				return readFA(reader);
-			if (line.equals(PUSHDOWN_AUTOMATON_CODE))
-				return readPDA(reader);
 			if (line.equals(TURING_MACHINE_CODE))
 				return readTM(reader);
 			throw new ParseException("Unknown machine type " + line + "!");
@@ -176,47 +174,6 @@ public class JFLAP3Codec extends Codec {
 		}
 		readStateMove(states, reader);
 		return fa;
-	}
-
-	/**
-	 * Reads the lines in the reader as a pushdown automaton.
-	 * 
-	 * @param reader
-	 *            the source of lines in the file
-	 */
-	private automata.pda.PushdownAutomaton readPDA(BufferedReader reader)
-			throws IOException {
-		String ender = reader.readLine().trim();
-		if (!(ender.equals("FINAL") || ender.equals("EMPTY") || ender
-				.equals("FINAL+EMPTY")))
-			throw new ParseException(ender
-					+ " is a bad finishing type for PDA!");
-		automata.pda.PushdownAutomaton pda = new automata.pda.PushdownAutomaton();
-		// Generic states.
-		State[] states = readStateCreate(pda, reader);
-		String[][][] groups = readTransitionGroups(5, 3, states.length, reader);
-		for (int s = 0; s < groups.length; s++) {
-			for (int g = 0; g < groups[s].length; g++) {
-				String[] group = groups[s][g];
-				State to = states[Integer.parseInt(group[3]) - 1], from = states[s];
-				try {
-					Transition t;
-					// Take care of lambda symbols.
-					int[] check = { 0, 1, 4 };
-					for (int i = 0; i < check.length; i++)
-						if (group[check[i]].equals("null"))
-							group[check[i]] = "";
-					// Create the transition.
-					t = new automata.pda.PDATransition(from, to, group[0],
-							group[1], group[4]);
-					pda.addTransition(t);
-				} catch (IllegalArgumentException e) {
-					throw new ParseException(e.getMessage());
-				}
-			}
-		}
-		readStateMove(states, reader);
-		return pda;
 	}
 
 	/**

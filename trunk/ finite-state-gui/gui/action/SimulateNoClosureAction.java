@@ -31,7 +31,6 @@ import javax.swing.KeyStroke;
 import automata.Automaton;
 import automata.AutomatonSimulator;
 import automata.fsa.FiniteStateAutomaton;
-import automata.pda.PushdownAutomaton;
 
 /**
  * This is the action used for the stepwise simulation of data without closure,
@@ -64,10 +63,7 @@ public class SimulateNoClosureAction extends SimulateAction {
 	 * @return a simulator for this automaton
 	 */
 	protected AutomatonSimulator getSimulator(Automaton automaton) {
-		if (automaton instanceof automata.fsa.FiniteStateAutomaton)
 			return new automata.fsa.FSAStepByStateSimulator(automaton);
-		else
-			return new automata.pda.PDAStepByStateSimulator(automaton);
 	}
 
 	/**
@@ -79,7 +75,6 @@ public class SimulateNoClosureAction extends SimulateAction {
 	 *         automaton, <CODE>false</CODE> otherwise
 	 */
 	public static boolean isApplicable(Serializable object) {
-		return object instanceof FiniteStateAutomaton
-				|| object instanceof PushdownAutomaton;
+		return object instanceof FiniteStateAutomaton;
 	}
 }

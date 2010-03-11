@@ -37,8 +37,6 @@ import javax.swing.JSplitPane;
 import automata.Automaton;
 import automata.AutomatonSimulator;
 import automata.Configuration; import automata.State;
-import automata.turing.TMState;
-import automata.turing.TuringMachine;
 
 
 /**

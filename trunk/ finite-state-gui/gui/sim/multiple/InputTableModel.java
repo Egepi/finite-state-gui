@@ -23,7 +23,6 @@ package gui.sim.multiple;
 import gui.GrowableTableModel;
 import automata.Automaton;
 import automata.Configuration;
-import automata.turing.Tape;
 import javax.swing.event.TableModelListener;
 import javax.swing.event.TableModelEvent;
 
@@ -31,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import automata.turing.TuringMachine;
 
 /**
  * The <CODE>InputTableModel</CODE> is a table specifically used for the input
@@ -49,9 +47,6 @@ public class InputTableModel extends GrowableTableModel {
 	 * @param automaton
 	 *            the automaton that we're inputting stuff for
 	 */
-	public InputTableModel(Automaton automaton, int add) {
-		super(2 * inputsForMachine(automaton)+1+add);
-	}
 	
 	/*public InputTableModel(Grammar gram, int add) {
 		super(2 * 1 + 1+add);
@@ -163,19 +158,6 @@ public class InputTableModel extends GrowableTableModel {
 	}
 
 	/**
-	 * Returns the number of inputs needed for this type of automaton.
-	 * 
-	 * @param automaton
-	 *            the automaton to pass in
-	 * @return the number of input strings needed for this automaton; e.g., n
-	 *         for an n-tape turing machine, 1 for most anything else
-	 */
-	public static int inputsForMachine(Automaton automaton) {
-		return automaton instanceof TuringMachine ? ((TuringMachine) automaton)
-				.tapes() : 1;
-	}
-
-	/**
 	 * This returns the number of inputs this table model supports.
 	 * 
 	 * @return the number of inputs for this table model
@@ -186,41 +168,6 @@ public class InputTableModel extends GrowableTableModel {
 		return columnCount / 2;
 	}
 
-	/**
-	 * This returns the cached table model for an automaton of this type. It is
-	 * desirable that automatons, upon asking to run input, should be presented
-	 * with the same data in the same table since multiple inputs tables are oft
-	 * used to test the same sets of input on different automaton's again and
-	 * again. In the event that there are multiple models active, this method
-	 * returns the last table model that was modified. If there have been no
-	 * applicable table models cached yet, then a blank table model is created.
-	 * 
-	 * @param automaton
-	 *            the automaton to get a model for
-	 * @return a copy of the model that was last edited with the correct number
-	 *         of inputs for this automaton
-	 */
-	public static InputTableModel getModel(Automaton automaton, boolean multipleFile) {        
-		InputTableModel model = (InputTableModel) INPUTS_TO_MODELS
-				.get(new Integer(inputsForMachine(automaton)));
-		if (model != null && (model.isMultiple == multipleFile)) {
-			model = new InputTableModel(model);
-			// Clear out the results column.
-			for (int i = 0; i < (model.getRowCount() - 1); i++)
-				model.setResult(i, "", null, null, 0);
-		}
-        else {
-            int add = 0;
-            if(multipleFile) add = 1;
-			model = new InputTableModel(automaton, add);
-		}
-		model.addTableModelListener(LISTENER);
-        if(multipleFile){
-            model.isMultiple = true;
-            
-        }
-		return model;
-	}
 	/*public static InputTableModel getModel(Grammar gram, boolean multipleFile) {        
 		InputTableModel model = (InputTableModel) INPUTS_TO_MODELS
 				.get(new Integer(1));

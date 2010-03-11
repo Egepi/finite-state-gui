@@ -157,7 +157,7 @@ public class TransducerFactory {
 		typeToTransducer = new HashMap();
 		classToTransducer = new HashMap();
 		add(null, automata.fsa.FiniteStateAutomaton.class, new FSATransducer());
-		add(null, automata.pda.PushdownAutomaton.class, new PDATransducer());
+		//add(null, automata.pda.PushdownAutomaton.class, new PDATransducer());
 		add(null, automata.turing.TuringMachine.class, new TMTransducer());
 		//add(null, grammar.Grammar.class, new GrammarTransducer());
 		//add(null, regular.RegularExpression.class, new RETransducer());
