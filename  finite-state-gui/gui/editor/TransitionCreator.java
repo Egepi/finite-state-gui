@@ -91,8 +91,6 @@ public abstract class TransitionCreator {
 			AutomatonPane parent) {
 		if (automaton instanceof automata.fsa.FiniteStateAutomaton)
 			return new FSATransitionCreator(parent);
-		if (automaton instanceof automata.vdg.VariableDependencyGraph)
-			return new VDGTransitionCreator(parent);
 		return null;
 	}
 
