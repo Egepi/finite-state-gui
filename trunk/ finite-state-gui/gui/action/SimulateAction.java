@@ -44,7 +44,6 @@ import java.util.*;
 import java.io.*;
 import automata.graph.AutomatonDirectedGraph;
 import automata.turing.TuringMachine;
-import automata.turing.TMSimulator;
 
 /**
  * This is the action used for the stepwise simulation of data. This method can
@@ -279,13 +278,8 @@ public class SimulateAction extends AutomatonAction {
 			return;
 		
 		// Get the initial configurations.
-		if (getObject() instanceof TuringMachine) {
-			String[] s = (String[]) input;
-			configs = ((TMSimulator) simulator).getInitialConfigurations(s);
-		} else {
-			String s = (String) input;
-			configs = simulator.getInitialConfigurations(s); 
-		}
+		String s = (String) input;
+		configs = simulator.getInitialConfigurations(s); 
 		handleInteraction(automaton, simulator, configs, input);
 
 	}
@@ -318,13 +312,8 @@ public class SimulateAction extends AutomatonAction {
 			return;
 		
 		// Get the initial configurations.
-		if (getObject() instanceof TuringMachine) {
-			String[] s = (String[]) input;
-			configs = ((TMSimulator) simulator).getInitialConfigurations(s);
-		} else {
-			String s = (String) input;
-			configs = simulator.getInitialConfigurations(s); 
-		}
+		String s = (String) input;
+		configs = simulator.getInitialConfigurations(s); 
 		handleInteraction(automaton, simulator, configs, input);
 	}
 	
