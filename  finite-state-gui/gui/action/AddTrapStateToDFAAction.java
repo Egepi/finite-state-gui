@@ -83,11 +83,6 @@ public class AddTrapStateToDFAAction extends FSAAction{
 			return;
 		}
 		AutomatonChecker ac = new AutomatonChecker();
-		if (ac.isNFA(automaton)) {
-			JOptionPane.showMessageDialog(Universe
-					.frameForEnvironment(environment), "This isn't a DFA!");
-			return;
-		}
 		boolean isComplete=checkIfDFAisComplete();
 		if (isComplete)
 		{

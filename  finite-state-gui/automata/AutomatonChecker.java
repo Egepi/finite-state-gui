@@ -36,24 +36,4 @@ public class AutomatonChecker {
 	public AutomatonChecker() {
 
 	}
-
-	/**
-	 * Returns true if <CODE>automaton</CODE> is a non-deterministic finite
-	 * state automaton.
-	 * 
-	 * @param automaton
-	 *            the automaton.
-	 * @return true if <CODE>automaton</CODE> is a non-deterministic finite
-	 *         state automaton.
-	 */
-	public boolean isNFA(Automaton automaton) {
-		if (!(automaton instanceof FiniteStateAutomaton)) {
-			return false;
-		}
-		NondeterminismDetector nd = new FSANondeterminismDetector();
-		State[] nondeterministicStates = nd
-				.getNondeterministicStates(automaton);
-		return nondeterministicStates.length > 0;
-	}
-
 }
