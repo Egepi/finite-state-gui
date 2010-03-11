@@ -444,6 +444,9 @@ public class ArrowTool extends Tool {
      */
 	protected class StateMenu extends JPopupMenu implements ActionListener {
 		public StateMenu() {
+			idleResponse = new JMenuItem("Idle Response");
+			idleResponse.addActionListener(this);
+			this.add(idleResponse);
 			makeFinal = new JCheckBoxMenuItem("Final");
 			makeFinal.addActionListener(this);
 			this.add(makeFinal);
@@ -574,7 +577,7 @@ public class ArrowTool extends Tool {
 		protected JCheckBoxMenuItem makeFinal, makeInitial;
 
 		private JMenuItem changeLabel, deleteLabel, deleteAllLabels, editBlock, copyBlock, replaceSymbol,
-				setName;
+				setName, idleResponse;
 	}
 
 	/**
@@ -589,6 +592,12 @@ public class ArrowTool extends Tool {
 	 */
 	private class EmptyMenu extends JPopupMenu implements ActionListener {
 		public EmptyMenu() {
+			keywords = new JMenuItem("Keywords");
+			keywords.addActionListener(this);
+			this.add(keywords);
+			response = new JMenuItem("Response");
+			response.addActionListener(this);
+			this.add(response);			
 			stateLabels = new JCheckBoxMenuItem("Display State Labels");
 			stateLabels.addActionListener(this);
 			this.add(stateLabels);
@@ -657,6 +666,7 @@ public class ArrowTool extends Tool {
 		private JMenuItem layoutGraph;
 		private JMenuItem addNote;
 		private JMenuItem renameStates, adaptView;
+		private JMenuItem response, keywords;
 	}
 
 	/** The transition creator for editing transitions. */
