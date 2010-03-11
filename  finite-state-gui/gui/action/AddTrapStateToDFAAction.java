@@ -29,7 +29,6 @@ import gui.environment.AutomatonEnvironment;
 import gui.environment.Environment;
 import gui.environment.Universe;
 import gui.environment.tag.CriticalTag;
-import gui.minimize.MinimizePane;
 import automata.Automaton;
 import automata.AutomatonChecker;
 import automata.State;
