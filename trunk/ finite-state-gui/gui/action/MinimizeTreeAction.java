@@ -74,11 +74,6 @@ public class MinimizeTreeAction extends FSAAction {
 			return;
 		}
 		AutomatonChecker ac = new AutomatonChecker();
-		if (ac.isNFA(automaton)) {
-			JOptionPane.showMessageDialog(Universe
-					.frameForEnvironment(environment), "This isn't a DFA!");
-			return;
-		}
 		// Show the new environs pane.
 		FiniteStateAutomaton minimized = (FiniteStateAutomaton) automaton
 				.clone();

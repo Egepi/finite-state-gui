@@ -480,8 +480,6 @@ public class Minimizer {
 	public Automaton getMinimizeableAutomaton(Automaton a) {
 		// Automaton a = (Automaton) automaton.clone();
 		AutomatonChecker ac = new AutomatonChecker();
-		if (ac.isNFA(a))
-			return null;
 		/** Remove all unreachable states. */
 		UnreachableStatesDetector usd = new UnreachableStatesDetector(a);
 		State[] unreachableStates = usd.getUnreachableStates();

@@ -34,7 +34,6 @@ import javax.swing.JPanel;
 
 import automata.Automaton;
 import automata.NondeterminismDetector;
-import automata.NondeterminismDetectorFactory;
 import automata.State;
 
 /**
@@ -63,11 +62,9 @@ public class NondeterminismAction extends AutomatonAction {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		SelectionDrawer drawer = new SelectionDrawer(automaton);
-		NondeterminismDetector d = NondeterminismDetectorFactory
-				.getDetector(automaton);
-		State[] nd = d.getNondeterministicStates(automaton);
-		for (int i = 0; i < nd.length; i++)
-			drawer.addSelected(nd[i]);
+		//State[] nd = d.getNondeterministicStates(automaton);
+		//for (int i = 0; i < nd.length; i++)
+		//	drawer.addSelected(nd[i]);
 		AutomatonPane ap = new AutomatonPane(drawer);
 		NondeterminismPane pane = new NondeterminismPane(ap);
 		environment.add(pane, "Nondeterminism", new CriticalTag() {

@@ -24,7 +24,6 @@ import automata.Automaton;
 import automata.AutomatonSimulator;
 import automata.Configuration;
 import automata.NondeterminismDetector;
-import automata.NondeterminismDetectorFactory;
 import automata.SimulatorFactory;
 import automata.State;
 import gui.InputBox;

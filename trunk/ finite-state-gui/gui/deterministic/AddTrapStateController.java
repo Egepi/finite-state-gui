@@ -38,7 +38,6 @@ import javax.swing.JOptionPane;
 
 import automata.State;
 import automata.Transition;
-import automata.fsa.FSAToRegularExpressionConverter;
 import automata.fsa.FSATransition;
 import automata.fsa.FiniteStateAutomaton;
 
