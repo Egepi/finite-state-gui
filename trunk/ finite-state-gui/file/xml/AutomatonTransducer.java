@@ -36,9 +36,6 @@ import automata.Automaton;
 import automata.Note;
 import automata.State;
 import automata.Transition;
-import automata.graph.AutomatonGraph;
-import automata.graph.LayoutAlgorithm;
-import automata.graph.layout.GEMLayoutAlgorithm;
 import file.DataException;
 import automata.turing.TMState;
 import automata.turing.TuringMachine;
@@ -352,38 +349,7 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 			return new Integer(-1);
 		}
 	}
-
-	/**
-	 * Perform graph layout on the automaton if necessary. This is performed for
-	 * those XML files with states that do not have their x and y tags
-	 * specified.
-	 * 
-	 * @param automaton
-	 *            the automaton to lay out
-	 * @param locStates
-	 *            the states that have the x and y tags in the DOM
-	 *            representation and should be kept as "isonodes" in the layout
-	 *            algorithm
-	 */
-	private void performLayout(Automaton automaton, Set locStates) {
-		// Apply the graph layout algorithm to those states that
-		// appeared without the <x> and <y> tags.
-		if (locStates.size() == automaton.getStates().length)
-			return;
-		AutomatonGraph graph = new AutomatonGraph(automaton);
-		LayoutAlgorithm layout = new GEMLayoutAlgorithm();
-		for (int i = 0; i < 3; i++)
-			// Do it a few times...
-			layout.layout(graph, locStates);
-		if (locStates.size() < 2) {
-			// Make sure things don't get too large or too small in
-			// the event that sufficient reference for scaling is not
-			// present.
-			graph.moveWithinFrame(new java.awt.Rectangle(20, 20, 425, 260));
-		}
-		graph.moveAutomatonStates();
-	}
-
+	
 	/**
 	 * Given a document, this will return the corresponding automaton encoded in
 	 * the DOM document.
@@ -414,7 +380,7 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 		//read the notes
 		readnotes(parent, root, document);
 		// Do the layout if necessary.
-		performLayout(root, locatedStates);
+		//performLayout(root, locatedStates);
 		automatonMap.put(parent.getNodeName(), root);
 		return root;
 	}

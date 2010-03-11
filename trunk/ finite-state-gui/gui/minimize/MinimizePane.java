@@ -22,8 +22,6 @@ package gui.minimize;
 
 import automata.*;
 import automata.fsa.*;
-import automata.graph.*;
-import automata.graph.layout.GEMLayoutAlgorithm;
 import gui.SplitPaneFactory;
 import gui.editor.*;
 import gui.environment.Environment;
@@ -175,22 +173,6 @@ public class MinimizePane extends JPanel {
 		split.setRightComponent(right);
 		invalidate();
 		repaint();
-
-		// Do graph layout.
-		AutomatonGraph graph = new AutomatonGraph(newAutomaton);
-		graph.addVertex(newAutomaton.getInitialState(), new Point(0, 0));
-		Iterator it = builderController.remainingTransitions.iterator();
-		while (it.hasNext()) {
-			Transition t = (Transition) it.next();
-			graph.addEdge(t.getFromState(), t.getToState());
-		}
-		GEMLayoutAlgorithm layout = new GEMLayoutAlgorithm();
-		Set constantStates = new HashSet();
-		constantStates.add(newAutomaton.getInitialState());
-		layout.layout(graph, constantStates);
-		graph.moveAutomatonStates();
-		validate();
-		ep.getAutomatonPane().fitToBounds(10);
 	}
 
 	/**

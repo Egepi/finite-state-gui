@@ -55,9 +55,6 @@ import automata.StateRenamer;
 import automata.Transition;
 import automata.fsa.FSALabelHandler;
 import automata.fsa.FSATransition;
-import automata.graph.AutomatonGraph;
-import automata.graph.LayoutAlgorithm;
-import automata.graph.layout.GEMLayoutAlgorithm;
 import debug.EDebug;
 
 /**
@@ -634,12 +631,6 @@ public class ArrowTool extends Tool {
 			JMenuItem item = (JMenuItem) e.getSource();
 			if (item == stateLabels) {
 				getView().getDrawer().shouldDrawStateLabels(item.isSelected());
-			} else if (item == layoutGraph) {
-				AutomatonGraph g = new AutomatonGraph(getAutomaton());
-				LayoutAlgorithm alg = new GEMLayoutAlgorithm();
-				alg.layout(g, null);
-				g.moveAutomatonStates();
-				getView().fitToBounds(30);
 			} else if (item == renameStates) {
     		    ((AutomatonEnvironment)getDrawer().getAutomaton().getEnvironmentFrame().getEnvironment()).saveStatus();
 				StateRenamer.rename(getAutomaton());
