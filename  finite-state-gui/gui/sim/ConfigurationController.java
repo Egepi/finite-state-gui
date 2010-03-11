@@ -37,8 +37,6 @@ import javax.swing.JSplitPane;
 import automata.Automaton;
 import automata.AutomatonSimulator;
 import automata.Configuration; import automata.State;
-import automata.turing.TMSimulator;
-import automata.turing.TMConfiguration;
 import automata.turing.TMState;
 import automata.turing.TuringMachine;
 
@@ -89,19 +87,10 @@ public class ConfigurationController implements ConfigurationSelectionListener {
 	 */
 	public void reset() {
 		configurations.clear();
-		if (simulator instanceof TMSimulator) {
-			TMSimulator tmSim = (TMSimulator) simulator;
-			Configuration[] configs = tmSim.getInitialConfigurations(tmSim
-					.getInputStrings());
-			for (int i = 0; i < configs.length; i++) {
-				configurations.add(configs[i]);
-			}
-		} else {
-			for (int i = 0; i < originalConfigurations.length; i++) {
+				for (int i = 0; i < originalConfigurations.length; i++) {
 				originalConfigurations[i].reset();
 				configurations.add(originalConfigurations[i]);
 			}
-		}
 		// What the devil do I have to do to get it to repaint?
 		// configurations.invalidate();
 		configurations.validate();
@@ -155,20 +144,9 @@ public class ConfigurationController implements ConfigurationSelectionListener {
         else{
             do{
             assert configs.length == 1;
-            assert configs[0] instanceof TMConfiguration;
-            assert simulator instanceof TMSimulator;
-
             if (configs.length == 0) break; //bit of a hack, but not much time to debug right now.
             
-            List next = ((TMSimulator) simulator).stepBlock((TMConfiguration)configs[0]);
-            //MERLIN MERLIN MERLIN MERLIN MERLIN//
-            if (next.size() == 0) { //crucial check for rejection
-                //System.out.println("Rejected");
-                reject.add(configs[0]);
-                list.add(configs[0]);
-            } else
-                list.addAll(next);
-            
+            //List next = ((TMSimulator) simulator).stepBlock((TMConfiguration)configs[0]);
             }while(false);
         }
 
@@ -350,13 +328,6 @@ public class ConfigurationController implements ConfigurationSelectionListener {
 			Configuration current = configs[i];
 			foundFocused = setFocusIfNeeded(current, foundFocused);
             
-            if (current instanceof TMConfiguration){
-                //then blocks become relevant
-                TMState cur = (TMState) current.getCurrentState();
-                while (((TuringMachine) cur.getAutomaton()).getParent() != null) cur = ((TuringMachine) cur.getAutomaton()).getParent();
-                drawer.addSelected(cur);
-            }
-            
 //			Stack blocks = (Stack) configs[i].getBlockStack().clone();
 //			if (!blocks.empty()) {
 //				State parent = (State) configs[i].getBlockStack().peek();
@@ -448,22 +419,6 @@ public class ConfigurationController implements ConfigurationSelectionListener {
 			}
 		}
 	}
-    
-    /**
-     * This method is used to find out if we need the <b>Focus</b> and
-     * <b>Defocus</b> buttons in the simulator.
-     * 
-     * @return <code>true</code> if the automaton is a turing machine,
-     * <code>false</code> otherwise
-     * @author Jinghui Lim
-     */
-    public boolean isTuringMachine()
-    {
-        /*
-         * Sorry about this pretty cheap method.
-         */
-        return simulator instanceof TMSimulator;
-    }
 
 	/**
 	 * Listens for configuration selection events.

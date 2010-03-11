@@ -24,7 +24,6 @@ import gui.GrowableTableModel;
 import automata.Automaton;
 import automata.Configuration;
 import automata.turing.Tape;
-import automata.turing.TMConfiguration;
 import javax.swing.event.TableModelListener;
 import javax.swing.event.TableModelEvent;
 
@@ -261,39 +260,6 @@ public class InputTableModel extends GrowableTableModel {
         if(isMultiple) halfway++;
         int outNum = 1;
 		// Set the output columns.
-        if(config instanceof TMConfiguration && config != null){
-        	TMConfiguration c = (TMConfiguration) config;
-			Tape[] tapes = c.getTapes();
-			outNum = tapes.length;
-			if (config.isAccept()) {				
-				for (int i = 0; i < tapes.length; i++) {
-					String put = tapes[i].getOutput();
-					if(comparison!=null){
-						String expected = ((String)comparison.get(index+i));
-						if(!expected.equals("~") && !expected.equals(put)) put = put+"("+expected+")";
-						if(((String)comparison.get(index+outNum)).toLowerCase().startsWith("r")){
-							if(!result.endsWith(")")) result = result+"(Reject)";
-							if(!put.endsWith(")")) put = put + "("+expected+")";
-						}
-						
-					}
-					setValueAt(put, row, halfway + i);		
-				}
-			}
-			else{				
-				for (int i = 0; i < halfway; i++){
-					String put = "";
-                    if(comparison!=null){
-    					String expected = ((String)comparison.get(index+i));
-    					if(!((String)comparison.get(index+outNum)).toLowerCase().startsWith("r")){
-    						if(!result.endsWith(")")) result = result+"(Accept)";						
-    						put = put + "("+expected+")";
-    					}
-                    }
-					setValueAt(put, row, halfway + i);				
-				}
-			}
-		} else{
 			for (int i = 0; (halfway+i) < this.columns; i++)
 				setValueAt("", row, halfway + i);
             boolean accept = false;
@@ -313,7 +279,6 @@ public class InputTableModel extends GrowableTableModel {
                 
             }
 			
-		}
 		
 		// Finally, set the result.
 		setValueAt(result, row, getColumnCount() - 1);

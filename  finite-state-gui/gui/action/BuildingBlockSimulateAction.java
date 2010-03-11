@@ -40,7 +40,6 @@ import javax.swing.KeyStroke;
 import automata.Automaton;
 import automata.AutomatonSimulator;
 import automata.Configuration;
-import automata.turing.TMSimulator;
 import automata.turing.TuringMachine;
 
 /**
@@ -85,13 +84,8 @@ public class BuildingBlockSimulateAction extends SimulateAction {
 		Configuration[] configs = null;
 		AutomatonSimulator simulator = getSimulator(automaton);
 		// Get the initial configurations.
-		if (getObject() instanceof TuringMachine) {
-			String[] s = (String[]) input;
-			configs = ((TMSimulator) simulator).getInitialConfigurations(s);
-		} else {
-			String s = (String) input;
-			configs = simulator.getInitialConfigurations(s);
-		}
+		String s = (String) input;
+		configs = simulator.getInitialConfigurations(s);
 		handleInteraction(automaton, simulator, configs, input);
 	}
 
