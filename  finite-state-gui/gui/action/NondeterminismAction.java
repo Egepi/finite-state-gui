@@ -33,7 +33,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import automata.Automaton;
-import automata.NondeterminismDetector;
 import automata.State;
 
 /**
