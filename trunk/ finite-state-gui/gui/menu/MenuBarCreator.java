@@ -55,24 +55,6 @@ public class MenuBarCreator {
 		if (menu.getItemCount() > 0)
 			bar.add(menu);
 
-		menu = getInputMenu(frame);
-		if (menu.getItemCount() > 0)
-			bar.add(menu);
-		
-		/* Hiding menu options "view", "convert" and "Test"
-		menu = getTestMenu(frame);
-		if (menu.getItemCount() > 0)
-			bar.add(menu);
-		
-		menu = getViewMenu(frame);
-		if (menu.getItemCount() > 0)
-			bar.add(menu);
-
-		menu = getConvertMenu(frame);
-		if (menu.getItemCount() > 0)
-			bar.add(menu);
-		*/
-
 		menu = getHelpMenu(frame);
 		if (menu.getItemCount() > 0)
 			bar.add(menu);
@@ -150,32 +132,6 @@ public class MenuBarCreator {
 //            addItem(menu, new SetUndoAmountAction());
 //        }
 
-
-		return menu;
-	}
-
-	/**
-	 * Instantiates the menu that holds input related menu events.
-	 * 
-	 * @param frame
-	 *            the environment frame that holds the environment and object
-	 * @return an input menu
-	 */
-	private static JMenu getInputMenu(EnvironmentFrame frame) {
-		Environment environment = frame.getEnvironment();
-		JMenu menu = new JMenu("Input");
-		Serializable object = environment.getObject();
-		if (SimulateAction.isApplicable(object))
-			addItem(menu, new SimulateAction((Automaton) object, environment));
-		if (BuildingBlockSimulateAction.isApplicable(object))
-			addItem(menu, new BuildingBlockSimulateAction((Automaton) object,
-					environment));
-		if (SimulateNoClosureAction.isApplicable(object))
-			addItem(menu, new SimulateNoClosureAction((Automaton) object,
-					environment));
-		if (NoInteractionSimulateAction.isApplicable(object))
-			addItem(menu, new NoInteractionSimulateAction((Automaton) object,
-					environment));
 
 		return menu;
 	}

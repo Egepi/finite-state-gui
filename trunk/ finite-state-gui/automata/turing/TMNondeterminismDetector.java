@@ -20,7 +20,6 @@
 
 package automata.turing;
 
-import automata.NondeterminismDetector;
 import automata.Transition;
 
 /**
@@ -31,7 +30,7 @@ import automata.Transition;
  * @author Thomas Finley
  */
 
-public class TMNondeterminismDetector extends NondeterminismDetector {
+public class TMNondeterminismDetector{
 	/**
 	 * Creates an instance of a <CODE>TMNondeterminismDetector</CODE>.
 	 */
