@@ -36,7 +36,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import automata.Automaton;
-import automata.AutomatonSimulator;
 import automata.Configuration;
 
 /**
@@ -53,26 +52,7 @@ import automata.Configuration;
  */
 
 public class SimulatorPane extends JPanel {
-	/**
-	 * Instantiates a simulator pane for a given automaton, and a given input
-	 * string.
-	 * 
-	 * @param automaton
-	 *            the automaton to create the simulator pane for
-	 * @param simulator
-	 *            the automaton simulator which we step through the automaton on
-	 * @param configurations
-	 *            the initial configurations that this simulator should start
-	 *            with
-	 * @param env
-	 *            the environment this simulator pane will be added to
-	 */
-	public SimulatorPane(Automaton automaton, AutomatonSimulator simulator,
-			Configuration[] configurations, Environment env, boolean blockStep) {
-		this.automaton = automaton;
-		this.simulator = simulator;
-		initView(configurations, env, blockStep);
-	}
+
 
 	/**
 	 * Initiates the views, or in general, sets up the GUI.
@@ -108,22 +88,13 @@ public class SimulatorPane extends JPanel {
 			configurations.add(configs[i]);
 		}
 		// Set up the bloody controller device.
-		final ConfigurationController controller = new ConfigurationController(
-				configurations, simulator, drawer, display);
 		env.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				if (env.contains(SimulatorPane.this))
 					return;
 				env.removeChangeListener(this);
-				controller.cleanup();
 			}
 		});
-		ControlPanel controlPanel = new ControlPanel(controller);
-		controlPanel.setBlock(blockStep);
-		// Set up the lower display.
-		scroller.getViewport().setView(configurations);
-		lower.add(scroller, BorderLayout.CENTER);
-		lower.add(controlPanel, BorderLayout.SOUTH);
 
 		// Set up the main view.
 		JSplitPane split = SplitPaneFactory.createSplit(env, false, .6,
@@ -137,8 +108,5 @@ public class SimulatorPane extends JPanel {
 
 	/** The automaton that this simulator pane is simulating. */
 	private Automaton automaton;
-
-	/** The simulator */
-	private AutomatonSimulator simulator;
 
 }

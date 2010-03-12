@@ -35,7 +35,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 
 import automata.Automaton;
-import automata.AutomatonSimulator;
 import automata.Configuration; import automata.State;
 
 
@@ -59,7 +58,7 @@ public class ConfigurationController implements ConfigurationSelectionListener {
 	 * @param component
 	 *            the component in which the automaton is displayed
 	 */
-	public ConfigurationController(ConfigurationPane pane,
+	/*public ConfigurationController(ConfigurationPane pane,
 			AutomatonSimulator simulator, SelectionDrawer drawer,
 			Component component) {
 		this.configurations = pane;
@@ -77,7 +76,7 @@ public class ConfigurationController implements ConfigurationSelectionListener {
 		// originalConfigurations[k] = (Configuration)currentTM.clone();
 		// }
 		// }
-	}
+	}*/
 
 	/**
 	 * This sets the configuration pane to have the initial configuration for
@@ -125,7 +124,7 @@ public class ConfigurationController implements ConfigurationSelectionListener {
 		// Clear out old states.
 		configurations.clearThawed();
 
-        if (!blockStep){ //for ordinary automaton
+       /* if (!blockStep){ //for ordinary automaton
             for (int i = 0; i < configs.length; i++) {
                 //System.out.println("HERE!");
                 ArrayList next = simulator.stepConfiguration(configs[i]);
@@ -138,15 +137,13 @@ public class ConfigurationController implements ConfigurationSelectionListener {
                     list.addAll(next);
 
             }
-        }
-        else{
+        }*/
             do{
             assert configs.length == 1;
             if (configs.length == 0) break; //bit of a hack, but not much time to debug right now.
             
             //List next = ((TMSimulator) simulator).stepBlock((TMConfiguration)configs[0]);
             }while(false);
-        }
 
 		// Replace them with the successors.
 		Iterator it = list.iterator();
@@ -371,7 +368,7 @@ public class ConfigurationController implements ConfigurationSelectionListener {
 				configurations.defocus(configs[i]);
 			}
 		}
-		drawer.setAutomaton(simulator.getAutomaton());
+		//drawer.setAutomaton(simulator.getAutomaton());
 		drawer.invalidate();
 		component.repaint();
 	}
@@ -430,9 +427,6 @@ public class ConfigurationController implements ConfigurationSelectionListener {
 
 	/** This is the pane holding the configurations. */
 	private ConfigurationPane configurations;
-
-	/** This is the simulator that we step through configurations with. */
-	private AutomatonSimulator simulator;
 
 	/** This is the selection drawer that draws the automaton. */
 	private SelectionDrawer drawer;
