@@ -282,6 +282,15 @@ public class State implements Serializable {
 		myNote = note;
 	}
 	
+	public String getIdleResponses()
+	{
+		return idleResponses;
+	}
+	public void setIdleResponses(String incoming)
+	{
+		idleResponses = incoming;
+	}
+	
 	private Note myNote;
 
 	String internalName = null;
@@ -306,6 +315,9 @@ public class State implements Serializable {
 
 	/** If there are multiple labels, return those. */
 	private String[] labels = new String[0];
+	
+	/** The idle Response string */
+	private String idleResponses;
 	
 //	/** If the state has a parent block, this is it.  It is null if there is no parent block. */
 //	private State parentBlock = null;

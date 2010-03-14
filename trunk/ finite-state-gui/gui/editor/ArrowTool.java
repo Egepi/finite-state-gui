@@ -162,8 +162,14 @@ public class ArrowTool extends Tool {
 			Point p = getView().transformFromAutomatonToView(event.getPoint());
 			if (lastClickedState != null && shouldShowStatePopup()) {
 				stateMenu.show(lastClickedState, getView(), p);
-			} else {
-				emptyMenu.show(getView(), p);
+			} 
+			else if(lastClickedTransition != null)
+			{
+				transitionMenu.show(lastClickedTransition, getView(), p);
+			}
+			else 
+			{
+				//emptyMenu.show(getView(), p);
 			}
 		}
 		lastClickedState = null;
@@ -490,8 +496,27 @@ public class ArrowTool extends Tool {
 			JMenuItem item = (JMenuItem) e.getSource();
             if (getDrawer().getAutomaton().getEnvironmentFrame() !=null)
                 ((AutomatonEnvironment)getDrawer().getAutomaton().getEnvironmentFrame().getEnvironment()).saveStatus();
-
-			if (item == makeFinal) {
+            
+            /***********************************************************/
+            /*Added for project Lifelike */
+			if (item == idleResponse)
+			{
+				String oldIdleLabel = state.getIdleResponses();
+				String idleLabel = (String) JOptionPane.showInputDialog(this,
+						"Input idle responses", "Idle Responses",
+				JOptionPane.QUESTION_MESSAGE, null, null, oldIdleLabel);
+				if (idleLabel == null)
+					return;
+				if (idleLabel.equals(""))
+					idleLabel = null;	
+				state.setIdleResponses(idleLabel);
+				System.out.println("Idle response typed was: " + idleLabel);
+			}
+			/************************************************************/
+			
+			
+			
+            if (item == makeFinal) {
 				if (item.isSelected())
 					getAutomaton().addFinalState(state);
 				else
@@ -583,8 +608,60 @@ public class ArrowTool extends Tool {
 	/**
 	 * The contextual menu class for editing transitions.
 	 */
-	private class TransitionMenu extends JPopupMenu {
-
+	private class TransitionMenu extends JPopupMenu implements ActionListener
+	{
+		public TransitionMenu()
+		{
+			keywords = new JMenuItem("Keywords");
+			keywords.addActionListener(this);
+			this.add(keywords);
+			response = new JMenuItem("Response");
+			response.addActionListener(this);
+			this.add(response);
+		}
+		public void show(Transition lastClickedTransition, Component comp, Point at) {
+			this.transition = lastClickedTransition;
+			Point myPoint = at;
+			show(comp, at.x, at.y);
+		}
+		public void actionPerformed(ActionEvent e) 
+		{
+			JMenuItem item = (JMenuItem) e.getSource();
+			/************************************************************/
+			/*Added for project Lifelike */
+			if (item == response)
+			{
+				String oldResponse = transition.getResponses();
+				String newResponse = (String) JOptionPane.showInputDialog(this,
+						"Input Responses", "Responses",
+				JOptionPane.QUESTION_MESSAGE, null, null, oldResponse);
+				if (newResponse == null)
+					return;
+				if (newResponse.equals(""))
+					response = null;	
+				transition.setResponses(newResponse);
+				System.out.println("Idle response typed was: " + newResponse);
+			}
+			/************************************************************/
+			/************************************************************/
+			/*Added for project Lifelike */
+			if (item == keywords)
+			{
+				String oldKeywords = transition.getKeywords();
+				String newKeywords = (String) JOptionPane.showInputDialog(this,
+						"Input keywords", "Keywords",
+				JOptionPane.QUESTION_MESSAGE, null, null, oldKeywords);
+				if (newKeywords == null)
+					return;
+				if (newKeywords.equals(""))
+					newKeywords = null;	
+				transition.setKeywords(newKeywords);
+				System.out.println("Keywords typed was: " + newKeywords);
+			}
+			/************************************************************/
+		}
+		private Transition transition;
+		private JMenuItem response, keywords;
 	}
 
 	/**
@@ -592,12 +669,7 @@ public class ArrowTool extends Tool {
 	 */
 	private class EmptyMenu extends JPopupMenu implements ActionListener {
 		public EmptyMenu() {
-			keywords = new JMenuItem("Keywords");
-			keywords.addActionListener(this);
-			this.add(keywords);
-			response = new JMenuItem("Response");
-			response.addActionListener(this);
-			this.add(response);			
+			
 			stateLabels = new JCheckBoxMenuItem("Display State Labels");
 			stateLabels.addActionListener(this);
 			this.add(stateLabels);
@@ -638,6 +710,10 @@ public class ArrowTool extends Tool {
 
 		public void actionPerformed(ActionEvent e) {
 			JMenuItem item = (JMenuItem) e.getSource();
+			
+
+			
+			
 			if (item == stateLabels) {
 				getView().getDrawer().shouldDrawStateLabels(item.isSelected());
 			} else if (item == renameStates) {
@@ -666,7 +742,7 @@ public class ArrowTool extends Tool {
 		private JMenuItem layoutGraph;
 		private JMenuItem addNote;
 		private JMenuItem renameStates, adaptView;
-		private JMenuItem response, keywords;
+		
 	}
 
 	/** The transition creator for editing transitions. */
