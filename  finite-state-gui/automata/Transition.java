@@ -182,6 +182,27 @@ public abstract class Transition implements Serializable, Cloneable {
     public void setControl(Point p){
         myControlPoint = p; 
     }
+    
+    
+
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
+	}
+
+	public String getKeywords() {
+		return keywords;
+	}
+
+
+
+	public void setResponses(String responses) {
+		this.responses = responses;
+	}
+
+	public String getResponses() {
+		return responses;
+	}
+
 
 
 	/** The states this transition goes between. */
@@ -193,4 +214,7 @@ public abstract class Transition implements Serializable, Cloneable {
     private Point myControlPoint;
 
     public boolean isSelected = false;
+    
+    private String keywords, responses;
+    
 }
