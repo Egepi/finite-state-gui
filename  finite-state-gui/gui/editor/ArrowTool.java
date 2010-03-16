@@ -453,32 +453,46 @@ public class ArrowTool extends Tool {
 			idleResponse = new JMenuItem("Idle Response");
 			idleResponse.addActionListener(this);
 			this.add(idleResponse);
-			makeFinal = new JCheckBoxMenuItem("Final");
-			makeFinal.addActionListener(this);
-			this.add(makeFinal);
+			
+			makeRoot = new JMenuItem("Make Root");
+			makeRoot.addActionListener(this);
+			this.add(makeRoot);
+			
+			makeInit = new JMenuItem("Make Initial");
+			makeInit.addActionListener(this);
+			this.add(makeInit);
+						
+			setName = new JMenuItem("Set Name");
+			setName.addActionListener(this);
+			this.add(setName);
+			
+			
 			makeInitial = new JCheckBoxMenuItem("Initial");
+			if (shouldAllowOnlyFinalStateChange())
+				return;
+			makeInitial.addActionListener(this);
+			
 			changeLabel = new JMenuItem("Change Label");
 			deleteLabel = new JMenuItem("Clear Label");
 			deleteAllLabels = new JMenuItem("Clear All Labels");
 			editBlock = new JMenuItem("Edit Block");
 			copyBlock = new JMenuItem("Duplicate Block");
 			replaceSymbol = new JMenuItem("Replace Symbol");
-			setName = new JMenuItem("Set Name");
-			if (shouldAllowOnlyFinalStateChange())
-				return;
-			makeInitial.addActionListener(this);
+			
+			
 			changeLabel.addActionListener(this);
 			deleteLabel.addActionListener(this);
 			deleteAllLabels.addActionListener(this);
 			editBlock.addActionListener(this);
-			setName.addActionListener(this);
 			copyBlock.addActionListener(this);
 			replaceSymbol.addActionListener(this);
-			this.add(makeInitial);
+			/*
 			this.add(changeLabel);
+			this.add(makeInitial);
 			this.add(deleteLabel);
 			this.add(deleteAllLabels);
-			this.add(setName);
+			
+			*/
 		}
 
 		public void show(State state, Component comp, Point at) {
@@ -486,7 +500,7 @@ public class ArrowTool extends Tool {
 			this.state = state;
 //			if (state.getInternalName() != null) {
 
-			makeFinal.setSelected(getAutomaton().isFinalState(state));
+			makeRoot.setSelected(getAutomaton().isFinalState(state));
 			makeInitial.setSelected(getAutomaton().getInitialState() == state);
 			deleteLabel.setEnabled(state.getLabel() != null);
 			show(comp, at.x, at.y);
@@ -516,12 +530,29 @@ public class ArrowTool extends Tool {
 			
 			
 			
-            if (item == makeFinal) {
+            if (item == makeRoot) {            	
+				/****************************************
+				 * Code to make the root node
+				 ****************************************/
+				getAutomaton().setRootState(state);
+			
+            }
+            else if(item == makeInit)
+            {
+				/****************************************
+				 * Code to make the init node
+				 ****************************************/
+				getAutomaton().setInitState(state);            	
+            }
+            
+			else if(item == makeFinal)
+			{
 				if (item.isSelected())
 					getAutomaton().addFinalState(state);
 				else
 					getAutomaton().removeFinalState(state);
-			} else if (item == makeInitial) {
+			}
+            else if (item == makeInitial) {
 				if (!item.isSelected())
 					state = null;
 				getAutomaton().setInitialState(state);
@@ -600,7 +631,9 @@ public class ArrowTool extends Tool {
          * "Final State" option from Moore and Mealy machines.
          */
 		protected JCheckBoxMenuItem makeFinal, makeInitial;
-
+		
+		protected JMenuItem makeRoot, makeInit;
+		
 		private JMenuItem changeLabel, deleteLabel, deleteAllLabels, editBlock, copyBlock, replaceSymbol,
 				setName, idleResponse;
 	}

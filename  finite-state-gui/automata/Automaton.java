@@ -494,6 +494,67 @@ public class Automaton implements Serializable, Cloneable {
 				true));
 		return oldInitialState;
 	}
+	
+	/*
+	 * Author Karan Chakrapani
+	 * make root only possible on 1 node
+	 */
+	public void setRootState(State newRootState)
+	{
+		if(newRootState.equals(this.rootState))
+		{
+			this.rootState.setLabel("");
+			this.rootState = null;
+			return;
+		}
+		else if(newRootState.equals(this.topicState))
+		{
+			this.topicState = null;
+			this.rootState = newRootState;
+			this.rootState.setLabel("ROOT");
+			return;			
+		}
+		else
+		{
+			if (this.rootState != null)
+			{
+				this.rootState.setLabel("");
+			}
+			this.rootState = newRootState;
+			this.rootState.setLabel("ROOT");
+			return;
+		}
+	}
+	
+	/*
+	 * Author Karan Chakrapani
+	 * make root only possible on 1 node
+	 */
+	public void setInitState(State initState)
+	{
+		if(initState.equals(this.topicState))
+		{
+			this.topicState.setLabel("");
+			this.topicState = null;
+			return;
+		}
+		else if(initState.equals(this.rootState))
+		{
+			this.rootState = null;
+			this.topicState = initState;
+			this.topicState.setLabel("INITIAL");
+			return;			
+		}
+		else
+		{
+			if (this.topicState != null)
+			{
+				this.topicState.setLabel("");
+			}
+			this.topicState = initState;
+			this.topicState.setLabel("INTIAL");
+		}
+	}	
 
 	/**
 	 * Returns the start state for this automaton.
@@ -985,6 +1046,15 @@ public class Automaton implements Serializable, Cloneable {
 	private transient HashSet stateListeners = new HashSet();
 
 	private transient HashSet noteListeners = new HashSet();
+	
+	/*
+	 * Author Karan Chakrapani
+	 * 
+	 * Root state and topic states
+	 */
+	
+	protected State rootState = null;
+	protected State topicState = null;
 	
 	/**
 	 * Reset all non-transient data structures.

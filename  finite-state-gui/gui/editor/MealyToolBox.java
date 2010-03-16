@@ -52,7 +52,7 @@ public class MealyToolBox implements ToolBox
     public List tools(AutomatonPane view, AutomatonDrawer drawer) 
     {
         List list = new java.util.ArrayList();
-        list.add(new MealyArrowTool(view, drawer));
+       // list.add(new MealyArrowTool(view, drawer));
         list.add(new StateTool(view, drawer));
         list.add(new TransitionTool(view, drawer));
         list.add(new DeleteTool(view, drawer));
