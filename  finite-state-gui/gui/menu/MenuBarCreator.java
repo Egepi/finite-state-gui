@@ -148,19 +148,6 @@ public class MenuBarCreator {
 		JMenu menu = new JMenu("Help");
 		Serializable object = environment.getObject();
 
-		//Currently commented out, but can be restored if the help menus are fixed.
-		//addItem(menu, new EnvironmentHelpAction(environment));
-		
-		//Temporary help action.
-		addItem(menu, new AbstractAction("Help...") {
-			public void actionPerformed(ActionEvent event) {
-				JOptionPane.showMessageDialog(null, "For help, feel free to access the JFLAP tutorial at\n" +
-						"                          www.jflap.org.", "Help", JOptionPane.PLAIN_MESSAGE);
-			}
-		});
-		
-		addItem(menu, new AboutAction());
-
 		return menu;
 	}
 }
