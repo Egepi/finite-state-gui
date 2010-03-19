@@ -206,16 +206,16 @@ public abstract class Transition implements Serializable, Cloneable {
 	
 	public boolean isKeywordsEmpty()
 	{
-		if(this.keywords.equals(""))
+		if(this.keywords == null)
 		{
 			return true;
 		}
 		return false;
 		
 	}
-	public boolean isResponsessEmpty()
+	public boolean isResponsesEmpty()
 	{
-		if(this.responses.equals(""))
+		if(this.responses == null)
 		{
 			return true;
 		}

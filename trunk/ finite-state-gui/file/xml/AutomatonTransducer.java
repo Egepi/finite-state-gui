@@ -469,12 +469,24 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 				+ state.getPoint().getX()));
 		se.appendChild(createElement(document, STATE_Y_COORD_NAME, null, ""
 				+ state.getPoint().getY()));
+		
+		/* Author: Jennifer Kinahan
+		 * Date: 3-19-2010
+		 * Adding responses, keyword and idle response text tags
+		 */
+		
+		if(state.isIdleResponsesEmpty() == false ){
+			se.appendChild(createElement(document, STATE_IDLE_RESPONSE, null, ""
+					+ state.getIdleResponses()));
+		}
+		
 		// Encode label, if set.
 		if (state.getLabel() != null)
 			se.appendChild(createElement(document, STATE_LABEL_NAME, null,
 					state.getLabel()));
 		// Encode the name, if set.
 		if (state.getName() != null) se.setAttribute(STATE_NAME_NAME, "" + state.getName());
+		
 		// Encode whether the state is initial.
 //		State parent = state.getParentBlock();
 //		Automaton a = null;
@@ -525,7 +537,20 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 		// Encode the to state.
 		te.appendChild(createElement(document, TRANSITION_TO_NAME, null, ""
 				+ transition.getToState().getID()));
-
+		
+		/* Author: Jennifer Kinahan
+		 * Date: 3-19-2010
+		 * Adding responses, keyword and idle response text tags
+		 */
+		if(transition.isResponsesEmpty() == false){
+			te.appendChild(createElement(document, TRANSITION_RESPONSE, null, ""
+					+ transition.getResponses())); }
+		if(transition.isKeywordsEmpty() == false){	
+			te.appendChild(createElement(document, TRANSITION_KEYWORD, null, ""
+					+ transition.getKeywords()));}
+		
+		
+		
         //if the transition has a control point defined,then get that too
         if (transition.getControl() != null){
             Point p = transition.getControl();
@@ -631,7 +656,7 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 		for (int i = 0; i < transitions.length; i++)
 			se.appendChild(createTransitionElement(doc, transitions[i]));
 
-
+		
         
 		// Add the Automatons the blocks refer to as sub elements of the
 		// structure element.
@@ -743,6 +768,23 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 
 	/** The tag name for the text of the note elements. */
 	public static final String NOTE_TEXT_NAME = "text";
+	
+	
+	/* Author: Jennifer Kinahan
+	 * Date: 3-19-2010
+	 * Adding responses, keyword and idle response text tags
+	 */
+	
+	/** Tag name for the response in the transition */
+	public static final String TRANSITION_RESPONSE = "response";
+	
+	/** Tag name for the keywords in the transition */
+	public static final String TRANSITION_KEYWORD = "keyword";
+	
+	/** Tag the idle response **/
+	public static final String STATE_IDLE_RESPONSE = "state idle response";
+	
+	
 
 	
 	/**The tag name for the block transition */

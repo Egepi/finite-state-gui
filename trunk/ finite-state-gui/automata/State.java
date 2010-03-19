@@ -293,7 +293,8 @@ public class State implements Serializable {
 	
 	public boolean isIdleResponsesEmpty()
 	{
-		if(this.idleResponses.equals(""))
+		
+		if(this.idleResponses == null)
 		{
 			return true;
 		}
