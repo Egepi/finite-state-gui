@@ -281,7 +281,7 @@ public class State implements Serializable {
 	public void setNote(Note note){
 		myNote = note;
 	}
-	
+	//Karan Chakrapani
 	public String getIdleResponses()
 	{
 		return idleResponses;
@@ -289,6 +289,16 @@ public class State implements Serializable {
 	public void setIdleResponses(String incoming)
 	{
 		idleResponses = incoming;
+	}
+	
+	public boolean isIdleResponsesEmpty()
+	{
+		if(this.idleResponses.equals(""))
+		{
+			return true;
+		}
+		return false;
+		
 	}
 	
 	private Note myNote;
