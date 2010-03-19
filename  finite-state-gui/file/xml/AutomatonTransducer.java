@@ -318,7 +318,11 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 			Transition transition = createTransition(from, to, tNode, e2t, bool);
 			automaton.addTransition(transition);
 			bool = false;
-
+			
+			if (e2t.containsKey(TRANSITION_RESPONSE))
+				transition.setResponses((String) e2t.get(TRANSITION_RESPONSE));
+			if (e2t.containsKey(TRANSITION_KEYWORD))
+				transition.setKeywords((String) e2t.get(TRANSITION_KEYWORD));
 
             //deal with the shapiness of the transition, if the file specifies it. //add controlX and controlY
             String controlX = (String) e2t.get(TRANSITION_CONTROL_X);
