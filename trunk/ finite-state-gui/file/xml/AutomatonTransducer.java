@@ -202,6 +202,8 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 				automaton.addFinalState(state);
 			if (e2t.containsKey(STATE_INITIAL_NAME))
 				automaton.setInitialState(state);
+			if (e2t.containsKey(STATE_IDLE_RESPONSE))
+				state.setIdleResponses((String) e2t.get(STATE_IDLE_RESPONSE));
             /*
              * If it is a Moore machine, add state output.
              */
@@ -782,7 +784,7 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 	public static final String TRANSITION_KEYWORD = "keyword";
 	
 	/** Tag the idle response **/
-	public static final String STATE_IDLE_RESPONSE = "state idle response";
+	public static final String STATE_IDLE_RESPONSE = "stateIdleResponse";
 	
 	
 
