@@ -747,7 +747,6 @@ public class Automaton implements Serializable, Cloneable {
 				buffer.append('\n');
 			}
 		}
-
 		return buffer.toString();
 	}
 
