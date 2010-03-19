@@ -183,7 +183,8 @@ public abstract class Transition implements Serializable, Cloneable {
         myControlPoint = p; 
     }
     
-    
+    /*************************************/
+    //Karan Chakrapani
 
 	public void setKeywords(String keywords) {
 		this.keywords = keywords;
@@ -202,7 +203,25 @@ public abstract class Transition implements Serializable, Cloneable {
 	public String getResponses() {
 		return responses;
 	}
-
+	
+	public boolean isKeywordsEmpty()
+	{
+		if(this.keywords.equals(""))
+		{
+			return true;
+		}
+		return false;
+		
+	}
+	public boolean isResponsessEmpty()
+	{
+		if(this.responses.equals(""))
+		{
+			return true;
+		}
+		return false;
+		
+	}
 
 
 	/** The states this transition goes between. */
