@@ -113,6 +113,7 @@ public class MenuBarCreator {
 		}
 		addItem(menu, new CloseAction(environment));
 		addItem(menu, new CloseWindowAction(frame));
+		/*
 		try {
 			if (sm != null)
 				sm.checkPrintJobAccess();
@@ -120,6 +121,7 @@ public class MenuBarCreator {
 		} catch (SecurityException e) {
 			// Damn. Can't print!
 		}
+		*/
 		try {
 			if (sm != null)
 				sm.checkExit(0);
