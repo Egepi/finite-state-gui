@@ -81,8 +81,10 @@ public class NewAction extends RestrictedAction {
 		//DIALOG.toFront();
 		if (secondWindow)
 		{
-			createWindow(new automata.fsa.FiniteStateAutomaton());
 			secondWindow = false;
+			gui.Main.setDontQuit(false);
+			createWindow(new automata.fsa.FiniteStateAutomaton());
+			
 		}
 		else
 		{
