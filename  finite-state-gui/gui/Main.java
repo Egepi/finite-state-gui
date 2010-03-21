@@ -61,6 +61,9 @@ public class Main {
 	public static boolean getDontQuit() {
 		return dontQuit;
 	}
+	public static void setDontQuit(boolean a) {
+		dontQuit = a;
+	}
 	/**
 	 * Starts JFLAP. This sets various system properties. If there are command
 	 * line arguments, this will attempt to open them as JFLAP files. If there
