@@ -24,12 +24,17 @@ import gui.viewer.AutomatonDrawer;
 import gui.viewer.SelectionDrawer;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.border.BevelBorder;
 
 import automata.Automaton;
@@ -100,7 +105,7 @@ public class EditorPane extends JComponent {
 		this.drawer = drawer;
 		this.automaton = drawer.getAutomaton();
 		this.setLayout(new BorderLayout());
-
+		
 		JPanel superpane = new JPanel();
 		superpane.setLayout(new BorderLayout());
 		superpane.add(new JScrollPane(pane,
@@ -111,10 +116,33 @@ public class EditorPane extends JComponent {
 		toolbar = new gui.editor.ToolBar(pane, drawer, box);
 		pane.setToolBar(toolbar);
 
+		JButton saveButton = new JButton();
+		saveButton.setText("Save");
+		
+		JTextPane keywords = new JTextPane();
+		keywords.setPreferredSize(new Dimension(200,100));
+		
+		JTextPane response = new JTextPane();
+		response.setPreferredSize(new Dimension(200,100));		
+
+		JTextPane idleResponse = new JTextPane();
+		idleResponse.setPreferredSize(new Dimension(200,100));		
+
+		
+		JPanel editPanel = new JPanel();
+		editPanel.setPreferredSize(new Dimension(200, 500));
+		editPanel.add(keywords);
+		editPanel.add(response);
+		editPanel.add(idleResponse);
+		editPanel.add(saveButton);
+		
+		
 		this.add(superpane, BorderLayout.CENTER);
 		this.add(toolbar, BorderLayout.NORTH);
-		this.add(new AutomatonSizeSlider(pane, drawer), BorderLayout.SOUTH);
-
+		//this.add(new AutomatonSizeSlider(pane, drawer), BorderLayout.SOUTH);
+		this.add(editPanel, BorderLayout.EAST);
+		
+		
 		ArrayList notes = drawer.getAutomaton().getNotes();
 		for(int k = 0; k < notes.size(); k++){
 			((Note)notes.get(k)).initializeForView(pane);

@@ -121,6 +121,7 @@ public class ArrowTool extends Tool {
 	 *            the mouse event
 	 */
 	public void mouseClicked(MouseEvent event) {
+		System.out.println("Test 1");
 		if (event.getClickCount() == 1){
             Transition trans = getDrawer().transitionAtPoint(event.getPoint());
             if (trans != null){
@@ -158,6 +159,7 @@ public class ArrowTool extends Tool {
 	 */
 	protected void showPopup(MouseEvent event) {
 		// Should we show a popup menu?
+		System.out.println("Test 2");
 		if (event.isPopupTrigger()) {
 			Point p = getView().transformFromAutomatonToView(event.getPoint());
 			if (lastClickedState != null && shouldShowStatePopup()) {
