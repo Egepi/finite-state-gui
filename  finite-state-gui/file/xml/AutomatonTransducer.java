@@ -182,9 +182,6 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
                     state = ((TuringMachine) automaton).createInnerTM(p, temp, fileName,
                             id.intValue());
                 }
-                else{
-                     state = ((TuringMachine) automaton).createTMStateWithID(p, id.intValue());   
-                }
 			}
 			if (hasLocation && locatedStates != null)
 				locatedStates.add(state);

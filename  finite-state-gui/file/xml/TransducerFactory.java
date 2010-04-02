@@ -158,14 +158,7 @@ public class TransducerFactory {
 		classToTransducer = new HashMap();
 		add(null, automata.fsa.FiniteStateAutomaton.class, new FSATransducer());
 		//add(null, automata.pda.PushdownAutomaton.class, new PDATransducer());
-		add(null, automata.turing.TuringMachine.class, new TMTransducer());
-		//add(null, grammar.Grammar.class, new GrammarTransducer());
-		//add(null, regular.RegularExpression.class, new RETransducer());
-		//add(null, grammar.lsystem.LSystem.class, new LSystemTransducer());
-        //add(null, automata.mealy.MealyMachine.class, new MealyTransducer());
-        //add(null, automata.mealy.MooreMachine.class, new MooreTransducer());
-        //add(null, gui.pumping.RegPumpingLemmaChooser.class, new RegPumpingLemmaTransducer());
-        //add(null, gui.pumping.CFPumpingLemmaChooser.class, new CFPumpingLemmaTransducer());
+		//add(null, automata.turing.TuringMachine.class, new TMTransducer());
 	}
 
 	/** Mapping of DOM "type" tags to a corresponding transducer class. */
