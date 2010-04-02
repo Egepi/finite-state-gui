@@ -107,7 +107,9 @@ public class AutomatonPane extends JPanel implements Scrollable {
 		super();
 		this.drawer = drawer;
 		this.adapt = adapt;
+		
 		setPreferredSize(new Dimension(400, 300));
+		
 		Listener listener = new Listener();
 		drawer.getAutomaton().addStateListener(listener);
 		drawer.getAutomaton().addTransitionListener(listener);
