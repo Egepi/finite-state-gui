@@ -304,14 +304,6 @@ public class TuringMachine extends Automaton {
 //		EDebug.print("finished");
     }
 
-    public Map<String, TuringMachine> getBlockMap(){
-        Map<String, TuringMachine> ret = new HashMap<String, TuringMachine>();
-        for (TMState s: (Collection<TMState>) states) //that's right, EVERY state in TM has an inner Auto, even if that inner auto might be empty.
-            ret.put(s.getInternalName(), s.getInnerTM());
-         
-        return ret;
-    }
-
     public void setParent(TMState tms){
         parent = tms;
     }
