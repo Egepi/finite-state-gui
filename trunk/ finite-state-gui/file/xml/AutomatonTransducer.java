@@ -666,20 +666,6 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
         
         //only really need an internal name and a full TuringMachine
         //MERLIN MERLIN MERLIN MERLIN MERLIN//
-        if (auto instanceof TuringMachine){ //there should not be building blocks in non-Turing Machines 
-            Map references = ((TuringMachine)auto).getBlockMap();
-            Iterator refer = references.keySet().iterator();
-            if (refer.hasNext())
-                se.appendChild(createComment(doc, COMMENT_AUTOMATA));
-            while (refer.hasNext()) {
-                String name = (String) refer.next();
-                if (!automatonMap.containsKey((Automaton) references.get(name))) {
-                    se.appendChild(createAutomatonElement(doc,
-                            (Automaton) references.get(name), name));
-                    automatonMap.put(name, auto);
-                }
-            }
-        }
 		
 		//Add the sticky notes at the very end
 		ArrayList notes = auto.getNotes();
