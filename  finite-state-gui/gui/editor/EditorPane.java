@@ -26,6 +26,8 @@ import gui.viewer.SelectionDrawer;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -47,7 +49,7 @@ import automata.Note;
  * @author Thomas Finley
  */
 
-public class EditorPane extends JComponent {
+public class EditorPane extends JComponent implements MouseListener{
 	/**
 	 * Instantiates a new editor pane for the given automaton.
 	 * 
@@ -116,16 +118,18 @@ public class EditorPane extends JComponent {
 		toolbar = new gui.editor.ToolBar(pane, drawer, box);
 		pane.setToolBar(toolbar);
 
-		JButton saveButton = new JButton();
+		/* Where side pane is added */
+		saveButton = new JButton();
 		saveButton.setText("Save");
+		saveButton.addMouseListener(this);
 		
-		JTextPane keywords = new JTextPane();
+		keywords = new JTextPane();
 		keywords.setPreferredSize(new Dimension(200,100));
 		
-		JTextPane response = new JTextPane();
+		response = new JTextPane();
 		response.setPreferredSize(new Dimension(200,100));		
 
-		JTextPane idleResponse = new JTextPane();
+		idleResponse = new JTextPane();
 		idleResponse.setPreferredSize(new Dimension(200,100));		
 
 		
@@ -148,6 +152,8 @@ public class EditorPane extends JComponent {
 			((Note)notes.get(k)).initializeForView(pane);
 		}
 	}
+	
+	
 
 	/**
 	 * Returns the toolbar for this editor pane.
@@ -205,7 +211,43 @@ public class EditorPane extends JComponent {
 	public Automaton getAutomaton() {
 		return automaton;
 	}
+	
+	public JTextPane getKeywords()
+	{
+		return keywords;
+	}
+	
+	public JTextPane getResponse()
+	{
+		return response;
+	}
+	
+	public JTextPane getIdleResponse()
+	{
+		return idleResponse;
+	}
+	
+	public void setKeywords(String theKeyword)
+	{
+		this.keywords.setText(theKeyword); 
+	}
+	
+	public void setIdleResponse(String theIdleResponse)
+	{
+		this.idleResponse.setText(theIdleResponse);
+	}
+	
+	public void setResponse(String theResponse)
+	{
+		this.response.setText(theResponse);
+	}
+	
 
+	JTextPane keywords;
+	JTextPane response;
+	JTextPane idleResponse;
+	JButton saveButton;
+	
 	/** The automaton. */
 	protected Automaton automaton;
 
@@ -217,4 +259,38 @@ public class EditorPane extends JComponent {
 
 	/** The tool bar. */
 	protected gui.editor.ToolBar toolbar;
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		System.out.println("this is a test of saving plox");
+		System.out.println("" + keywords.getText());
+		System.out.println("" + response.getText());
+		System.out.println("" + idleResponse.getText());
+		//this.automaton
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }

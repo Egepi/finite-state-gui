@@ -37,7 +37,7 @@ import automata.event.AutomataStateEvent;
  * @version 1.0
  */
 
-public class State implements Serializable {
+public class State implements Serializable{
 	/**
 	 * Instantiates a new state.
 	 * 
