@@ -28,7 +28,7 @@ import automata.Automaton;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial", "unchecked"})
 public class FiniteStateAutomaton extends Automaton {
 	/**
 	 * Creates a finite state automaton with no states and no transitions.

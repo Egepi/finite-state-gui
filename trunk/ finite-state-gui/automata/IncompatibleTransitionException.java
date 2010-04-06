@@ -30,7 +30,7 @@ package automata;
  * @see automata.Automaton#addTransition
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class IncompatibleTransitionException extends RuntimeException {
 
 }

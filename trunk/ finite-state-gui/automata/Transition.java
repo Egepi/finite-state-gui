@@ -35,7 +35,7 @@ import java.awt.Point;
  * 
  * @author Thomas Finley, Henry Qin
  */
-
+@SuppressWarnings({"serial"})
 public abstract class Transition implements Serializable, Cloneable {
 	/**
 	 * Instantiates a new <CODE>Transition</CODE>.

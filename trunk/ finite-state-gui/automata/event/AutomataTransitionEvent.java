@@ -36,7 +36,7 @@ import automata.Transition;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class AutomataTransitionEvent extends EventObject {
 	/**
 	 * Instantiates a new <CODE>AutomataStateEvent</CODE>.

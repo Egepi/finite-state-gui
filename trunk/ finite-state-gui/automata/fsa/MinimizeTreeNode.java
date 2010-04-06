@@ -34,7 +34,7 @@ import automata.State;
  * 
  * @author Ryan Cavalcante
  */
-
+@SuppressWarnings({"serial"})
 public class MinimizeTreeNode extends DefaultMutableTreeNode {
 	/**
 	 * Creates a new <CODE>MinimizeTreeNode</CODE> with <CODE>userObject</CODE>

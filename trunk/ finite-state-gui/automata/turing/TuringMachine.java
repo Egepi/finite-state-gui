@@ -27,15 +27,10 @@ import automata.Note;
 import java.awt.Point;
 
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Collection;
-
 import java.io.Serializable;
 import java.io.File;
 
 import gui.action.OpenAction;
-import gui.environment.EnvironmentFrame;
-
 import javax.swing.JButton;
 
 /**
@@ -46,7 +41,7 @@ import javax.swing.JButton;
  * 
  * @author Thomas Finley, Henry Qin
  */
-
+@SuppressWarnings({"serial", "unchecked"})
 public class TuringMachine extends Automaton {
 	/**
 	 * Creates a 1-tape Turing machine with no states and no transitions.

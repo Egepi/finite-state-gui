@@ -20,7 +20,6 @@
 package automata;
 
 import gui.editor.DeleteTool;
-import gui.editor.EditCanvas;
 import gui.editor.EditorPane;
 import gui.editor.Tool;
 import gui.viewer.AutomatonPane;
@@ -32,13 +31,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import debug.EDebug;
-
 import javax.swing.JTextArea;
 
 /**
  * A class that represents notes on the JFLAP canvas.
  */
+@SuppressWarnings({"serial"})
 public class Note extends JTextArea{
 	private Point myAutoPoint = null;
 	public boolean moving = false;

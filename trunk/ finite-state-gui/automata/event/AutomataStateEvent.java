@@ -37,7 +37,7 @@ import automata.State;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class AutomataStateEvent extends EventObject {
 	/**
 	 * Instantiates a new <CODE>AutomataStateEvent</CODE>.

@@ -33,7 +33,7 @@ import automata.State;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class FSATransition extends Transition {
 	/**
 	 * Instantiates a new <CODE>FSATransition</CODE> object.

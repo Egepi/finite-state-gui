@@ -30,6 +30,7 @@ import automata.Automaton;
 
   @author Henry Qin
   */
+@SuppressWarnings({"serial"})
 public class TMState extends State{
     private TuringMachine myInnerTuringMachine;
 

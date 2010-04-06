@@ -25,8 +25,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import debug.EDebug;
-
 import automata.event.AutomataStateEvent;
 
 /**
@@ -36,7 +34,7 @@ import automata.event.AutomataStateEvent;
  * @author Thomas Finley
  * @version 1.0
  */
-
+@SuppressWarnings({"serial", "unchecked"})
 public class State implements Serializable{
 	/**
 	 * Instantiates a new state.
@@ -161,20 +159,6 @@ public class State implements Serializable{
 			name = "q" + Integer.toString(getID());
 		}
 		return name;
-	}
-
-	private String digitizer(int number) {
-		if (number == 0)
-			return "\u2080";
-		String s = digitizer(number / 10, 1);
-		return s + (SS + (char) (number % 10));
-	}
-
-	private String digitizer(int number, int supp) {
-		if (number == 0)
-			return "";
-		String s = digitizer(number / 10, 1);
-		return s + (SS + (char) (number % 10));
 	}
 
 	/**
@@ -314,9 +298,6 @@ public class State implements Serializable{
 
 	/** The name of the state. */
 	String name = null;
-
-	/** The subscript unicode start point. */
-	private static final char SS = '\u2080';
 
 	/** The automaton this state belongs to. */
 	private Automaton automaton = null;

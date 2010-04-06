@@ -20,8 +20,6 @@
 
 package automata;
 
-import automata.fsa.*;
-
 /**
  * The Automaton checker can be used to determine certain properties about
  * automata.

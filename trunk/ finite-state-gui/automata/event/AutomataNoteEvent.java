@@ -36,7 +36,7 @@ import automata.Note;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class AutomataNoteEvent extends EventObject {
 	/**
 	 * Instantiates a new <CODE>AutomataStateEvent</CODE>.

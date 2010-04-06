@@ -29,6 +29,7 @@ import java.net.URL;
  * @author Thomas Finley
  */
 
+@SuppressWarnings("serial")
 public class JFLAPplet extends JApplet {
 	/**
 	 * This instantiates a new JFLAPplet.
@@ -50,9 +51,6 @@ public class JFLAPplet extends JApplet {
 				+ "Report bugs to rodger@cs.duke.edu!");
 		text.setEditable(false);
 		text.setWrapStyleWord(true);
-		JScrollPane scroller = new JScrollPane(text,
-				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		getContentPane().add(text, BorderLayout.CENTER);
 		// Start the application.
 		myBase = this.getCodeBase();

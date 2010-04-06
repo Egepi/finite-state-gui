@@ -31,7 +31,7 @@ import java.util.*;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial", "unchecked"})
 public class TMTransition extends Transition {
 
 	//added for turing to grammar conversion
