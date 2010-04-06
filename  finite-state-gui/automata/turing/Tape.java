@@ -28,7 +28,7 @@ import java.io.Serializable;
  * 
  * @author Ryan Cavalcante
  */
-
+@SuppressWarnings({"serial"})
 public class Tape implements Serializable {
 	/**
 	 * Instantiates an empty tape object.

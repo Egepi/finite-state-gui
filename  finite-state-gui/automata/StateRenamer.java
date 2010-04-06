@@ -28,7 +28,7 @@ import java.util.*;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"unchecked"})
 public class StateRenamer {
 	/**
 	 * Renames the states for an automaton, by changing all the ID numbers so

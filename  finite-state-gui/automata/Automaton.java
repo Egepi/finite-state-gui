@@ -59,7 +59,7 @@ import gui.viewer.AutomatonPane;
  * @author Thomas Finley
  */
 
-@SuppressWarnings("serial")
+@SuppressWarnings({"serial", "unchecked"})
 public class Automaton implements Serializable, Cloneable {
 	/**
 	 * Creates an instance of <CODE>Automaton</CODE>. The created instance

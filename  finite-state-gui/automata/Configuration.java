@@ -20,8 +20,6 @@
 
 package automata;
 
-import java.util.Stack;
-
 /**
  * This class represents a configuration of an automaton for simulation of input
  * on an automaton (i.e. the state the automaton is currently in, the
