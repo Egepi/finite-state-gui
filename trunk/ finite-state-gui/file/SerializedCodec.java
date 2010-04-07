@@ -29,7 +29,7 @@ import java.util.Map;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"unchecked"})
 public class SerializedCodec extends Codec {
 	/**
 	 * Instantiates a new serialized codec. Serialization as a saving method is

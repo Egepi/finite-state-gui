@@ -20,7 +20,6 @@
 
 package file.xml;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -39,8 +38,6 @@ import automata.Transition;
 import file.DataException;
 import automata.turing.TMState;
 import automata.turing.TuringMachine;
-import debug.EDebug;
-
 import java.awt.Point;
 
 /**
@@ -49,7 +46,7 @@ import java.awt.Point;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"unchecked"})
 public abstract class AutomatonTransducer extends AbstractTransducer {
 
 	/**

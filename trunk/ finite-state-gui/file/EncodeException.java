@@ -27,7 +27,7 @@ package file;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class EncodeException extends RuntimeException {
 	/**
 	 * Creates a generic encoder exception.

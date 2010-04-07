@@ -32,7 +32,7 @@ import java.util.Map;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"unchecked"})
 public interface Decoder {
 	/**
 	 * Given a file, this will return a JFLAP structure associated with that

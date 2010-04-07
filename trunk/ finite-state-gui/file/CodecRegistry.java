@@ -30,7 +30,7 @@ import java.util.*;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"unchecked"})
 public class CodecRegistry {
 	/**
 	 * Adds a codec to the registry.

@@ -32,7 +32,7 @@ import java.util.Map;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"unchecked"})
 public interface Encoder {
 	/**
 	 * Given a structure, this will attempt to write the structure to a file.

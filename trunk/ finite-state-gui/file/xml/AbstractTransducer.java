@@ -31,7 +31,7 @@ import org.w3c.dom.*;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"unchecked"})
 public abstract class AbstractTransducer implements Transducer {
 	/**
 	 * Returns a new DOM document instance. This will have the structure tags

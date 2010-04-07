@@ -28,7 +28,7 @@ package file;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class ParseException extends RuntimeException {
 	/**
 	 * Creates a generic parse exception.
