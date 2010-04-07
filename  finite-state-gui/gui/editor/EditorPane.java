@@ -232,36 +232,7 @@ public class EditorPane extends JComponent implements MouseListener{
 	public Automaton getAutomaton() {
 		return automaton;
 	}
-	
-	public JTextPane getKeywords()
-	{
-		return keywords;
-	}
-	
-	public JTextPane getResponse()
-	{
-		return response;
-	}
-	
-	public JTextPane getIdleResponse()
-	{
-		return idleResponse;
-	}
-	
-	public void setKeywords(String theKeyword)
-	{
-		this.keywords.setText(theKeyword); 
-	}
-	
-	public void setIdleResponse(String theIdleResponse)
-	{
-		this.idleResponse.setText(theIdleResponse);
-	}
-	
-	public void setResponse(String theResponse)
-	{
-		this.response.setText(theResponse);
-	}
+
 	
 	public JButton getSave()
 	{
@@ -297,12 +268,22 @@ public class EditorPane extends JComponent implements MouseListener{
 		Tool myTool = toolbar.getCurrentTool();
 		if(myTool.getToolTip().equalsIgnoreCase("Arrow Tool"))
 		{
-		ArrowTool myArrowTool = (ArrowTool) myTool;
-		State tempState = myArrowTool.getLastState();
-		if(tempState != null)
-		{
-		tempState.setIdleResponses(this.getIdleResponse().getText());
-		}
+			ArrowTool myArrowTool = (ArrowTool) myTool;
+			State tempState = myArrowTool.getLastState();
+			Transition tempTransition = myArrowTool.getLastTransition();
+			if(tempState != null)
+			{
+				tempState.setIdleResponses(this.idleResponse.getText());
+			}
+			else if(tempTransition != null)
+			{
+				tempTransition.setKeywords(this.keywords.getText());
+				tempTransition.setResponses(this.response.getText());
+			}
+			else
+			{
+				
+			}
 		}
 		//System.out.println("" + myTool);
 
