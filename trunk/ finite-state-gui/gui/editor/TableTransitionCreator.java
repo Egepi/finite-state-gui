@@ -35,7 +35,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
-import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 
@@ -43,14 +42,13 @@ import automata.State;
 import automata.Transition;
 import automata.turing.TMTransition;
 import automata.turing.Tape;
-import debug.EDebug;
 /**
  * This allows the user to create transition creators that have tables directly
  * in the editing window with a minimum of effort.
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public abstract class TableTransitionCreator extends TransitionCreator {
 	/**
 	 * Instantiates a transition creator.
@@ -156,7 +154,6 @@ public abstract class TableTransitionCreator extends TransitionCreator {
 					+ "from the depths of Java again.");
 		}
 		if (!cancel) {
-			TableModel oldModel = createModel(transition);
 			Transition t = modifyTransition(transition, editingTable.getModel());
 			if (t != null) {
 				if (isNew) {

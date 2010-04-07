@@ -20,13 +20,11 @@
 package gui.editor;
 
 import gui.environment.Universe;
-import gui.environment.Profile;
 
 import java.util.Deque;
 import java.util.LinkedList;
 
 import automata.Automaton;
-import debug.EDebug;
 
 /**
  * This class will store the states between actions, that we may undo them.

@@ -27,7 +27,6 @@ import gui.viewer.AutomatonPane;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import debug.EDebug;
 
 /**
  * An <CODE>EditCanvas</CODE> is an extension of <CODE>AutomatonPane</CODE>
@@ -35,7 +34,7 @@ import debug.EDebug;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class EditCanvas extends AutomatonPane {
 	/**
 	 * Instantiates a new <CODE>EditCanvas</CODE>.

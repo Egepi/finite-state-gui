@@ -30,7 +30,7 @@ import automata.State;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class EditBlockPane extends EditorPane {
 	/**
 	 * Instantiates a new editor pane for the given automaton.
