@@ -29,7 +29,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -41,7 +40,6 @@ import javax.swing.JTextPane;
 import javax.swing.border.BevelBorder;
 
 import automata.Automaton;
-import automata.Note;
 import automata.State;
 import automata.Transition;
 /**
@@ -50,7 +48,7 @@ import automata.Transition;
  * 
  * @author Thomas Finley
  */
-@SuppressWarnings({"serial", "unchecked"})
+@SuppressWarnings({"serial"})
 public class EditorPane extends JComponent implements MouseListener{
 	/**
 	 * Instantiates a new editor pane for the given automaton.
@@ -167,11 +165,6 @@ public class EditorPane extends JComponent implements MouseListener{
 		//this.add(new AutomatonSizeSlider(pane, drawer), BorderLayout.SOUTH);
 		this.add(editPanel, BorderLayout.EAST);
 		
-		
-		ArrayList notes = drawer.getAutomaton().getNotes();
-		for(int k = 0; k < notes.size(); k++){
-			((Note)notes.get(k)).initializeForView(pane);
-		}
 	}
 	
 	

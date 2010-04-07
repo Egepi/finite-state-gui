@@ -40,10 +40,7 @@ import automata.event.AutomataStateEvent;
 import automata.event.AutomataStateListener;
 import automata.event.AutomataTransitionEvent;
 import automata.event.AutomataTransitionListener;
-import automata.event.AutomataNoteEvent;
-import automata.event.AutomataNoteListener;
 
-import gui.viewer.AutomatonPane;
 
 
 /**
@@ -135,15 +132,6 @@ public class Automaton implements Serializable, Cloneable {
 				a.addTransition(toBeAdded);
 			}
 		}
-		for(int k = 0; k < this.getNotes().size(); k++){
-			Note curNote = this.getNotes().get(k);		
-			a.addNote(new Note(curNote.getAutoPoint(), curNote.getText()));
-            a.getNotes().get(k).setView(curNote.getView());
-            
-
-            //for undo, we must initialize the clone to our view
-
-		}
 
 		// Should be done now!
 		return a;
@@ -197,11 +185,7 @@ public class Automaton implements Serializable, Cloneable {
 				dest.addTransition(toBeAdded);
 			}
 		}
-		for(int k = 0; k < src.getNotes().size(); k++){
-			Note curNote = src.getNotes().get(k);		
-			dest.addNote(new Note(curNote.getAutoPoint(), curNote.getText()));
-            dest.getNotes().get(k).initializeForView(curNote.getView());
-		}
+
         dest.setEnvironmentFrame(src.getEnvironmentFrame());
 	}
 
@@ -588,23 +572,6 @@ public class Automaton implements Serializable, Cloneable {
 		}
 	}
 	
-	public ArrayList<Note> getNotes() {
-		return myNotes;
-	}
-	
-
-	public void addNote(Note note){
-		myNotes.add(note);
-        distributeNoteEvent(new AutomataNoteEvent(this, note, true, false));
-	}
-	
-
-	public void deleteNote(Note note){
-		for(int k = 0; k < myNotes.size(); k++){
-			if(note == myNotes.get(k)) myNotes.remove(k);
-		}
-        distributeNoteEvent(new AutomataNoteEvent(this, note, true, false));
-	}
 	/**
 	 * Adds a single final state to the set of final states. Note that the
 	 * general automaton can have an unlimited number of final states, and
@@ -761,15 +728,6 @@ public class Automaton implements Serializable, Cloneable {
 		transitionListeners.add(listener);
 	}
 
-	/**
-	 * Adds a <CODE>AutomataNoteListener</CODE> to this automata.
-	 * 
-	 * @param listener
-	 *            the listener to add
-	 */
-	public void addNoteListener(AutomataNoteListener listener) {
-		noteListeners.add(listener);
-	}
 
 	/**
 	 * Gives an automata state change event to all state listeners.
@@ -808,16 +766,6 @@ public class Automaton implements Serializable, Cloneable {
 	}
 
 	/**
-	 * Removes a <CODE>AutomataNoteListener</CODE> from this automata.
-	 * 
-	 * @param listener
-	 *            the listener to remove
-	 */
-	public void removeNoteListener(AutomataNoteListener listener) {
-		noteListeners.remove(listener);
-	}
-
-	/**
 	 * Gives an automata transition change event to all transition listeners.
 	 * 
 	 * @param event
@@ -829,20 +777,6 @@ public class Automaton implements Serializable, Cloneable {
 			AutomataTransitionListener listener = it
 					.next();
 			listener.automataTransitionChange(event);
-		}
-	}
-
-	/**
-	 * Gives an automata note change event to all state listeners.
-	 * 
-	 * @param event
-	 *            the event to distribute
-	 */
-	void distributeNoteEvent(AutomataNoteEvent event) {
-		Iterator<AutomataNoteListener> it = noteListeners.iterator();
-		while (it.hasNext()) {
-			AutomataNoteListener listener = it.next();
-			listener.automataNoteChange(event);
 		}
 	}
 
@@ -953,8 +887,6 @@ public class Automaton implements Serializable, Cloneable {
 			ret+= ((State) o).specialHash();
 		for (Object o:transitions)
 			ret+=((Transition) o).specialHash();
-		for (Object o: myNotes)
-			ret+=((Note) o).specialHash();
         ret+=finalStates.hashCode(); 
         ret+=initialState == null? 0: (int)(initialState.specialHash()*Math.PI); 
 
@@ -1021,9 +953,7 @@ public class Automaton implements Serializable, Cloneable {
 //	 * referencing the same automaton from multiple buliding blocks
 //	 */
 //	private HashMap blockMap = new HashMap();
-	
 
-	private ArrayList<Note> myNotes = new ArrayList<Note>();
 	
 	public Color myColor = new Color(255, 255, 150);
 
@@ -1035,7 +965,6 @@ public class Automaton implements Serializable, Cloneable {
 
 	private transient HashSet<AutomataStateListener> stateListeners = new HashSet<AutomataStateListener>();
 
-	private transient HashSet<AutomataNoteListener> noteListeners = new HashSet<AutomataNoteListener>();
 	
 	/*
 	 * Author Karan Chakrapani
@@ -1086,14 +1015,6 @@ public class Automaton implements Serializable, Cloneable {
     
     	transitionArrayToStateMap = new HashMap<State, Transition[]>();
     
-    	
-    
-    	while (myNotes.size() != 0){
-            AutomatonPane ap = myNotes.get(0).getView();  
-            ap.remove(myNotes.get(0));
-            ap.repaint();
-            deleteNote(myNotes.get(0));
-        }
         
     }
 
