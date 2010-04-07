@@ -184,9 +184,11 @@ public class ArrowTool extends Tool {
 			lastClickedTransition = getDrawer().transitionAtPoint(event.getPoint());		
 		}
 		
+		
 		if(lastClickedState != null)
 		{
 			thePane.updateLabels(lastClickedState);
+			if(selectedTransition != null) selectedTransition.setSelected(false);
 		}
 		else if(lastClickedTransition != null)
 		{
@@ -194,6 +196,7 @@ public class ArrowTool extends Tool {
 		}
 		else
 		{
+			if(selectedTransition != null) selectedTransition.setSelected(false);
 			thePane.hideAll();
 		}
 		

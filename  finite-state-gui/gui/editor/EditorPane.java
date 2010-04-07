@@ -345,6 +345,7 @@ public class EditorPane extends JComponent implements MouseListener{
 		this.idleResponse.setVisible(true);
 		this.idleResponseLabel.setVisible(true);
 		this.idleResponse.setText(lastClickedState.getIdleResponses());
+		this.idleResponse.requestFocus();
 	}
 
 	public void updateLabels(Transition lastClickedTransition) 
@@ -362,6 +363,7 @@ public class EditorPane extends JComponent implements MouseListener{
 		this.keywords.setText(lastClickedTransition.getKeywords());
 		this.keywords.setVisible(true);
 		this.keywordsLabel.setVisible(true);
+		this.keywords.requestFocus();
 	}
 
 	public void hideAll() 
