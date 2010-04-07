@@ -531,7 +531,7 @@ public class ArrowTool extends Tool {
 				if (idleLabel.equals(""))
 					idleLabel = null;	
 				state.setIdleResponses(idleLabel);
-				System.out.println("Idle response typed was: " + idleLabel);
+				thePane.updateLabels(state);
 			}
 			/************************************************************/
 			
@@ -675,7 +675,7 @@ public class ArrowTool extends Tool {
 				if (newResponse.equals(""))
 					response = null;	
 				transition.setResponses(newResponse);
-				System.out.println("Idle response typed was: " + newResponse);
+				thePane.updateLabels(transition);
 			}
 			/************************************************************/
 			/************************************************************/
@@ -691,7 +691,7 @@ public class ArrowTool extends Tool {
 				if (newKeywords.equals(""))
 					newKeywords = null;	
 				transition.setKeywords(newKeywords);
-				System.out.println("Keywords typed was: " + newKeywords);
+				thePane.updateLabels(transition);
 			}
 			/************************************************************/
 		}
