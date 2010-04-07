@@ -32,7 +32,7 @@ import javax.swing.Icon;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public abstract class RestrictedAction extends AbstractAction {
 	/**
 	 * Instantiates a new <CODE>RestrictedAction</CODE>.

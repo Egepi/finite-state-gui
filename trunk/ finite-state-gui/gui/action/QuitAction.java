@@ -33,7 +33,7 @@ import javax.swing.KeyStroke;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class QuitAction extends RestrictedAction {
 	/**
 	 * Instantiates a new <CODE>QuitAction</CODE>.

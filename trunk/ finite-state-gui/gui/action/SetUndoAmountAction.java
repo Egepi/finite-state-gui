@@ -21,18 +21,11 @@
 package gui.action;
 
 import gui.environment.Environment;
-import gui.environment.AutomatonEnvironment;
 import gui.environment.Universe;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.io.Serializable;
 
-import javax.swing.JFileChooser;
-import javax.swing.KeyStroke;
 import javax.swing.JOptionPane;
-import debug.EDebug;
 
 /**
  * The <CODE>SetUndoAmount</CODE> is an action to set the amount of Undos that are stored for automaton construction.
@@ -40,6 +33,7 @@ import debug.EDebug;
  * @author Henry Qin
  */
 
+@SuppressWarnings("serial")
 public class SetUndoAmountAction extends RestrictedAction {
 	/**
 	 * Instantiates a new <CODE>SetUndoAmountAction</CODE>.

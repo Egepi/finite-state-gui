@@ -51,9 +51,6 @@ public class MenuBarCreator {
 		if (menu.getItemCount() > 0)
 			bar.add(menu);
 
-        CloseButton dismiss = new CloseButton(frame.getEnvironment());
-        bar.add(Box.createGlue());
-        bar.add(dismiss);
         
 		return bar;
 	}
@@ -100,10 +97,6 @@ public class MenuBarCreator {
 			menu.add(saveImageMenu);
             
 		}
-		else{
-			addItem(menu, new OpenURLAction());
-		}
-		addItem(menu, new CloseAction(environment));
 		addItem(menu, new CloseWindowAction(frame));
 		/*
 		try {

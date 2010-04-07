@@ -24,25 +24,16 @@ import javax.swing.JComponent;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.swing.JOptionPane;
-import javax.swing.JComponent;
 import javax.swing.filechooser.FileFilter;
 
 import gui.editor.EditorPane;
-import gui.environment.AutomatonEnvironment;
-import gui.environment.Environment;
-import gui.viewer.AutomatonPane;
-import gui.viewer.SelectionDrawer;
 import gui.environment.Universe;
 
 

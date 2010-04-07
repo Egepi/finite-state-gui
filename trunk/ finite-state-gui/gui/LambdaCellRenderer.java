@@ -33,7 +33,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class LambdaCellRenderer extends DefaultTableCellRenderer {
 	/**
 	 * Instantiates a new lambda cell renderer with the specified string to

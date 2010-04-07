@@ -40,15 +40,13 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileFilter;
 
-import automata.Automaton;
-
 /**
  * The <CODE>OpenAction</CODE> is an action to load a structure from a file,
  * and create a new environment with that object.
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial", "unchecked"})
 public class OpenAction extends RestrictedAction {
 	/**
 	 * Instantiates a new <CODE>OpenAction</CODE>.

@@ -38,7 +38,7 @@ import javax.swing.JPanel;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial", "unchecked"})
 public class LambdaHighlightAction extends AutomatonAction {
 	public LambdaHighlightAction(Automaton automaton, Environment environment) {
 		super("Highlight "+Universe.curProfile.getEmptyString()+"-Transitions", null);

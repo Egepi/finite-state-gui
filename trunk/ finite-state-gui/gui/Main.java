@@ -21,29 +21,19 @@
 package gui;
 import file.Codec;
 import file.ParseException;
-import file.xml.Transducer;
-import file.xml.TransducerFactory;
 import gui.action.NewAction;
 import gui.action.OpenAction;
 import gui.environment.Profile;
 import gui.environment.Universe;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import javax.swing.UIManager;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
@@ -53,7 +43,7 @@ import org.xml.sax.SAXException;
  * @author Moti Ben-Ari
  * @modified by Kyung Min (Jason) Lee
  */
-
+@SuppressWarnings({"unchecked"})
 public class Main {
 	
 	private static boolean dontQuit;  // Don't quit when Quit selected
@@ -149,6 +139,7 @@ public class Main {
 	/**
 	 * This method loads from the preferences file, if one exists.
 	 */
+	@SuppressWarnings("static-access")
 	private static void loadPreferences() {
 		Profile current = Universe.curProfile;
 		String path = "";
@@ -182,9 +173,6 @@ public class Main {
 							current.setEmptyString(current.epsilon);
 					}
 					
-					//Then set the Turing final state constant
-					parent = doc.getDocumentElement()
-					   .getElementsByTagName(current.TURING_FINAL_NAME).item(0);
 					if (parent!=null) {
 						String turingFinal = parent.getTextContent();
 						if (turingFinal.equals("true"))

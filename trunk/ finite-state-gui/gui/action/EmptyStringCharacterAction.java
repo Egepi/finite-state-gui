@@ -29,7 +29,6 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -44,10 +43,8 @@ import java.awt.Point;
 * 
 * @author Stephen Reading
 */
-
+@SuppressWarnings({"serial"})
 public class EmptyStringCharacterAction extends  RestrictedAction{
-    private JFileChooser fileChooser;
-
     /**
      * Instantiates a new <CODE>Turing Test Action</CODE>.
      */
@@ -56,7 +53,6 @@ public class EmptyStringCharacterAction extends  RestrictedAction{
     	super("Set the Empty String Character", null);   
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_P,
                 MAIN_MENU_MASK));
-        this.fileChooser = Universe.CHOOSER;
     }
 
 	public void actionPerformed(ActionEvent e) {

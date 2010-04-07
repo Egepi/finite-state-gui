@@ -24,7 +24,7 @@ import automata.Automaton;
 import automata.Note;
 import automata.State;
 import automata.event.*;
-import gui.JMultiLineToolTip;
+//import gui.JMultiLineToolTip;
 import gui.editor.EditorPane;
 
 import java.awt.*;
@@ -61,9 +61,9 @@ public class AutomatonPane extends JPanel implements Scrollable {
 	 * 
 	 * @return a multiline tool tip
 	 */
-	public JToolTip createToolTip() {
+	/*public JToolTip createToolTip() {
 		return new JMultiLineToolTip();
-	}
+	}*/
 
 	/**
 	 * Returns the location for a tool tip to display.
