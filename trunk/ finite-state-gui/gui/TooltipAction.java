@@ -28,7 +28,7 @@ import javax.swing.AbstractAction;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public abstract class TooltipAction extends AbstractAction {
 	public TooltipAction(String name, String tooltip) {
 		super(name);
