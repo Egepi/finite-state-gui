@@ -25,8 +25,6 @@ import gui.viewer.AutomatonPane;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
-import debug.EDebug;
-
 import automata.State;
 import automata.Transition;
 import automata.fsa.FSATransition;
@@ -36,7 +34,7 @@ import automata.fsa.FSATransition;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class FSATransitionCreator extends TableTransitionCreator {
 	/**
 	 * Instantiates a transition creator.

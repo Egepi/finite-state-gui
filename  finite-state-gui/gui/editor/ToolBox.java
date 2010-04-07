@@ -33,7 +33,7 @@ import java.util.List;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"unchecked"})
 public interface ToolBox {
 	/**
 	 * Returns a list of tools in the order they should be in the tool bar.
