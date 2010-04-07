@@ -44,4 +44,7 @@ public interface ToolBox {
 	 *            the automaton drawer for the view
 	 */
 	public List tools(AutomatonPane view, AutomatonDrawer drawer);
+
+	public List tools(EditCanvas view, AutomatonDrawer drawer,
+			EditorPane editorPane);
 }

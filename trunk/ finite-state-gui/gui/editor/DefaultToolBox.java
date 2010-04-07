@@ -52,4 +52,17 @@ public class DefaultToolBox implements ToolBox {
 		list.add(new RedoTool(view, drawer));
 		return list;
 	}
+
+	@Override
+	public List tools(EditCanvas view, AutomatonDrawer drawer,
+			EditorPane editorPane) {
+		List list = new java.util.ArrayList();
+		list.add(new ArrowTool(view, drawer, editorPane));
+		list.add(new StateTool(view, drawer));
+		list.add(new TransitionTool(view, drawer));
+		list.add(new DeleteTool(view, drawer));
+		list.add(new UndoTool(view, drawer));
+		list.add(new RedoTool(view, drawer));
+		return list;
+	}
 }

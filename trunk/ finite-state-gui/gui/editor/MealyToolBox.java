@@ -60,4 +60,11 @@ public class MealyToolBox implements ToolBox
         list.add(new RedoTool(view, drawer));
         return list;
     }
+
+	@Override
+	public List tools(EditCanvas view, AutomatonDrawer drawer,
+			EditorPane editorPane) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

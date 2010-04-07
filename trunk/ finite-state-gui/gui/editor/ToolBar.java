@@ -65,6 +65,17 @@ public class ToolBar extends JToolBar implements ActionListener {
 		view.addMouseMotionListener(adapter);
 	}
 
+	public ToolBar(EditCanvas view, AutomatonDrawer drawer, ToolBox box,
+			EditorPane editorPane) {
+		super();
+		adapter = new ToolAdapter(view);
+		this.view = view;
+		this.drawer = drawer;
+		tools = box.tools(view, drawer, editorPane);
+		initBar();
+		view.addMouseListener(adapter);
+		view.addMouseMotionListener(adapter);	}
+
 	/**
 	 * Returns the view that the automaton is drawn in.
 	 * 
