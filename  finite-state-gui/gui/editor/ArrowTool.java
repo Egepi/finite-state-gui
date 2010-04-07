@@ -21,9 +21,6 @@
 package gui.editor;
 
 import gui.environment.AutomatonEnvironment;
-import gui.environment.Environment;
-import gui.environment.EnvironmentFrame;
-import gui.environment.tag.CriticalTag;
 import gui.viewer.AutomatonDrawer;
 import gui.viewer.AutomatonPane;
 import gui.viewer.CurvedArrow;
@@ -35,10 +32,8 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.geom.QuadCurve2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.swing.Icon;
 import javax.swing.JCheckBoxMenuItem;
@@ -46,15 +41,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
-import javax.swing.SingleSelectionModel;
 
-import automata.Automaton;
 import automata.Note;
 import automata.State;
 import automata.StateRenamer;
 import automata.Transition;
-import automata.fsa.FSALabelHandler;
-import automata.fsa.FSATransition;
 import debug.EDebug;
 
 /**
@@ -62,7 +53,7 @@ import debug.EDebug;
  * 
  * @author Thomas Finley, Henry Qin
  */
-
+@SuppressWarnings({"serial", "unchecked"})
 public class ArrowTool extends Tool {
 	/**
 	 * Instantiates a new arrow tool.
@@ -299,8 +290,6 @@ public class ArrowTool extends Tool {
 			if (event.isPopupTrigger())
 				return;
 			Point p = event.getPoint();
-			int x = p.x - initialPointClick.x;
-			int y = p.y - initialPointClick.y;
 			State f = lastClickedTransition.getFromState(), t = lastClickedTransition
 					.getToState();
 			if (f==t){
@@ -326,13 +315,6 @@ public class ArrowTool extends Tool {
                 */
 			}
 			if (f != t) {
-				//f.getPoint().translate(x, y);
-				//f.setPoint(f.getPoint());
-				// Don't want self loops moving twice the speed...
-				//t.getPoint().translate(x, y);
-				//t.setPoint(t.getPoint());
-				double circlex = (p.x-f.getPoint().x);
-				double circley = (p.y-f.getPoint().y);
 				//double angle = Math.atan2(circley, circlex);
 				//Point from = getView().getDrawer().pointOnState(f, angle+Math.PI*.166);
 				//Point to = getView().getDrawer().pointOnState(f, angle-Math.PI*.166);
@@ -623,20 +605,16 @@ public class ArrowTool extends Tool {
 				
                 //assert state instanceof TMState;
 
-				String replaceWith = null;
-				String toReplace = null;						
 				Object old = JOptionPane.showInputDialog(null, "Find");		
     			if (old == null)
     				return;
     			if(old instanceof String){
-    				toReplace = (String)old;
     			}
     				
     			Object newString = JOptionPane.showInputDialog(null, "Replace With");
     			if (newString == null)
     				return;
     			if(newString instanceof String){
-    				replaceWith = (String)newString;
     			}
 
                 //replaceCharactersInBlock((TMState) state, toReplace, replaceWith);
@@ -677,7 +655,6 @@ public class ArrowTool extends Tool {
 		}
 		public void show(Transition lastClickedTransition, Component comp, Point at) {
 			this.transition = lastClickedTransition;
-			Point myPoint = at;
 			show(comp, at.x, at.y);
 		}
 		public void actionPerformed(ActionEvent e) 
@@ -723,46 +700,7 @@ public class ArrowTool extends Tool {
 	/**
 	 * The contextual menu class for context clicks in blank space.
 	 */
-	private class EmptyMenu extends JPopupMenu implements ActionListener {
-		public EmptyMenu() {
-			
-			stateLabels = new JCheckBoxMenuItem("Display State Labels");
-			stateLabels.addActionListener(this);
-			this.add(stateLabels);
-			layoutGraph = new JMenuItem("Layout Graph");
-			if (!(ArrowTool.this instanceof ArrowDisplayOnlyTool)) {
-				layoutGraph.addActionListener(this);
-				this.add(layoutGraph);
-			}
-			renameStates = new JMenuItem("Rename States");
-			if (!(ArrowTool.this instanceof ArrowDisplayOnlyTool)) {
-				renameStates.addActionListener(this);
-				this.add(renameStates);
-			}
-			
-			addNote = new JMenuItem("Add Note");
-			if (!(ArrowTool.this instanceof ArrowDisplayOnlyTool)) {
-				addNote.addActionListener(this);
-				this.add(addNote);
-			}
-
-//           BEGIN SJK add
-            adaptView = new JCheckBoxMenuItem("Auto-Zoom");
-            if (!(ArrowTool.this instanceof ArrowDisplayOnlyTool)) {
-                adaptView.addActionListener(this);
-                this.add(adaptView);
-            }
-//          END SJK add
-
-            
-		}
-
-		public void show(Component comp, Point at) {
-			stateLabels.setSelected(getDrawer().doesDrawStateLabels());
-			adaptView.setSelected(getView().getAdapt());
-			myPoint = at;
-			show(comp, at.x, at.y);
-		}
+	
 
 		public void actionPerformed(ActionEvent e) {
 			JMenuItem item = (JMenuItem) e.getSource();
@@ -787,19 +725,14 @@ public class ArrowTool extends Tool {
         		
             }
 			getView().repaint();
-			//boolean selected = adaptView.isSelected();
-			emptyMenu = new EmptyMenu();
-			//adaptView.setSelected(selected);
+			//new EmptyMenu();
 		}
 		private Point myPoint;
 		
 		private JCheckBoxMenuItem stateLabels;
-		private Note curNote;
-		private JMenuItem layoutGraph;
 		private JMenuItem addNote;
 		private JMenuItem renameStates, adaptView;
 		
-	}
 	
 	public State getLastState()
 	{
@@ -818,9 +751,6 @@ public class ArrowTool extends Tool {
 	/** The transition that was last clicked. */
 	private Transition lastClickedTransition = null;
 	
-	/** The note that was last clicked. */
-	private Note lastClickedNote = null;
-
 	/** The initial point of the state. */
 	private Point initialPointState = new Point();
 
@@ -838,10 +768,7 @@ public class ArrowTool extends Tool {
 	/** The transition menu. */
 	private TransitionMenu transitionMenu = new TransitionMenu();
 
-	/** The empty menu. */
-	private EmptyMenu emptyMenu = new EmptyMenu();
-
-    private Transition selectedTransition = null;
+	private Transition selectedTransition = null;
     
     private State myLastClickedState = null;
     private Transition myLastClickedTransition = null;
