@@ -36,8 +36,6 @@ import automata.Note;
 import automata.State;
 import automata.Transition;
 import file.DataException;
-import automata.turing.TMState;
-import automata.turing.TuringMachine;
 import java.awt.Point;
 
 /**
@@ -164,22 +162,9 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 			// Create the state.
 			State state = null;
 //			if (!isBlock){
-			if (!(automaton instanceof TuringMachine)){
-				state = automaton.createStateWithId(p, id.intValue());
-            }
-			else {
-                Node tempNode = null;
+			state = automaton.createStateWithId(p, id.intValue());
                 if (e2t.containsKey(FILE_NAME)){
-                    String fileName = e2t.get(FILE_NAME).toString();
-                    tempNode = document.getDocumentElement()
-                            .getElementsByTagName(fileName).item(0);
-                    Automaton temp = (TuringMachine) readAutomaton(tempNode, document);
-                    //MERLIN MERLIN MERLIN MERLIN MERLIN//
-//                    EDebug.print("Are we or not creating a block?");
-                    state = ((TuringMachine) automaton).createInnerTM(p, temp, fileName,
-                            id.intValue());
                 }
-			}
 			if (hasLocation && locatedStates != null)
 				locatedStates.add(state);
 			i2s.put(id, state);
@@ -206,7 +191,7 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 	//Add the blocks
 	protected void addBlocks(Node node, Automaton automaton, Set locatedStates,
 			Map i2s, Document document) {
-        assert(automaton instanceof TuringMachine); //this code should really be in TMTransducer, but I see why it's here
+        //assert(automaton instanceof TuringMachine); //this code should really be in TMTransducer, but I see why it's here
         if(node == null) return;
 		if (!node.hasChildNodes())
 			return;
@@ -562,7 +547,7 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 	 * @param tempAuto
 	 * @return
 	 */
-	protected Element createBlockElement(Document document, TMState block,
+	protected Element createBlockElement(Document document, State block,
 			Automaton container) {
 		Element be = createElement(document, BLOCK_NAME, null, null);
 		be.setAttribute(STATE_ID_NAME, "" + block.getID());
@@ -636,9 +621,6 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 		if (states.length > 0)
 			se.appendChild(createComment(doc, COMMENT_STATES));
 
-        if (auto instanceof TuringMachine)
-            for (int i = 0; i < states.length; i++)
-				se.appendChild(createBlockElement(doc, (TMState)states[i], auto));
         else
             for (int i = 0; i < states.length; i++)
 				se.appendChild(createStateElement(doc, states[i], auto));
