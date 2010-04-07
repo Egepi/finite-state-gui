@@ -222,6 +222,10 @@ public abstract class Transition implements Serializable, Cloneable {
 		return false;
 		
 	}
+	public void setSelected(boolean inc)
+	{
+		this.isSelected = inc;
+	}
 
 
 	/** The states this transition goes between. */

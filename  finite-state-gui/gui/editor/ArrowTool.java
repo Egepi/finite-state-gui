@@ -194,6 +194,7 @@ public class ArrowTool extends Tool {
 		if(lastClickedState != null)
 		{
 			thePane.updateLabels(lastClickedState);
+			if(selectedTransition != null) selectedTransition.setSelected(false);
 		}
 		else if(lastClickedTransition != null)
 		{
@@ -202,6 +203,7 @@ public class ArrowTool extends Tool {
 		else
 		{
 			thePane.hideAll();
+			if(selectedTransition != null) selectedTransition.setSelected(false);
 		}
 		
 		// Should we show a popup menu?
