@@ -34,7 +34,7 @@ import javax.xml.transform.stream.StreamResult;
  * 
  * @author Thomas Finley, Henry Qin
  */
-
+@SuppressWarnings({"unchecked"})
 public class XMLCodec extends Codec {
 
 

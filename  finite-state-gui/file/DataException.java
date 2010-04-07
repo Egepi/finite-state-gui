@@ -30,7 +30,7 @@ package file;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class DataException extends RuntimeException {
 	/**
 	 * Creates a generic data exception.

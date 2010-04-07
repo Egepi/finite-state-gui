@@ -32,7 +32,7 @@ import java.util.Map;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"unchecked"})
 public class LenoreSystemsCodec extends Codec {
 	/**
 	 * Given a file, this will return an L-system associated with that file.
