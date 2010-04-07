@@ -44,7 +44,8 @@ public class DefaultToolBox implements ToolBox {
 	 */
 	public List tools(AutomatonPane view, AutomatonDrawer drawer) {
 		List list = new java.util.ArrayList();
-		list.add(new ArrowTool(view, drawer));
+		a = new ArrowTool(view, drawer);
+		list.add(a);
 		list.add(new StateTool(view, drawer));
 		list.add(new TransitionTool(view, drawer));
 		list.add(new DeleteTool(view, drawer));
@@ -57,7 +58,8 @@ public class DefaultToolBox implements ToolBox {
 	public List tools(EditCanvas view, AutomatonDrawer drawer,
 			EditorPane editorPane) {
 		List list = new java.util.ArrayList();
-		list.add(new ArrowTool(view, drawer, editorPane));
+		a = new ArrowTool(view, drawer, editorPane);
+		list.add(a);
 		list.add(new StateTool(view, drawer));
 		list.add(new TransitionTool(view, drawer));
 		list.add(new DeleteTool(view, drawer));
@@ -65,4 +67,10 @@ public class DefaultToolBox implements ToolBox {
 		list.add(new RedoTool(view, drawer));
 		return list;
 	}
+	public ArrowTool getArrowTool()
+	{
+		return a;	
+	}
+
+	private ArrowTool a;
 }

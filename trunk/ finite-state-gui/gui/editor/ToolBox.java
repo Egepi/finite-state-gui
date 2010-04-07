@@ -47,4 +47,5 @@ public interface ToolBox {
 
 	public List tools(EditCanvas view, AutomatonDrawer drawer,
 			EditorPane editorPane);
+	public ArrowTool getArrowTool();
 }

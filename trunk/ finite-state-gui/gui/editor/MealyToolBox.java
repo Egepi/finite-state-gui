@@ -67,4 +67,10 @@ public class MealyToolBox implements ToolBox
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public ArrowTool getArrowTool() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
