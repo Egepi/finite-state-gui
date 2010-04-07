@@ -197,14 +197,21 @@ public class ArrowTool extends Tool {
 		lastClickedState = getDrawer().stateAtPoint(event.getPoint());
 		if (lastClickedState == null)
 		{	
-			lastClickedTransition = getDrawer().transitionAtPoint(event.getPoint());
+			lastClickedTransition = getDrawer().transitionAtPoint(event.getPoint());		
+		}
+		
+		if(lastClickedState != null)
+		{
+			thePane.updateLabels(lastClickedState);
+		}
+		else if(lastClickedTransition != null)
+		{
 			thePane.updateLabels(lastClickedTransition);
 		}
 		else
 		{
-			thePane.updateLabels(lastClickedState);
+			thePane.hideAll();
 		}
-
 		
 		// Should we show a popup menu?
 		if (event.isPopupTrigger())
