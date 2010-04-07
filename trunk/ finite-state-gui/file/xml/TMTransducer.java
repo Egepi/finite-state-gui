@@ -43,7 +43,7 @@ import file.DataException;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"unchecked"})
 public class TMTransducer extends AutomatonTransducer {
 	/**
 	 * Creates and returns an empty Turing machine.

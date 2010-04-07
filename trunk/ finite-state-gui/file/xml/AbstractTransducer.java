@@ -47,9 +47,6 @@ public abstract class AbstractTransducer implements Transducer {
 		 * doc.appendChild(doc.createProcessingInstruction ("xml",
 		 * "version=\"1.0\""));
 		 */
-		// Add the credit string for JFLAP.
-		doc.appendChild(createComment(doc, "Created with JFLAP "
-				+ gui.AboutBox.VERSION + "."));
 		// Create and add the <structure> element.
 		Element structureElement = createElement(doc, STRUCTURE_NAME, null,
 				null);

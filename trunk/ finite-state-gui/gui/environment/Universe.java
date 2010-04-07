@@ -32,7 +32,7 @@ import javax.swing.JFileChooser;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"unchecked"})
 public class Universe {
 	/**
 	 * This class needn't have multiple instances, so we disable the main

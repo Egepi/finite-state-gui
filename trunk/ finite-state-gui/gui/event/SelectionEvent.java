@@ -28,7 +28,7 @@ import java.util.EventObject;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class SelectionEvent extends EventObject {
 	/**
 	 * Instantiates a new <CODE>SelectionEvent</CODE>.

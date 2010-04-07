@@ -33,7 +33,7 @@ import javax.swing.event.ChangeListener;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class ZoomPane extends AutomatonPane {
 	/**
 	 * Instantiates a <CODE>ZoomPane</CODE> for a given <CODE>SelectionDrawer</CODE>.

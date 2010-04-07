@@ -28,14 +28,11 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
-
-import debug.EDebug;
 
 import automata.Automaton;
 import automata.Note;
@@ -55,7 +52,7 @@ import java.util.HashSet;
  * @author Thomas Finley
  * @version 1.0
  */
-
+@SuppressWarnings({"unchecked"})
 public class AutomatonDrawer {
 	/**
 	 * Instantiates an object to draw an automaton.

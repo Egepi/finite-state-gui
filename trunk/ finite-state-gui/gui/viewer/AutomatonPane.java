@@ -31,7 +31,6 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ import javax.swing.*;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial", "unchecked"})
 public class AutomatonPane extends JPanel implements Scrollable {
 	/**
 	 * Instantiates an AutomatonPane.

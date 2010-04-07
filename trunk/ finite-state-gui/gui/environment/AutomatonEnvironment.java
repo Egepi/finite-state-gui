@@ -29,6 +29,7 @@ import automata.event.AutomataTransitionListener;
 import automata.event.AutomataNoteEvent;
 import automata.event.AutomataNoteListener;
 
+@SuppressWarnings({"serial"})
 public class AutomatonEnvironment extends Environment {
 	/**
 	 * Instantiates an <CODE>AutomatonEnvironment</CODE> for the given

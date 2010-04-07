@@ -32,7 +32,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -47,7 +46,7 @@ import javax.swing.filechooser.FileFilter;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial", "unchecked"})
 public class EnvironmentFrame extends JFrame {
 	/**
 	 * Instantiates a new <CODE>EnvironmentFrame</CODE>. This does not fill

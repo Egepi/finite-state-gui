@@ -39,7 +39,7 @@ import javax.swing.event.ChangeListener;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"unchecked"})
 public class SelectionDrawer extends AutomatonDrawer {
 	/**
 	 * Instantiates a new selection drawer with no states selected.

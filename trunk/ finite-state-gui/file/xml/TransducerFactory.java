@@ -29,7 +29,7 @@ import java.util.*;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"unchecked"})
 public class TransducerFactory {
 	/**
 	 * Given a DOM document, this will return an appropriate instance of a

@@ -31,7 +31,7 @@ import automata.Automaton;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class AutomatonDraggerPane extends AutomatonPane {
 	/**
 	 * Instantiates the automaton dragger pane.
