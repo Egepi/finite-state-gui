@@ -327,4 +327,10 @@ public class State implements Serializable{
 		return selected;
 	}
 
+
+	public String getInternalName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -20,7 +20,6 @@
 
 package gui.editor;
 
-import gui.LambdaCellRenderer;
 import gui.viewer.AutomatonPane;
 
 import java.awt.Color;
@@ -35,13 +34,10 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 
 import automata.State;
 import automata.Transition;
-import automata.turing.TMTransition;
-import automata.turing.Tape;
 /**
  * This allows the user to create transition creators that have tables directly
  * in the editing window with a minimum of effort.
@@ -88,17 +84,7 @@ public abstract class TableTransitionCreator extends TransitionCreator {
 	 *            the transition to create a table for
 	 */
 	protected JTable createTable(final Transition transition) {
-		TableModel model = createModel(transition);
-		final TipLambdaCellRenderer[] renders = new TipLambdaCellRenderer[model
-				.getColumnCount()];
-		for (int i = 0; i < model.getColumnCount(); i++)
-			renders[i] = transition instanceof TMTransition ? new TipLambdaCellRenderer(
-					"" + Tape.BLANK, model.getColumnName(i))
-					: new TipLambdaCellRenderer(model.getColumnName(i));
 		JTable table = new JTable(createModel(transition)) {
-			public TableCellRenderer getCellRenderer(int r, int c) {
-				return renders[c];
-			}
 
 			protected boolean processKeyBinding(KeyStroke ks, KeyEvent e,
 					int condition, boolean pressed) {
@@ -288,15 +274,5 @@ public abstract class TableTransitionCreator extends TransitionCreator {
 	/** The transition being edited. */
 	private Transition transition;
 
-	/** The cell renderer. */
-	private static class TipLambdaCellRenderer extends LambdaCellRenderer {
-		public TipLambdaCellRenderer(String replace, String tip) {
-			super(replace);
-			setToolTipText(tip);
-		}
 
-		public TipLambdaCellRenderer(String tip) {
-			setToolTipText(tip);
-		}
-	}
 }
