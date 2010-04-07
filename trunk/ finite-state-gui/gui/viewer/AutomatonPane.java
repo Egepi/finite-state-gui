@@ -21,6 +21,7 @@
 package gui.viewer;
 
 import automata.Automaton;
+import automata.Note;
 import automata.State;
 import automata.event.*;
 //import gui.JMultiLineToolTip;
@@ -32,6 +33,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -40,7 +42,7 @@ import javax.swing.*;
  * 
  * @author Thomas Finley
  */
-@SuppressWarnings({"serial"})
+@SuppressWarnings({"serial", "unchecked"})
 public class AutomatonPane extends JPanel implements Scrollable {
 	/**
 	 * Instantiates an AutomatonPane.
@@ -151,6 +153,11 @@ public class AutomatonPane extends JPanel implements Scrollable {
 		//g2.translate(-transform.getTranslateX(), -transform.getTranslateY());
 		//g2.scale(1.0/transform.getScaleX(), 1.0/transform.getScaleY());
 		//reposition the notes on scroll...since I can't figure out where it is scrolling, I do it here.
+		ArrayList notes = this.getDrawer().getAutomaton().getNotes();
+		for(int k = 0; k < notes.size(); k++){
+			Note curNote = (Note)notes.get(k);
+			curNote.updateView();	
+		}
 		
 
 		//g2.translate(transform.getTranslateX(), transform.getTranslateY());

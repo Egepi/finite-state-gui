@@ -127,7 +127,7 @@ public abstract class TransitionCreator {
 		JOptionPane.showMessageDialog(getParent(), "Bad format!\n"
 				+ e.getMessage(), "Bad Format", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	/** The parent component for this transition creator. */
 	private AutomatonPane parent = null;
 }
