@@ -22,15 +22,11 @@ package gui.menu;
 
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.io.Serializable;
-
 import gui.environment.Environment;
 import gui.environment.AutomatonEnvironment;
 import gui.environment.EnvironmentFrame;
 import gui.environment.Universe;
 import gui.action.*;
-import automata.Automaton;
 
 /**
  * The <CODE>MenuBarCreator</CODE> is a creator of the menu bars for the FLAP
@@ -52,10 +48,6 @@ public class MenuBarCreator {
 		JMenu menu;
 
 		menu = getFileMenu(frame);
-		if (menu.getItemCount() > 0)
-			bar.add(menu);
-
-		menu = getHelpMenu(frame);
 		if (menu.getItemCount() > 0)
 			bar.add(menu);
 
@@ -134,21 +126,6 @@ public class MenuBarCreator {
 //            addItem(menu, new SetUndoAmountAction());
 //        }
 
-
-		return menu;
-	}
-
-	/**
-	 * This is the menu for help.
-	 * 
-	 * @param frame
-	 *            the environment frame
-	 * @return the help menu
-	 */
-	private static JMenu getHelpMenu(EnvironmentFrame frame) {
-		Environment environment = frame.getEnvironment();
-		JMenu menu = new JMenu("Help");
-		Serializable object = environment.getObject();
 
 		return menu;
 	}

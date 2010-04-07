@@ -21,7 +21,6 @@
 package gui.environment;
 
 import gui.editor.EditorPane;
-import gui.environment.tag.CriticalTag;
 import gui.environment.tag.EditorTag;
 import gui.environment.tag.PermanentTag;
 import gui.environment.tag.Tag;

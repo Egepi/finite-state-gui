@@ -28,14 +28,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Stack;
-import java.util.List;
-
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 
-import automata.Automaton;
-import automata.Configuration; import automata.State;
+import automata.Configuration;
 
 
 /**
@@ -44,7 +40,7 @@ import automata.Configuration; import automata.State;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"unchecked"})
 public class ConfigurationController implements ConfigurationSelectionListener {
 	/**
 	 * Instantiates a new configuration controller.

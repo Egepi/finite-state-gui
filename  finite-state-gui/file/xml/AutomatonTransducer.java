@@ -270,8 +270,7 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 	 */
 	protected void readTransitions(Node parent, Automaton automaton,
 			Map id2state) {
-		Map i2s = new java.util.HashMap();
-        if(parent == null || automaton == null) return;
+		if(parent == null || automaton == null) return;
 		NodeList allNodes = parent.getChildNodes();
 		ArrayList tNodes = new ArrayList();
 		boolean bool = false;
@@ -360,8 +359,7 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 	 */
 	public java.io.Serializable fromDOM(Document document) {
 		automatonMap.clear();
-		Automaton a = createEmptyAutomaton(document);
-        Node parent = document.getDocumentElement()
+		Node parent = document.getDocumentElement()
         .getElementsByTagName(AUTOMATON_NAME).item(0);
         if(parent == null) parent = document.getDocumentElement();
         return readAutomaton(parent, document);
@@ -402,8 +400,7 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 			Map e2t = elementsToText(noteNode);
 
 			java.awt.Point p = new java.awt.Point();
-			boolean hasLocation = true;
-            Object obj = (e2t).get(NOTE_TEXT_NAME);
+			Object obj = (e2t).get(NOTE_TEXT_NAME);
             if(obj == null) continue;
 			String textString = obj.toString();
 			
@@ -412,7 +409,6 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 			try {
 				x = Double.parseDouble(e2t.get(STATE_X_COORD_NAME).toString());
 			} catch (NullPointerException e) {
-				hasLocation = false;
 			} catch (NumberFormatException e) {
 				throw new DataException("The x coordinate "
 						+ e2t.get(STATE_X_COORD_NAME)
@@ -422,7 +418,6 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 			try {
 				y = Double.parseDouble(e2t.get(STATE_Y_COORD_NAME).toString());
 			} catch (NullPointerException e) {
-				hasLocation = false;
 			} catch (NumberFormatException e) {
 				throw new DataException("The y coordinate "
 						+ e2t.get(STATE_Y_COORD_NAME)
@@ -627,7 +622,6 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 	 */
 	public Document toDOM(java.io.Serializable structure) {
 		Automaton automaton = (Automaton) structure;
-		originalAutomaton = automaton;
 		Document doc = newEmptyDocument();
 		Element se = doc.getDocumentElement();
 		se.appendChild(createAutomatonElement(doc, automaton, AUTOMATON_NAME));
@@ -690,12 +684,7 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 
 	private Map automatonMap = new java.util.HashMap();
 
-	private Automaton originalAutomaton = null;
-
 	private static final String AUTOMATON_NAME = "automaton";
-
-	/** The comment for the list of Automatons. */
-	private static final String COMMENT_AUTOMATA = "The list of automata";
 
 	/** The tag name for individual block elements. */
 	private static final String FILE_NAME = "tag";
@@ -769,10 +758,4 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 	
 	/** Tag the idle response **/
 	public static final String STATE_IDLE_RESPONSE = "stateIdleResponse";
-	
-	
-
-	
-	/**The tag name for the block transition */
-	private static final String IS_BLOCK = "block";
 }

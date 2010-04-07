@@ -41,7 +41,7 @@ import automata.Configuration;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial", "unchecked"})
 public class ConfigurationPane extends JPanel implements ActionListener {
 	/**
 	 * Creates a <CODE>ConfigurationPane</CODE>. The instance as created has
@@ -51,8 +51,6 @@ public class ConfigurationPane extends JPanel implements ActionListener {
 	 *            the automaton that configurations will come from
 	 */
 	public ConfigurationPane(Automaton automaton) {
-		this.automaton = automaton;
-		// this.setLayout(new FlowLayout(FlowLayout.LEFT));
 	}
 
 	/**
@@ -345,9 +343,6 @@ public class ConfigurationPane extends JPanel implements ActionListener {
 			listener.configurationSelectionChange(event);
 		}
 	}
-
-	/** The configurations in this pane will be from this automaton. */
-	private Automaton automaton;
 
 	/** The map from configurations to their buttons. */
 	private HashMap configurationToButtonMap = new HashMap();

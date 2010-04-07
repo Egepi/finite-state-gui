@@ -33,7 +33,7 @@ import javax.swing.JToolBar;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class ControlPanel extends JToolBar {
 	/**
 	 * Instantiates a new <CODE>ControlPanel</CODE> for the given

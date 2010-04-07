@@ -44,6 +44,7 @@ import org.w3c.dom.Element;
 
 import file.xml.DOMPrettier;
 
+@SuppressWarnings({"unchecked"})
 public class Profile {
     public static String LAMBDA = "\u03BB";     // Jinghui Lim added stuff
     public static String EPSILON = "\u03B5";    // see MultipleSimulateAction
@@ -266,8 +267,6 @@ public class Profile {
 			
 			builder = factory.newDocumentBuilder();
 			Document doc = builder.newDocument();
-			doc.appendChild(doc.createComment("Created with JFLAP "
-					+ gui.AboutBox.VERSION + "."));
 			// Create and add the <structure> element.
 			Element structureElement = createElement(doc, STRUCTURE_NAME, null,
 					null);

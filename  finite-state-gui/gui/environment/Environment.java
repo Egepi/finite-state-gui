@@ -33,8 +33,6 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import debug.EDebug;
-
 //import sun.security.util.Debug;
 
 /**
@@ -50,7 +48,7 @@ import debug.EDebug;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial", "unchecked"})
 public abstract class Environment extends JPanel {
 
 
@@ -464,7 +462,6 @@ public abstract class Environment extends JPanel {
 		//super.setSize(width, height);
 		if(myObjects != null && this.tabbed != null){
 			if(myObjects.size() > 0 && this.tabbed.getTabCount() == 1){
-				Component cur = this.getActive();
 			}
 		}
 		

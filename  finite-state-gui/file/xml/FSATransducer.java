@@ -38,7 +38,7 @@ import automata.fsa.FiniteStateAutomaton;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"unchecked"})
 public class FSATransducer extends AutomatonTransducer {
 	/**
 	 * Creates and returns an empty FSA.

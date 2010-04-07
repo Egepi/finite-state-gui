@@ -33,7 +33,7 @@ import java.util.EventObject;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class ConfigurationSelectionEvent extends EventObject {
 	/**
 	 * Instantiates a new <CODE>ConfigurationSelectionEvent</CODE> object.

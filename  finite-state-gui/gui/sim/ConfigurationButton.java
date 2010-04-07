@@ -32,7 +32,7 @@ import automata.Configuration;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class ConfigurationButton extends JToggleButton {
 	/**
 	 * Instantiates a configuration button with a configuration with the default

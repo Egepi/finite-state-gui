@@ -34,7 +34,7 @@ import java.io.File;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class FileChangeEvent extends EventObject {
 	/**
 	 * Instantiates a new <CODE>FileChangeEvent</CODE>.

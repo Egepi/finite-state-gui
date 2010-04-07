@@ -39,7 +39,7 @@ import javax.swing.JScrollPane;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial", "unchecked"})
 public class TraceWindow extends JFrame {
 	/**
 	 * Instantiates a new step window with the given configuration.
