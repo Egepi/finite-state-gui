@@ -26,6 +26,9 @@ import automata.event.AutomataStateEvent;
 import automata.event.AutomataStateListener;
 import automata.event.AutomataTransitionEvent;
 import automata.event.AutomataTransitionListener;
+import automata.event.AutomataNoteEvent;
+import automata.event.AutomataNoteListener;
+
 @SuppressWarnings({"serial"})
 public class AutomatonEnvironment extends Environment {
 	/**
@@ -42,6 +45,7 @@ public class AutomatonEnvironment extends Environment {
 		Listener listener = new Listener();
 		automaton.addStateListener(listener);
 		automaton.addTransitionListener(listener);
+		automaton.addNoteListener(listener);
 		initUndoKeeper();
 	}
 
@@ -88,7 +92,7 @@ public class AutomatonEnvironment extends Environment {
 	 * changes in the environment, and if so, sets the dirty bit.
 	 */
 	private class Listener implements AutomataStateListener,
-			AutomataTransitionListener {
+			AutomataTransitionListener, AutomataNoteListener {
 		public void automataTransitionChange(AutomataTransitionEvent e) {
 			setDirty();
 		}
@@ -97,5 +101,8 @@ public class AutomatonEnvironment extends Environment {
 			setDirty();
 		}
 
+        public void automataNoteChange(AutomataNoteEvent e){
+            setDirty();
+        }
 	}
 }

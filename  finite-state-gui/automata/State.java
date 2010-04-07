@@ -256,11 +256,15 @@ public class State implements Serializable{
     public int specialHash(){
     	
          return point.hashCode() 
+         + (myNote == null? -1 : myNote.specialHash()) 
          + (getLabel() == null ? -1 
         		 : getLabel().hashCode());
     }
 	
 	
+	public void setNote(Note note){
+		myNote = note;
+	}
 	//Karan Chakrapani
 	public String getIdleResponses()
 	{
@@ -281,7 +285,8 @@ public class State implements Serializable{
 		return false;
 		
 	}
-
+	
+	private Note myNote;
 
 	String internalName = null;
 
@@ -320,12 +325,6 @@ public class State implements Serializable{
 	
 	public boolean isSelected(){
 		return selected;
-	}
-
-
-	public String getInternalName() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

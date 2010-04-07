@@ -32,9 +32,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import automata.Automaton;
+import automata.Note;
 import automata.State;
 import automata.Transition;
 import file.DataException;
+import automata.turing.TMState;
+import automata.turing.TuringMachine;
 import java.awt.Point;
 
 /**
@@ -161,9 +164,22 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 			// Create the state.
 			State state = null;
 //			if (!isBlock){
-			state = automaton.createStateWithId(p, id.intValue());
+			if (!(automaton instanceof TuringMachine)){
+				state = automaton.createStateWithId(p, id.intValue());
+            }
+			else {
+                Node tempNode = null;
                 if (e2t.containsKey(FILE_NAME)){
+                    String fileName = e2t.get(FILE_NAME).toString();
+                    tempNode = document.getDocumentElement()
+                            .getElementsByTagName(fileName).item(0);
+                    Automaton temp = (TuringMachine) readAutomaton(tempNode, document);
+                    //MERLIN MERLIN MERLIN MERLIN MERLIN//
+//                    EDebug.print("Are we or not creating a block?");
+                    state = ((TuringMachine) automaton).createInnerTM(p, temp, fileName,
+                            id.intValue());
                 }
+			}
 			if (hasLocation && locatedStates != null)
 				locatedStates.add(state);
 			i2s.put(id, state);
@@ -190,7 +206,7 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 	//Add the blocks
 	protected void addBlocks(Node node, Automaton automaton, Set locatedStates,
 			Map i2s, Document document) {
-        //assert(automaton instanceof TuringMachine); //this code should really be in TMTransducer, but I see why it's here
+        assert(automaton instanceof TuringMachine); //this code should really be in TMTransducer, but I see why it's here
         if(node == null) return;
 		if (!node.hasChildNodes())
 			return;
@@ -409,6 +425,8 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 			}
 			p.setLocation(x, y);
 			
+			
+			root.addNote(new Note(p, textString));
 		}
 		
 		
@@ -544,7 +562,7 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 	 * @param tempAuto
 	 * @return
 	 */
-	protected Element createBlockElement(Document document, State block,
+	protected Element createBlockElement(Document document, TMState block,
 			Automaton container) {
 		Element be = createElement(document, BLOCK_NAME, null, null);
 		be.setAttribute(STATE_ID_NAME, "" + block.getID());
@@ -618,6 +636,9 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 		if (states.length > 0)
 			se.appendChild(createComment(doc, COMMENT_STATES));
 
+        if (auto instanceof TuringMachine)
+            for (int i = 0; i < states.length; i++)
+				se.appendChild(createBlockElement(doc, (TMState)states[i], auto));
         else
             for (int i = 0; i < states.length; i++)
 				se.appendChild(createStateElement(doc, states[i], auto));
@@ -638,9 +659,28 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
         //MERLIN MERLIN MERLIN MERLIN MERLIN//
 		
 		//Add the sticky notes at the very end
+		ArrayList notes = auto.getNotes();
+		for(int k = 0; k < notes.size(); k++){
+			se.appendChild(createNoteElement(doc, (Note)notes.get(k)));
+			
+		}
 		return se;
 	}
 
+	private Node createNoteElement(Document doc, Note note) {
+//		 Start the creation of the transition.
+		Element ne = createElement(doc, NOTE_NAME, null, null);
+		// Encode the from state.
+		ne.appendChild(createElement(doc, NOTE_TEXT_NAME, null, ""
+				+ note.getText()));
+		// Encode the to state.
+		ne.appendChild(createElement(doc, STATE_X_COORD_NAME, null, ""
+				+ note.getLocation().getX()));
+		ne.appendChild(createElement(doc, STATE_Y_COORD_NAME, null, ""
+				+ note.getLocation().getY()));
+		// Return the completed note encoding element.
+		return ne;
+	}
 
 	private Map automatonMap = new java.util.HashMap();
 
