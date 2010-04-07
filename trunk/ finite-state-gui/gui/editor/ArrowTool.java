@@ -427,7 +427,8 @@ public class ArrowTool extends Tool {
 		if(count == 1 && bounds.isEmpty() && lastClickedState!=null) lastClickedState.setSelect(false);
 		bounds = new Rectangle(0, 0, -1, -1);
 		getView().getDrawer().setSelectionBounds(bounds);
-		myLastClicked = lastClickedState;
+		myLastClickedState = lastClickedState;
+		myLastClickedTransition = lastClickedTransition;
 		lastClickedState = null;
 		lastClickedTransition = null;
 		getView().repaint();
@@ -789,12 +790,11 @@ public class ArrowTool extends Tool {
 	
 	public State getLastState()
 	{
-	return this.myLastClicked;
+		return this.myLastClickedState;
 	}
-
 	public Transition getLastTransition()
 	{
-	return this.lastClickedTransition;
+		return this.myLastClickedTransition;
 	}
 	/** The transition creator for editing transitions. */
 	private TransitionCreator creator;
@@ -830,5 +830,6 @@ public class ArrowTool extends Tool {
 
     private Transition selectedTransition = null;
     
-    private State myLastClicked = null;
+    private State myLastClickedState = null;
+    private Transition myLastClickedTransition = null;
 }
