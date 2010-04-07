@@ -32,7 +32,7 @@ import automata.fsa.FiniteStateAutomaton;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public abstract class FSAAction extends RestrictedAction {
 	/**
 	 * Instantiates a new <CODE>FSAAction</CODE>.

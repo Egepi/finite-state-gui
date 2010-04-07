@@ -33,7 +33,7 @@ import javax.swing.KeyStroke;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class CloseWindowAction extends RestrictedAction {
 	/**
 	 * Instantiates a <CODE>CloseWindowAction</CODE>.

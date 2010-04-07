@@ -40,7 +40,7 @@ import javax.swing.*;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class NewAction extends RestrictedAction {
 	/**
 	 * Instantiates a new <CODE>NewAction</CODE>.

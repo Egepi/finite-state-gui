@@ -20,7 +20,6 @@
 package gui.action;
 
 import gui.environment.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
@@ -39,7 +38,7 @@ import java.io.*;
  * 
  * @author Andrew Ross, Henry Qin
  */
-
+@SuppressWarnings({"serial"})
 public class ExportAction extends RestrictedAction {
     /**
      * Instantiates a new <CODE>ExportAction</CODE>.
@@ -91,18 +90,6 @@ public class ExportAction extends RestrictedAction {
             }
         }
 
-        try {
-            Writer out = new OutputStreamWriter(new FileOutputStream(file),
-                        "UTF-8");
-          //ORG//svgGenerator.stream(out, true);
-            return;
-        }
-        catch (IOException ioe) {
-            JOptionPane.showMessageDialog(c,
-            "Export failed with error:\n"+ioe.getMessage(),
-            "Export failed", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
     }
     }
 

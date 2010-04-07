@@ -32,7 +32,7 @@ import automata.Automaton;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public abstract class AutomatonAction extends RestrictedAction {
 	/**
 	 * Instantiates a new <CODE>AutomatonAction</CODE>.

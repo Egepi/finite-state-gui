@@ -34,7 +34,7 @@ import javax.swing.KeyStroke;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial"})
 public class SaveAction extends SaveAsAction {
 	/**
 	 * Instantiates a new <CODE>SaveAction</CODE>.
