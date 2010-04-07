@@ -41,7 +41,7 @@ import javax.swing.border.BevelBorder;
 
 import automata.Automaton;
 import automata.Note;
-
+import automata.State;
 /**
  * This is a view that holds a tool bar and the canvas where the automaton is
  * displayed.
@@ -115,7 +115,7 @@ public class EditorPane extends JComponent implements MouseListener{
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS), BorderLayout.CENTER);
 		superpane.setBorder(new BevelBorder(BevelBorder.LOWERED));
 
-		toolbar = new gui.editor.ToolBar(pane, drawer, box);
+		toolbar = new gui.editor.ToolBar(pane, drawer, box , this);
 		pane.setToolBar(toolbar);
 
 		/* Where side pane is added */
@@ -242,7 +242,10 @@ public class EditorPane extends JComponent implements MouseListener{
 		this.response.setText(theResponse);
 	}
 	
-
+	public JButton getSave()
+	{
+		return saveButton;
+	}
 	JTextPane keywords;
 	JTextPane response;
 	JTextPane idleResponse;
@@ -267,8 +270,20 @@ public class EditorPane extends JComponent implements MouseListener{
 		System.out.println("" + keywords.getText());
 		System.out.println("" + response.getText());
 		System.out.println("" + idleResponse.getText());
-		//this.automaton
-	}
+		Tool myTool = toolbar.getCurrentTool();
+		if(myTool.getToolTip().equalsIgnoreCase("Arrow Tool"))
+		{
+		System.out.println("**");
+		ArrowTool myArrowTool = (ArrowTool) myTool;
+		State tempState = myArrowTool.getLastState();
+		if(tempState != null)
+		{
+		tempState.setIdleResponses(this.getIdleResponse().getText());
+		}
+		}
+		//System.out.println("" + myTool);
+
+		}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {

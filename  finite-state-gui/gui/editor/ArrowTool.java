@@ -94,13 +94,21 @@ public class ArrowTool extends Tool {
 				getView());
 	}
 
+	public ArrowTool(EditCanvas view, AutomatonDrawer drawer,
+			EditorPane editorPane) {
+		super(view, drawer);
+		thePane = editorPane;
+		this.creator = TransitionCreator.creatorForAutomaton(getAutomaton(),
+				getView());
+	}
+
 	/**
 	 * Gets the tool tip for this tool.
 	 * 
 	 * @return the tool tip for this tool
 	 */
 	public String getToolTip() {
-		return "Attribute Editor";
+		return "Arrow Tool";
 	}
 
 	/**
@@ -121,7 +129,6 @@ public class ArrowTool extends Tool {
 	 *            the mouse event
 	 */
 	public void mouseClicked(MouseEvent event) {
-		System.out.println("Test 1");
 		if (event.getClickCount() == 1){
             Transition trans = getDrawer().transitionAtPoint(event.getPoint());
             if (trans != null){
@@ -159,7 +166,6 @@ public class ArrowTool extends Tool {
 	 */
 	protected void showPopup(MouseEvent event) {
 		// Should we show a popup menu?
-		System.out.println("Test 2");
 		if (event.isPopupTrigger()) {
 			Point p = getView().transformFromAutomatonToView(event.getPoint());
 			if (lastClickedState != null && shouldShowStatePopup()) {
@@ -421,6 +427,7 @@ public class ArrowTool extends Tool {
 		if(count == 1 && bounds.isEmpty() && lastClickedState!=null) lastClickedState.setSelect(false);
 		bounds = new Rectangle(0, 0, -1, -1);
 		getView().getDrawer().setSelectionBounds(bounds);
+		myLastClicked = lastClickedState;
 		lastClickedState = null;
 		lastClickedTransition = null;
 		getView().repaint();
@@ -779,10 +786,19 @@ public class ArrowTool extends Tool {
 		private JMenuItem renameStates, adaptView;
 		
 	}
+	
+	public State getLastState()
+	{
+	return this.myLastClicked;
+	}
 
+	public Transition getLastTransition()
+	{
+	return this.lastClickedTransition;
+	}
 	/** The transition creator for editing transitions. */
 	private TransitionCreator creator;
-
+	private EditorPane thePane;
 	/** The state that was last clicked. */
 	private State lastClickedState = null;
 
@@ -813,4 +829,6 @@ public class ArrowTool extends Tool {
 	private EmptyMenu emptyMenu = new EmptyMenu();
 
     private Transition selectedTransition = null;
+    
+    private State myLastClicked = null;
 }
