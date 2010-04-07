@@ -32,7 +32,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import automata.Automaton;
-import automata.Note;
 import automata.State;
 import automata.Transition;
 import file.DataException;
@@ -410,8 +409,6 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 			}
 			p.setLocation(x, y);
 			
-			
-			root.addNote(new Note(p, textString));
 		}
 		
 		
@@ -641,28 +638,9 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
         //MERLIN MERLIN MERLIN MERLIN MERLIN//
 		
 		//Add the sticky notes at the very end
-		ArrayList notes = auto.getNotes();
-		for(int k = 0; k < notes.size(); k++){
-			se.appendChild(createNoteElement(doc, (Note)notes.get(k)));
-			
-		}
 		return se;
 	}
 
-	private Node createNoteElement(Document doc, Note note) {
-//		 Start the creation of the transition.
-		Element ne = createElement(doc, NOTE_NAME, null, null);
-		// Encode the from state.
-		ne.appendChild(createElement(doc, NOTE_TEXT_NAME, null, ""
-				+ note.getText()));
-		// Encode the to state.
-		ne.appendChild(createElement(doc, STATE_X_COORD_NAME, null, ""
-				+ note.getLocation().getX()));
-		ne.appendChild(createElement(doc, STATE_Y_COORD_NAME, null, ""
-				+ note.getLocation().getY()));
-		// Return the completed note encoding element.
-		return ne;
-	}
 
 	private Map automatonMap = new java.util.HashMap();
 
