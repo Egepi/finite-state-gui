@@ -29,7 +29,7 @@ import java.util.List;
  * The <CODE>DefaultToolBox</CODE> has all the tools for general editing of an
  * automaton.
  */
-
+@SuppressWarnings({"unchecked"})
 public class DefaultToolBox implements ToolBox {
 	/**
 	 * Returns a list of tools including a <CODE>ArrowTool</CODE>, <CODE>StateTool</CODE>,
