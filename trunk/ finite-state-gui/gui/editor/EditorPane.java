@@ -37,11 +37,8 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
 
 import automata.Automaton;
 import automata.Note;
@@ -53,7 +50,7 @@ import automata.Transition;
  * 
  * @author Thomas Finley
  */
-
+@SuppressWarnings({"serial", "unchecked"})
 public class EditorPane extends JComponent implements MouseListener{
 	/**
 	 * Instantiates a new editor pane for the given automaton.
