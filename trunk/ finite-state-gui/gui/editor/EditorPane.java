@@ -294,14 +294,9 @@ public class EditorPane extends JComponent implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		System.out.println("this is a test of saving plox");
-		System.out.println("" + keywords.getText());
-		System.out.println("" + response.getText());
-		System.out.println("" + idleResponse.getText());
 		Tool myTool = toolbar.getCurrentTool();
 		if(myTool.getToolTip().equalsIgnoreCase("Arrow Tool"))
 		{
-		System.out.println("**");
 		ArrowTool myArrowTool = (ArrowTool) myTool;
 		State tempState = myArrowTool.getLastState();
 		if(tempState != null)
