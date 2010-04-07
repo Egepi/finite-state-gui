@@ -32,6 +32,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -42,6 +43,7 @@ import javax.swing.border.BevelBorder;
 import automata.Automaton;
 import automata.Note;
 import automata.State;
+import automata.Transition;
 /**
  * This is a view that holds a tool bar and the canvas where the automaton is
  * displayed.
@@ -246,10 +248,15 @@ public class EditorPane extends JComponent implements MouseListener{
 	{
 		return saveButton;
 	}
+	
 	JTextPane keywords;
 	JTextPane response;
 	JTextPane idleResponse;
 	JButton saveButton;
+	
+	JLabel idleResponseLabel;
+	JLabel responseLabel;
+	JLabel keywordsLabel;
 	
 	/** The automaton. */
 	protected Automaton automaton;
@@ -307,5 +314,35 @@ public class EditorPane extends JComponent implements MouseListener{
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void updateLabels(State lastClickedState) {
+		//Hide unneeded stuff
+		this.response.setText("");
+		this.response.setVisible(false);
+		this.responseLabel.setVisible(false);
+		this.keywords.setText("");
+		this.keywords.setVisible(false);
+		this.keywordsLabel.setVisible(false);
+		
+		//Get the state properties
+		this.idleResponse.setVisible(true);
+		this.idleResponseLabel.setVisible(true);
+		this.idleResponse.setText(lastClickedState.getIdleResponses());
+	}
+
+	public void updateLabels(Transition lastClickedTransition) 
+	{
+		this.idleResponse.setVisible(false);
+		this.idleResponseLabel.setVisible(false);
+		this.idleResponse.setText("");
+		
+		//Get Transition properties
+		this.response.setText(lastClickedTransition.getResponses());
+		this.response.setVisible(true);
+		this.responseLabel.setVisible(true);
+		this.keywords.setText(lastClickedTransition.getKeywords());
+		this.keywords.setVisible(true);
+		this.keywordsLabel.setVisible(true);
 	}
 }
