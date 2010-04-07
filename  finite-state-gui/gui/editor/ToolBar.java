@@ -73,6 +73,7 @@ public class ToolBar extends JToolBar implements ActionListener {
 		this.drawer = drawer;
 		tools = box.tools(view, drawer, editorPane);
 		initBar();
+		//this.currentTool = box.getArrowTool();
 		view.addMouseListener(adapter);
 		view.addMouseMotionListener(adapter);	}
 
@@ -120,6 +121,7 @@ public class ToolBar extends JToolBar implements ActionListener {
 			imap.put(key, o);
 			amap.put(o, new ButtonClicker(button));
 		}
+		
 	}
 
 	/**

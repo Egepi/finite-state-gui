@@ -24,12 +24,14 @@ import gui.viewer.AutomatonDrawer;
 import gui.viewer.SelectionDrawer;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -39,6 +41,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 
 import automata.Automaton;
 import automata.Note;
@@ -126,14 +129,19 @@ public class EditorPane extends JComponent implements MouseListener{
 		saveButton.addMouseListener(this);
 		
 		keywords = new JTextPane();
-		keywords.setPreferredSize(new Dimension(200,100));
+		keywords.setPreferredSize(new Dimension(190,100));
 		
 		response = new JTextPane();
-		response.setPreferredSize(new Dimension(200,100));		
+		response.setPreferredSize(new Dimension(190,100));		
 
 		idleResponse = new JTextPane();
-		idleResponse.setPreferredSize(new Dimension(200,100));		
-
+		idleResponse.setPreferredSize(new Dimension(190,100));
+		
+		idleResponse.setBorder(BorderFactory.createLineBorder(Color.black));
+		response.setBorder(BorderFactory.createLineBorder(Color.black));
+		keywords.setBorder(BorderFactory.createLineBorder(Color.black));
+		
+		
 		keywordsLabel = new JLabel();
 		keywordsLabel.setText("Keywords");
 				
@@ -143,7 +151,7 @@ public class EditorPane extends JComponent implements MouseListener{
 		idleResponseLabel = new JLabel();
 		idleResponseLabel.setText("Idle Responses");
 				
-		JPanel editPanel = new JPanel();
+		editPanel = new JPanel();
 		editPanel.setPreferredSize(new Dimension(200, 500));
 		editPanel.add(keywordsLabel);
 		editPanel.add(keywords);
@@ -152,6 +160,9 @@ public class EditorPane extends JComponent implements MouseListener{
 		editPanel.add(idleResponseLabel);
 		editPanel.add(idleResponse);
 		editPanel.add(saveButton);
+		
+		editPanel.setVisible(false);
+		this.hideAll();
 		
 		
 		this.add(superpane, BorderLayout.CENTER);
@@ -260,6 +271,8 @@ public class EditorPane extends JComponent implements MouseListener{
 		return saveButton;
 	}
 	
+	JPanel editPanel;
+	
 	JTextPane keywords;
 	JTextPane response;
 	JTextPane idleResponse;
@@ -328,6 +341,7 @@ public class EditorPane extends JComponent implements MouseListener{
 	}
 
 	public void updateLabels(State lastClickedState) {
+		this.editPanel.setVisible(true);
 		//Hide unneeded stuff
 		this.response.setText("");
 		this.response.setVisible(false);
@@ -345,6 +359,7 @@ public class EditorPane extends JComponent implements MouseListener{
 
 	public void updateLabels(Transition lastClickedTransition) 
 	{
+		this.editPanel.setVisible(true);
 		this.idleResponse.setVisible(false);
 		this.idleResponseLabel.setVisible(false);
 		this.idleResponse.setText("");
@@ -361,6 +376,7 @@ public class EditorPane extends JComponent implements MouseListener{
 
 	public void hideAll() 
 	{
+		this.editPanel.setVisible(false);
 		//Hide unneeded stuff
 		this.response.setText("");
 		this.response.setVisible(false);
