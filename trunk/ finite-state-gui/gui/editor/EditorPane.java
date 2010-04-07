@@ -134,11 +134,22 @@ public class EditorPane extends JComponent implements MouseListener{
 		idleResponse = new JTextPane();
 		idleResponse.setPreferredSize(new Dimension(200,100));		
 
+		keywordsLabel = new JLabel();
+		keywordsLabel.setText("Keywords");
+				
+		responseLabel = new JLabel();
+		responseLabel.setText("Responses");
 		
+		idleResponseLabel = new JLabel();
+		idleResponseLabel.setText("Idle Responses");
+				
 		JPanel editPanel = new JPanel();
 		editPanel.setPreferredSize(new Dimension(200, 500));
+		editPanel.add(keywordsLabel);
 		editPanel.add(keywords);
+		editPanel.add(responseLabel);
 		editPanel.add(response);
+		editPanel.add(idleResponseLabel);
 		editPanel.add(idleResponse);
 		editPanel.add(saveButton);
 		
@@ -326,6 +337,7 @@ public class EditorPane extends JComponent implements MouseListener{
 		this.keywordsLabel.setVisible(false);
 		
 		//Get the state properties
+		this.saveButton.setVisible(true);
 		this.idleResponse.setVisible(true);
 		this.idleResponseLabel.setVisible(true);
 		this.idleResponse.setText(lastClickedState.getIdleResponses());
@@ -338,11 +350,27 @@ public class EditorPane extends JComponent implements MouseListener{
 		this.idleResponse.setText("");
 		
 		//Get Transition properties
+		this.saveButton.setVisible(true);
 		this.response.setText(lastClickedTransition.getResponses());
 		this.response.setVisible(true);
 		this.responseLabel.setVisible(true);
 		this.keywords.setText(lastClickedTransition.getKeywords());
 		this.keywords.setVisible(true);
 		this.keywordsLabel.setVisible(true);
+	}
+
+	public void hideAll() 
+	{
+		//Hide unneeded stuff
+		this.response.setText("");
+		this.response.setVisible(false);
+		this.responseLabel.setVisible(false);
+		this.keywords.setText("");
+		this.keywords.setVisible(false);
+		this.keywordsLabel.setVisible(false);
+		this.idleResponse.setVisible(false);
+		this.idleResponseLabel.setVisible(false);
+		this.idleResponse.setText("");
+		this.saveButton.setVisible(false);
 	}
 }
