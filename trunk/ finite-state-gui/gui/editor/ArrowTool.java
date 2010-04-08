@@ -190,7 +190,7 @@ public class ArrowTool extends Tool {
 		{	
 			lastClickedTransition = getDrawer().transitionAtPoint(event.getPoint());		
 		}
-		
+		thePane.saveFields();
 		if(lastClickedState != null)
 		{
 			thePane.updateLabels(lastClickedState);

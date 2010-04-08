@@ -51,21 +51,23 @@ import automata.Transition;
  * @author Thomas Finley
  */
 @SuppressWarnings({"serial", "unchecked"})
-public class EditorPane extends JComponent implements MouseListener{
+public class EditorPane extends JComponent{
 	/**
 	 * Instantiates a new editor pane for the given automaton.
 	 * 
 	 * @param automaton
 	 *            the automaton to create the editor pane for
 	 */
-	public EditorPane(Automaton automaton) {
+	public EditorPane(Automaton automaton) 
+	{
 		this(new SelectionDrawer(automaton));
 	}
 
 	/**
 	 * Instantiates a new editor pane with a tool box.
 	 */
-	public EditorPane(Automaton automaton, ToolBox box) {
+	public EditorPane(Automaton automaton, ToolBox box) 
+	{
 		this(new SelectionDrawer(automaton), box);
 	}
 
@@ -75,7 +77,8 @@ public class EditorPane extends JComponent implements MouseListener{
 	 * @param drawer
 	 *            the special automaton drawer for this editor
 	 */
-	public EditorPane(AutomatonDrawer drawer) {
+	public EditorPane(AutomatonDrawer drawer) 
+	{
 		this(drawer, new DefaultToolBox());
 	}
 
@@ -87,7 +90,8 @@ public class EditorPane extends JComponent implements MouseListener{
 	 * @param box
 	 *            the tool box to get the tools from
 	 */
-	public EditorPane(AutomatonDrawer drawer, ToolBox box) {
+	public EditorPane(AutomatonDrawer drawer, ToolBox box) 
+	{
 		this(drawer, box, false);
 	}
 
@@ -103,7 +107,8 @@ public class EditorPane extends JComponent implements MouseListener{
 	 *            fit the automaton; note that this can be <I>very</I> annoying
 	 *            if the automaton changes
 	 */
-	public EditorPane(AutomatonDrawer drawer, ToolBox box, boolean fit) {
+	public EditorPane(AutomatonDrawer drawer, ToolBox box, boolean fit)
+	{
 		pane = new EditCanvas(drawer, fit);
 		pane.setCreator(this);
 		this.drawer = drawer;
@@ -121,9 +126,6 @@ public class EditorPane extends JComponent implements MouseListener{
 		pane.setToolBar(toolbar);
 
 		/* Where side pane is added */
-		saveButton = new JButton();
-		saveButton.setText("Save");
-		saveButton.addMouseListener(this);
 		
 		keywords = new JTextPane();
 		keywords.setPreferredSize(new Dimension(190,100));
@@ -156,7 +158,6 @@ public class EditorPane extends JComponent implements MouseListener{
 		editPanel.add(response);
 		editPanel.add(idleResponseLabel);
 		editPanel.add(idleResponse);
-		editPanel.add(saveButton);
 		
 		editPanel.setVisible(false);
 		this.hideAll();
@@ -233,18 +234,12 @@ public class EditorPane extends JComponent implements MouseListener{
 		return automaton;
 	}
 
-	
-	public JButton getSave()
-	{
-		return saveButton;
-	}
-	
+
 	JPanel editPanel;
 	
 	JTextPane keywords;
 	JTextPane response;
 	JTextPane idleResponse;
-	JButton saveButton;
 	
 	JLabel idleResponseLabel;
 	JLabel responseLabel;
@@ -262,9 +257,8 @@ public class EditorPane extends JComponent implements MouseListener{
 	/** The tool bar. */
 	protected gui.editor.ToolBar toolbar;
 
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+
+	void saveFields() {
 		Tool myTool = toolbar.getCurrentTool();
 		if(myTool.getToolTip().equalsIgnoreCase("Arrow Tool"))
 		{
@@ -287,32 +281,8 @@ public class EditorPane extends JComponent implements MouseListener{
 		}
 		//System.out.println("" + myTool);
 
-		}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	public void updateLabels(State lastClickedState) {
 		this.editPanel.setVisible(true);
 		//Hide unneeded stuff
@@ -324,7 +294,6 @@ public class EditorPane extends JComponent implements MouseListener{
 		this.keywordsLabel.setVisible(false);
 		
 		//Get the state properties
-		this.saveButton.setVisible(true);
 		this.idleResponse.setVisible(true);
 		this.idleResponseLabel.setVisible(true);
 		this.idleResponse.setText(lastClickedState.getIdleResponses());
@@ -339,7 +308,6 @@ public class EditorPane extends JComponent implements MouseListener{
 		this.idleResponse.setText("");
 		
 		//Get Transition properties
-		this.saveButton.setVisible(true);
 		this.response.setText(lastClickedTransition.getResponses());
 		this.response.setVisible(true);
 		this.responseLabel.setVisible(true);
@@ -362,6 +330,5 @@ public class EditorPane extends JComponent implements MouseListener{
 		this.idleResponse.setVisible(false);
 		this.idleResponseLabel.setVisible(false);
 		this.idleResponse.setText("");
-		this.saveButton.setVisible(false);
 	}
 }
