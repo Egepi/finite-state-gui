@@ -238,6 +238,7 @@ public abstract class Transition implements Serializable, Cloneable {
 
     public boolean isSelected = false;
     
-    private String keywords, responses;
+    private String keywords = "";
+    private String responses= "";
     
 }
