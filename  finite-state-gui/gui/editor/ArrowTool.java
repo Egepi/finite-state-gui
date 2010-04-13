@@ -542,6 +542,7 @@ public class ArrowTool extends Tool {
 				 * Code to make the root node
 				 ****************************************/
 				getAutomaton().setRootState(state);
+				thePane.updateLabels(state);
 			
             }
             else if(item == makeInit)
@@ -549,7 +550,8 @@ public class ArrowTool extends Tool {
 				/****************************************
 				 * Code to make the init node
 				 ****************************************/
-				getAutomaton().setInitState(state);            	
+				getAutomaton().setInitState(state);  
+				thePane.updateLabels(state);
             }
             
 			else if(item == makeFinal)
@@ -593,6 +595,7 @@ public class ArrowTool extends Tool {
 				if (name.equals(""))
 					name = null;
 				state.setName(name);
+				thePane.updateLabels(state);
 
 			}else if (item == copyBlock) { 
                 //MERLIN MERLIN MERLIN MERLIN MERLIN// 

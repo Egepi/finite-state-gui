@@ -1046,6 +1046,16 @@ public class Automaton implements Serializable, Cloneable {
 	protected State rootState = null;
 	protected State topicState = null;
 	
+	public State getInitState() {
+		return topicState;
+	}
+
+	public State getRootState() {
+		return rootState;
+	}
+
+
+	
 	/**
 	 * Reset all non-transient data structures.
 	 */
