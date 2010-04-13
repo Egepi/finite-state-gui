@@ -309,7 +309,7 @@ public class State implements Serializable{
 	private String[] labels = new String[0];
 	
 	/** The idle Response string */
-	private String idleResponses;
+	private String idleResponses = "";
 	
 //	/** If the state has a parent block, this is it.  It is null if there is no parent block. */
 //	private State parentBlock = null;
