@@ -48,7 +48,7 @@ import file.xml.DOMPrettier;
 public class Profile {
     public static String LAMBDA = "\u03BB";     // Jinghui Lim added stuff
     public static String EPSILON = "\u03B5";    // see MultipleSimulateAction
-	public String lambda = "\u03BB";
+	public String lambda = "";
 	public String epsilon = "\u03B5";
 	public String lambdaText = "u03BB";
 	public String epsilonText = "u03B5";
