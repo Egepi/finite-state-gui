@@ -124,6 +124,9 @@ public class EditorPane extends JComponent{
 
 		/* Where side pane is added */
 		
+		stateName = new JTextPane();
+		stateName.setPreferredSize(new Dimension(190, 20));
+		
 		keywords = new JTextPane();
 		keywords.setPreferredSize(new Dimension(190,100));
 		
@@ -133,6 +136,8 @@ public class EditorPane extends JComponent{
 		idleResponse = new JTextPane();
 		idleResponse.setPreferredSize(new Dimension(190,100));
 		
+		
+		stateName.setBorder(BorderFactory.createLineBorder(Color.black));
 		idleResponse.setBorder(BorderFactory.createLineBorder(Color.black));
 		response.setBorder(BorderFactory.createLineBorder(Color.black));
 		keywords.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -147,8 +152,13 @@ public class EditorPane extends JComponent{
 		idleResponseLabel = new JLabel();
 		idleResponseLabel.setText("Idle Responses");
 				
+		nameLabel = new JLabel();
+		nameLabel.setText("Nane");
+		
 		editPanel = new JPanel();
 		editPanel.setPreferredSize(new Dimension(200, 500));
+		editPanel.add(nameLabel);
+		editPanel.add(stateName);
 		editPanel.add(keywordsLabel);
 		editPanel.add(keywords);
 		editPanel.add(responseLabel);
@@ -237,10 +247,12 @@ public class EditorPane extends JComponent{
 	JTextPane keywords;
 	JTextPane response;
 	JTextPane idleResponse;
+	JTextPane stateName;
 	
 	JLabel idleResponseLabel;
 	JLabel responseLabel;
 	JLabel keywordsLabel;
+	JLabel nameLabel;
 	
 	/** The automaton. */
 	protected Automaton automaton;
@@ -265,6 +277,7 @@ public class EditorPane extends JComponent{
 			if(tempState != null)
 			{
 				tempState.setIdleResponses(this.idleResponse.getText());
+				tempState.setName(this.stateName.getText());
 			}
 			else if(tempTransition != null)
 			{
@@ -291,10 +304,16 @@ public class EditorPane extends JComponent{
 		this.keywordsLabel.setVisible(false);
 		
 		//Get the state properties
+		this.nameLabel.setVisible(true);
+		this.stateName.setVisible(true);
+		this.stateName.setText(lastClickedState.getName());
+		
 		this.idleResponse.setVisible(true);
 		this.idleResponseLabel.setVisible(true);
 		this.idleResponse.setText(lastClickedState.getIdleResponses());
 		this.idleResponse.requestFocus();
+		
+		
 	}
 
 	public void updateLabels(Transition lastClickedTransition) 
@@ -303,7 +322,10 @@ public class EditorPane extends JComponent{
 		this.idleResponse.setVisible(false);
 		this.idleResponseLabel.setVisible(false);
 		this.idleResponse.setText("");
-		
+		this.nameLabel.setVisible(false);
+		this.stateName.setVisible(false);
+		this.stateName.setText("");
+				
 		//Get Transition properties
 		this.response.setText(lastClickedTransition.getResponses());
 		this.response.setVisible(true);
@@ -312,6 +334,7 @@ public class EditorPane extends JComponent{
 		this.keywords.setVisible(true);
 		this.keywordsLabel.setVisible(true);
 		this.keywords.requestFocus();
+
 	}
 
 	public void hideAll() 
@@ -327,5 +350,8 @@ public class EditorPane extends JComponent{
 		this.idleResponse.setVisible(false);
 		this.idleResponseLabel.setVisible(false);
 		this.idleResponse.setText("");
+		this.nameLabel.setVisible(false);
+		this.stateName.setVisible(false);
+		this.stateName.setText("");
 	}
 }
