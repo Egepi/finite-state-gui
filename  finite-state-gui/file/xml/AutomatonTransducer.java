@@ -760,5 +760,5 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 	public static final String TRANSITION_KEYWORD = "keyword";
 	
 	/** Tag the idle response **/
-	public static final String STATE_IDLE_RESPONSE = "stateIdleResponse";
+	public static final String STATE_IDLE_RESPONSE = "stateIdleResp";
 }
