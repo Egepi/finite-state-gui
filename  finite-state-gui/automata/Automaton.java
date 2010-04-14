@@ -492,15 +492,17 @@ public class Automaton implements Serializable, Cloneable {
 	 */
 	public void setRootState(State newRootState)
 	{
+		
 		if(newRootState.equals(this.rootState))
 		{
 			this.rootState.setLabel("");
 			this.rootState = null;
 			return;
 		}
-		else if(newRootState.equals(this.topicState))
+		else if(newRootState.equals(this.initState))
 		{
-			this.topicState = null;
+			this.initState = null;
+			this.rootState.setLabel("");
 			this.rootState = newRootState;
 			this.rootState.setLabel("ROOT");
 			return;			
@@ -521,29 +523,30 @@ public class Automaton implements Serializable, Cloneable {
 	 * Author Karan Chakrapani
 	 * make root only possible on 1 node
 	 */
-	public void setInitState(State initState)
-	{
-		if(initState.equals(this.topicState))
+	public void setInitState(State newInitState)
+	{		
+		if(newInitState.equals(this.initState))
 		{
-			this.topicState.setLabel("");
-			this.topicState = null;
+			this.initState.setLabel("");
+			this.initState = null;
 			return;
 		}
-		else if(initState.equals(this.rootState))
+		else if(newInitState.equals(this.rootState))
 		{
 			this.rootState = null;
-			this.topicState = initState;
-			this.topicState.setLabel("INITIAL");
+			this.initState.setLabel("");
+			this.initState = newInitState;
+			this.initState.setLabel("INITIAL");
 			return;			
 		}
 		else
 		{
-			if (this.topicState != null)
+			if (this.initState != null)
 			{
-				this.topicState.setLabel("");
+				this.initState.setLabel("");
 			}
-			this.topicState = initState;
-			this.topicState.setLabel("INTIAL");
+			this.initState = newInitState;
+			this.initState.setLabel("INTIAL");
 		}
 	}	
 
@@ -1044,10 +1047,10 @@ public class Automaton implements Serializable, Cloneable {
 	 */
 	
 	protected State rootState = null;
-	protected State topicState = null;
+	protected State initState = null;
 	
 	public State getInitState() {
-		return topicState;
+		return initState;
 	}
 
 	public State getRootState() {
