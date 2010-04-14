@@ -494,10 +494,7 @@ public class ArrowTool extends Tool {
          */
 		protected JCheckBoxMenuItem makeFinal, makeInitial;
 		
-		protected JMenuItem makeRoot, makeInit;
-		
-		private JMenuItem changeLabel, deleteLabel, deleteAllLabels, editBlock, copyBlock, replaceSymbol,
-				setName, idleResponse;
+		protected JMenuItem makeRoot, makeInit, setName, idleResponse;
 	}
 
 	/**
