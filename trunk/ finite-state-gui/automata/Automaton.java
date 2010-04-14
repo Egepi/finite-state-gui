@@ -502,7 +502,10 @@ public class Automaton implements Serializable, Cloneable {
 		else if(newRootState.equals(this.initState))
 		{
 			this.initState = null;
-			this.rootState.setLabel("");
+			if(this.rootState != null)
+			{
+				this.rootState.setLabel("");
+			}
 			this.rootState = newRootState;
 			this.rootState.setLabel("ROOT");
 			return;			
@@ -534,7 +537,10 @@ public class Automaton implements Serializable, Cloneable {
 		else if(newInitState.equals(this.rootState))
 		{
 			this.rootState = null;
-			this.initState.setLabel("");
+			if(this.initState != null)
+			{	
+				this.initState.setLabel("");
+			}
 			this.initState = newInitState;
 			this.initState.setLabel("INITIAL");
 			return;			
