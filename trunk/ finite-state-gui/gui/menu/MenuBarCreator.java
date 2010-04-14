@@ -23,7 +23,6 @@ package gui.menu;
 
 import javax.swing.*;
 import gui.environment.Environment;
-import gui.environment.AutomatonEnvironment;
 import gui.environment.EnvironmentFrame;
 import gui.environment.Universe;
 import gui.action.*;
@@ -86,15 +85,6 @@ public class MenuBarCreator {
 			addItem(menu, new OpenAction());
 			addItem(menu, new SaveAction(environment));
 			addItem(menu, new SaveAsAction(environment));
-			JMenu saveImageMenu;
-			saveImageMenu = new JMenu("Save Image As...");
-			saveImageMenu.add(new SaveGraphJPGAction(environment, menu));
-			saveImageMenu.add(new SaveGraphPNGAction(environment, menu));
-			saveImageMenu.add(new SaveGraphGIFAction(environment, menu));
-			saveImageMenu.add(new SaveGraphBMPAction(environment, menu));
-            if (environment instanceof AutomatonEnvironment) //this is strictly for non-Grammar
-                saveImageMenu.add(new ExportAction(environment));
-			menu.add(saveImageMenu);
             
 		}
 		addItem(menu, new CloseWindowAction(frame));
