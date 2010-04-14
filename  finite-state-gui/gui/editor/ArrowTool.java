@@ -432,43 +432,12 @@ public class ArrowTool extends Tool {
 			this.add(setName);
 			
 			
-			makeInitial = new JCheckBoxMenuItem("Initial");
-			if (shouldAllowOnlyFinalStateChange())
-				return;
-			makeInitial.addActionListener(this);
-			
-			changeLabel = new JMenuItem("Change Label");
-			deleteLabel = new JMenuItem("Clear Label");
-			deleteAllLabels = new JMenuItem("Clear All Labels");
-			editBlock = new JMenuItem("Edit Block");
-			copyBlock = new JMenuItem("Duplicate Block");
-			replaceSymbol = new JMenuItem("Replace Symbol");
-			
-			
-			changeLabel.addActionListener(this);
-			deleteLabel.addActionListener(this);
-			deleteAllLabels.addActionListener(this);
-			editBlock.addActionListener(this);
-			copyBlock.addActionListener(this);
-			replaceSymbol.addActionListener(this);
-			/*
-			this.add(changeLabel);
-			this.add(makeInitial);
-			this.add(deleteLabel);
-			this.add(deleteAllLabels);
-			
-			*/
-		}
+}
 
 		public void show(State state, Component comp, Point at) 
 		{
-			this.remove(editBlock);
 			this.state = state;
 //			if (state.getInternalName() != null) {
-
-			makeRoot.setSelected(getAutomaton().isFinalState(state));
-			makeInitial.setSelected(getAutomaton().getInitialState() == state);
-			deleteLabel.setEnabled(state.getLabel() != null);
 			show(comp, at.x, at.y);
 		}
 
@@ -514,79 +483,6 @@ public class ArrowTool extends Tool {
 				thePane.updateLabels(state);
             }
             
-			else if(item == makeFinal)
-			{
-				if (item.isSelected())
-					getAutomaton().addFinalState(state);
-				else
-					getAutomaton().removeFinalState(state);
-			}
-            else if (item == makeInitial) {
-				if (!item.isSelected())
-					state = null;
-				getAutomaton().setInitialState(state);
-			} else if (item == changeLabel) {
-				String oldlabel = state.getLabel();
-				oldlabel = oldlabel == null ? "" : oldlabel;
-				String label = (String) JOptionPane.showInputDialog(this,
-						"Input a new label, or \n"
-								+ "set blank to remove the label", "New Label",
-						JOptionPane.QUESTION_MESSAGE, null, null, oldlabel);
-				if (label == null)
-					return;
-				if (label.equals(""))
-					label = null;
-				state.setLabel(label);
-			} else if (item == deleteLabel) {
-				state.setLabel(null);
-			} else if (item == deleteAllLabels) {
-				State[] states = getAutomaton().getStates();
-				for (int i = 0; i < states.length; i++)
-					states[i].setLabel(null);
-			} else if (item == setName) {
-				String oldName = state.getName();
-				oldName = oldName == null ? "" : oldName;
-				String name = (String) JOptionPane.showInputDialog(this,
-						"Input a new name, or \n"
-								+ "set blank to remove the name", "New Name",
-						JOptionPane.QUESTION_MESSAGE, null, null, oldName);
-				if (name == null)
-					return;
-				if (name.equals(""))
-					name = null;
-				state.setName(name);
-				thePane.updateLabels(state);
-
-			}else if (item == copyBlock) { 
-                //MERLIN MERLIN MERLIN MERLIN MERLIN// 
-
-//				TMState buffer = ((TuringMachine) getAutomaton()).createTMState((Point)state.getPoint()); //again, we assume that the cast will work, since copyBlock hould never be there except with Turing.
-				//TMState buffer = ((TuringMachine) getAutomaton()).createTMState(new Point(state.getPoint().x+4, state.getPoint().y)); //again, we assume that the cast will work, since copyBlock hould never be there except with Turing.
-                //buffer.setInnerTM((TuringMachine)((TMState) state).getInnerTM().clone()); //all states have an inner TM, although this inner TM might have zero states within it, in which case it acts as a simple state.
-
-
-			}
-            else if (item == replaceSymbol) {
-				
-                //assert state instanceof TMState;
-
-				Object old = JOptionPane.showInputDialog(null, "Find");		
-    			if (old == null)
-    				return;
-    			if(old instanceof String){
-    			}
-    				
-    			Object newString = JOptionPane.showInputDialog(null, "Replace With");
-    			if (newString == null)
-    				return;
-    			if(newString instanceof String){
-    			}
-
-                //replaceCharactersInBlock((TMState) state, toReplace, replaceWith);
-				}
-			
-
-    
 			getView().repaint();
 		}
 		
