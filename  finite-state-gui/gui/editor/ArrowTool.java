@@ -79,18 +79,17 @@ public class ArrowTool extends Tool {
 	 * @param drawer
 	 *            the object that draws the automaton
 	 */
-	public ArrowTool(AutomatonPane view, AutomatonDrawer drawer) {
+	public ArrowTool(AutomatonPane view, AutomatonDrawer drawer) 
+	{
 		super(view, drawer);
-		this.creator = TransitionCreator.creatorForAutomaton(getAutomaton(),
-				getView());
+		this.creator = TransitionCreator.creatorForAutomaton(getAutomaton(), getView());
 	}
 
-	public ArrowTool(EditCanvas view, AutomatonDrawer drawer,
-			EditorPane editorPane) {
+	public ArrowTool(EditCanvas view, AutomatonDrawer drawer, EditorPane editorPane) 
+	{
 		super(view, drawer);
 		thePane = editorPane;
-		this.creator = TransitionCreator.creatorForAutomaton(getAutomaton(),
-				getView());
+		this.creator = TransitionCreator.creatorForAutomaton(getAutomaton(), getView());
 	}
 
 	/**
@@ -98,7 +97,8 @@ public class ArrowTool extends Tool {
 	 * 
 	 * @return the tool tip for this tool
 	 */
-	public String getToolTip() {
+	public String getToolTip() 
+	{
 		return "Arrow Tool";
 	}
 
@@ -107,7 +107,8 @@ public class ArrowTool extends Tool {
 	 * 
 	 * @return the arrow tool icon
 	 */
-	protected Icon getIcon() {
+	protected Icon getIcon() 
+	{
 		java.net.URL url = getClass().getResource("/ICON/arrow.gif");
 		return new javax.swing.ImageIcon(url);
 	}
@@ -119,7 +120,8 @@ public class ArrowTool extends Tool {
 	 * @param event
 	 *            the mouse event
 	 */
-	public void mouseClicked(MouseEvent event) {
+	public void mouseClicked(MouseEvent event) 
+	{
 		if (event.getClickCount() == 1){
             Transition trans = getDrawer().transitionAtPoint(event.getPoint());
             if (trans != null){
@@ -155,7 +157,8 @@ public class ArrowTool extends Tool {
 	 * @param event
 	 *            the mouse event
 	 */
-	protected void showPopup(MouseEvent event) {
+	protected void showPopup(MouseEvent event) 
+	{
 		// Should we show a popup menu?
 		if (event.isPopupTrigger()) {
 			Point p = getView().transformFromAutomatonToView(event.getPoint());
@@ -172,6 +175,7 @@ public class ArrowTool extends Tool {
 				//emptyMenu.show(getView(), p);
 			}
 		}
+		
 		//lastClickedState = null;
 		//lastClickedTransition = null;
 	}
@@ -180,7 +184,8 @@ public class ArrowTool extends Tool {
 	 * On a mouse press, allows the state to be dragged about unless this is a
 	 * popup trigger.
 	 */
-	public void mousePressed(MouseEvent event) {
+	public void mousePressed(MouseEvent event) 
+	{
 		if (getDrawer().getAutomaton().getEnvironmentFrame() !=null)
     		((AutomatonEnvironment)getDrawer().getAutomaton().getEnvironmentFrame().getEnvironment()).saveStatus();
         else
@@ -264,17 +269,16 @@ public class ArrowTool extends Tool {
 	 * @return <CODE>true</CODE> if the state menu should be popped up, <CODE>false</CODE>
 	 *         if it should not be... returns <CODE>true</CODE> by default
 	 */
-	protected boolean shouldShowStatePopup() {
+	protected boolean shouldShowStatePopup() 
+	{
 		return true;
 	}
 
 	/**
 	 * On a mouse drag, possibly move a state if the first press was on a state.
 	 */
-	public void mouseDragged(MouseEvent event) {
-
-
-
+	public void mouseDragged(MouseEvent event) 
+	{
 		if (lastClickedState != null) {
 			if (event.isPopupTrigger())
 				return;
@@ -411,7 +415,8 @@ public class ArrowTool extends Tool {
 	/**
 	 * On a mouse release, sets the tool to the "virgin" state.
 	 */
-	public void mouseReleased(MouseEvent event) {
+	public void mouseReleased(MouseEvent event) 
+	{
         transitionInFlux = false;
 		if (event.isPopupTrigger())
 		{
@@ -442,7 +447,8 @@ public class ArrowTool extends Tool {
 	 * 
 	 * @return the key stroke that will activate this tool
 	 */
-	public KeyStroke getKey() {
+	public KeyStroke getKey() 
+	{
 		return KeyStroke.getKeyStroke('a');
 	}
 
@@ -450,7 +456,8 @@ public class ArrowTool extends Tool {
 	 * Returns true if only changing the final stateness of a state should be
 	 * allowed in the state menu.
 	 */
-	public boolean shouldAllowOnlyFinalStateChange() {
+	public boolean shouldAllowOnlyFinalStateChange() 
+	{
 		return false;
 	}
 
@@ -461,8 +468,10 @@ public class ArrowTool extends Tool {
      * I changed this from private class to protected class so I can 
      * remove the "Final State" option from Moore and Mealy machines.
      */
-	protected class StateMenu extends JPopupMenu implements ActionListener {
-		public StateMenu() {
+	protected class StateMenu extends JPopupMenu implements ActionListener 
+	{
+		public StateMenu() 
+		{
 			idleResponse = new JMenuItem("Idle Response");
 			idleResponse.addActionListener(this);
 			this.add(idleResponse);
@@ -508,7 +517,8 @@ public class ArrowTool extends Tool {
 			*/
 		}
 
-		public void show(State state, Component comp, Point at) {
+		public void show(State state, Component comp, Point at) 
+		{
 			this.remove(editBlock);
 			this.state = state;
 //			if (state.getInternalName() != null) {
@@ -519,7 +529,8 @@ public class ArrowTool extends Tool {
 			show(comp, at.x, at.y);
 		}
 
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e) 
+		{
 			JMenuItem item = (JMenuItem) e.getSource();
             if (getDrawer().getAutomaton().getEnvironmentFrame() !=null)
                 ((AutomatonEnvironment)getDrawer().getAutomaton().getEnvironmentFrame().getEnvironment()).saveStatus();
@@ -664,7 +675,8 @@ public class ArrowTool extends Tool {
 			response.addActionListener(this);
 			this.add(response);
 		}
-		public void show(Transition lastClickedTransition, Component comp, Point at) {
+		public void show(Transition lastClickedTransition, Component comp, Point at) 
+		{
 			this.transition = lastClickedTransition;
 			show(comp, at.x, at.y);
 		}
@@ -713,12 +725,10 @@ public class ArrowTool extends Tool {
 	 */
 	
 
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e) 
+		{
 			JMenuItem item = (JMenuItem) e.getSource();
-			
-
-			
-			
+		
 			if (item == stateLabels) {
 				getView().getDrawer().shouldDrawStateLabels(item.isSelected());
 			} else if (item == renameStates) {
