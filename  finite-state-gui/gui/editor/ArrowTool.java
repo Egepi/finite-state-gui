@@ -302,68 +302,13 @@ public class ArrowTool extends Tool {
 			Point p = event.getPoint();
 			State f = lastClickedTransition.getFromState(), t = lastClickedTransition
 					.getToState();
-			if (f==t){
-
-                //uncomment this code for Transitions movement
-                /*
-				double circlex = (p.x-f.getPoint().x);
-				double circley = (p.y-f.getPoint().y);
-				double angle = Math.atan2(circley, circlex);
-				Point from = getView().getDrawer().pointOnState(f, angle+Math.PI*.166);
-				Point to = getView().getDrawer().pointOnState(f, angle-Math.PI*.166);
-
-				Transition[] trans = getAutomaton().getTransitionsFromStateToState(f, t);
-                
-				for (int n = 0; n < trans.length; n++) {
-					CurvedArrow arrow = (CurvedArrow) getView().getDrawer().transitionToArrowMap.get(trans[n]);
-//					arrow.setStart(from);
-//					arrow.setEnd(to);
-					getView().getDrawer().selfTransitionMap.put(trans[n], angle);
-					getView().getDrawer().arrowToTransitionMap.put(arrow, trans[n]);
-					getView().getDrawer().transitionToArrowMap.put(trans[n], arrow);
-				}
-                */
-			}
+			
+			
 			if (f != t) {
-				//double angle = Math.atan2(circley, circlex);
-				//Point from = getView().getDrawer().pointOnState(f, angle+Math.PI*.166);
-				//Point to = getView().getDrawer().pointOnState(f, angle-Math.PI*.166);
 				Transition[] trans = getAutomaton().getTransitionsFromStateToState(f, t);
 				for (int n = 0; n < trans.length; n++) {
 					CurvedArrow arrow = (CurvedArrow) getView().getDrawer().transitionToArrowMap.get(trans[n]);
 
-                    
-
-                    //uncomment this code for Transitions movement
-                    /*
-					float centerx = (t.getPoint().x+f.getPoint().x)/2;
-					float centery = (t.getPoint().y+f.getPoint().y)/2;
-					float pvecx = p.x-centerx; float pvecy = p.y-centery;
-					float svecx = t.getPoint().x-centerx; float svecy = t.getPoint().y-centery;
-					float dprod = pvecx*svecx+pvecy*svecy;
-					dprod = dprod/(float) Math.abs((Math.sqrt(pvecx*pvecx+pvecy*pvecy)))/(float) Math.abs((Math.sqrt(svecx*svecx+svecy*svecy)));
-					float theta = (float) Math.acos(dprod);
-					float curv = (float) (Math.sqrt(pvecx*pvecx+pvecy*pvecy)*Math.sin(theta))/10;
-                    */
-
-
-					//float curv = (float) Math.sqrt((p.x-centerx)*(p.x-centerx)+(p.y-centery)*(p.y-centery))/10;
-					//Float curv = (float) -(p.y-(f.getPoint().y+t.getPoint().y)/2)/10;
-					//if (curv>=0){
-
-                    //uncomment this code for Transitions
-                    /*
-					arrow.setCurvy(curv+n);
-					getView().getDrawer().curveTransitionMap.put(trans[n], curv);
-                    */
-
-
-					//}else{
-					//	arrow.setCurvy(-(curv-n));
-					//	getView().getDrawer().curveTransitionMap.put(trans[n], -curv);
-					//}
-					//QuadCurve2D curve = arrow.getCurve();
-					//curve.setCurve(curve.getX1(), curve.getY1(), p.x, p.y, curve.getX2(), curve.getY2());
 					
 					getView().getDrawer().arrowToTransitionMap.put(arrow, trans[n]);
 					getView().getDrawer().transitionToArrowMap.put(trans[n], arrow);
@@ -737,21 +682,12 @@ public class ArrowTool extends Tool {
 			} else if (item == adaptView)
             {
                 getView().setAdapt(item.isSelected());
-            } else if (item == addNote)
-            {		 	
-                ((AutomatonEnvironment)getDrawer().getAutomaton().getEnvironmentFrame().getEnvironment()).saveStatus();
-                Note newNote = new Note(myPoint, "insert_text");
-                newNote.initializeForView(getView());
-        		getView().getDrawer().getAutomaton().addNote(newNote);
-        		
             }
 			getView().repaint();
 			//new EmptyMenu();
 		}
-		private Point myPoint;
 		
 		private JCheckBoxMenuItem stateLabels;
-		private JMenuItem addNote;
 		private JMenuItem renameStates, adaptView;
 		
 	
