@@ -432,7 +432,6 @@ public class ArrowTool extends Tool {
 		
 		myLastClickedState = lastClickedState;
 		myLastClickedTransition = lastClickedTransition;
-		System.out.println("State: " + myLastClickedState + "    Trans: " + myLastClickedTransition);
 		lastClickedState = null;
 		lastClickedTransition = null;
 		getView().repaint();
