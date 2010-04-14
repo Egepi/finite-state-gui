@@ -44,7 +44,6 @@ import javax.swing.KeyStroke;
 
 import automata.Note;
 import automata.State;
-import automata.StateRenamer;
 import automata.Transition;
 import debug.EDebug;
 
@@ -172,7 +171,6 @@ public class ArrowTool extends Tool {
 			}
 			else 
 			{
-				//emptyMenu.show(getView(), p);
 			}
 		}
 		
@@ -668,27 +666,6 @@ public class ArrowTool extends Tool {
 	/**
 	 * The contextual menu class for context clicks in blank space.
 	 */
-	
-
-		public void actionPerformed(ActionEvent e) 
-		{
-			JMenuItem item = (JMenuItem) e.getSource();
-		
-			if (item == stateLabels) {
-				getView().getDrawer().shouldDrawStateLabels(item.isSelected());
-			} else if (item == renameStates) {
-    		    ((AutomatonEnvironment)getDrawer().getAutomaton().getEnvironmentFrame().getEnvironment()).saveStatus();
-				StateRenamer.rename(getAutomaton());
-			} else if (item == adaptView)
-            {
-                getView().setAdapt(item.isSelected());
-            }
-			getView().repaint();
-			//new EmptyMenu();
-		}
-		
-		private JCheckBoxMenuItem stateLabels;
-		private JMenuItem renameStates, adaptView;
 		
 	
 	public State getLastState()
