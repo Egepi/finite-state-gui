@@ -479,6 +479,9 @@ public abstract class AutomatonTransducer extends AbstractTransducer {
 		if (state.getLabel() != null)
 			se.appendChild(createElement(document, STATE_LABEL_NAME, null,
 					state.getLabel()));
+		else{
+			se.appendChild(createElement(document,STATE_LABEL_NAME, null, ""));
+		}
 		// Encode the name, if set.
 		if (state.getName() != null) se.setAttribute(STATE_NAME_NAME, "" + state.getName());
 		
