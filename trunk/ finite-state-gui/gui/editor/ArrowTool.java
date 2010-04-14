@@ -165,14 +165,15 @@ public class ArrowTool extends Tool {
 			else if(lastClickedTransition != null)
 			{
 				transitionMenu.show(lastClickedTransition, getView(), p);
+				
 			}
 			else 
 			{
 				//emptyMenu.show(getView(), p);
 			}
 		}
-		lastClickedState = null;
-		lastClickedTransition = null;
+		//lastClickedState = null;
+		//lastClickedTransition = null;
 	}
 
 	/**
@@ -186,6 +187,7 @@ public class ArrowTool extends Tool {
             EDebug.print("I cannot preserve what you ask");
 		initialPointClick.setLocation(event.getPoint());
 		lastClickedState = getDrawer().stateAtPoint(event.getPoint());
+		
 		if (lastClickedState == null)
 		{	
 			lastClickedTransition = getDrawer().transitionAtPoint(event.getPoint());		
@@ -208,7 +210,9 @@ public class ArrowTool extends Tool {
 		
 		// Should we show a popup menu?
 		if (event.isPopupTrigger())
+		{
 			showPopup(event);
+		}
 
 		if (lastClickedState != null) {
 			initialPointState.setLocation(lastClickedState.getPoint());
@@ -410,8 +414,9 @@ public class ArrowTool extends Tool {
 	public void mouseReleased(MouseEvent event) {
         transitionInFlux = false;
 		if (event.isPopupTrigger())
+		{
 			showPopup(event);
-		
+		}
 		
 		State[] states = getView().getDrawer().getAutomaton().getStates();
 		int count = 0;
@@ -424,8 +429,10 @@ public class ArrowTool extends Tool {
 		if(count == 1 && bounds.isEmpty() && lastClickedState!=null) lastClickedState.setSelect(false);
 		bounds = new Rectangle(0, 0, -1, -1);
 		getView().getDrawer().setSelectionBounds(bounds);
+		
 		myLastClickedState = lastClickedState;
 		myLastClickedTransition = lastClickedTransition;
+		System.out.println("State: " + myLastClickedState + "    Trans: " + myLastClickedTransition);
 		lastClickedState = null;
 		lastClickedTransition = null;
 		getView().repaint();
