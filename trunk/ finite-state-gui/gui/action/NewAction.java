@@ -131,8 +131,6 @@ public class NewAction extends RestrictedAction {
 				public void windowClosing(WindowEvent event) {
 					if (Universe.numberOfFrames() > 0) {
 						NewDialog.this.setVisible(false);
-					} else {
-						QuitAction.beginQuit();
 					}
 				}
 			});
@@ -149,7 +147,7 @@ public class NewAction extends RestrictedAction {
 				SecurityManager sm = System.getSecurityManager();
 				if (sm != null)
 					sm.checkExit(0);
-				MenuBarCreator.addItem(menu, new QuitAction());
+				//MenuBarCreator.addItem(menu, new QuitAction());
 			} catch (SecurityException e) {
 				// Well, can't exit anyway.
 			}
