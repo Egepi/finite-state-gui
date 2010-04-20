@@ -118,10 +118,9 @@ for node in doc.getElementsByTagName("transition"):
   TransitionList.append(y)
 
 for item in StateList:
-	print "yes"
-
+	print item.id
 for item in TransitionList:
-	print "okay"
+	print item.to
 	
 def initialize( self ):
 
@@ -182,8 +181,44 @@ def initialize( self ):
 		self.addTransition(ruleid, 'TESTA_WEATHER', TESTA_INI_Func, 'TESTA_INI')
 		ruleid = self.addGrammarRule(gramid, "TESTA_WEATHER_R1", "exit")
 		self.addTransition(ruleid, 'TESTA_WEATHER', TESTA_EXIT_Func, 'TESTA_INI')
+		
 
-def stateGenerator (States, TransitionList):
+def stateGenerator (StateList, TransitionList, self):
+
+		# Map (input, current_state) --> (action, next_state)
+		# action is state related function assigned to it
+		self.state_transitions = {}
+		self.grammarIDs = {}
+		self.exiting = False
+		self.active = False
+		
+		# initial state
+		self.initial_state = FILENAME + '_INI'
+		self.current_state = self.initial_state
+		self.action = FILENAME+'_INI_Func'
+		self.initial_action = FILENAME+ '+INI_Func'
+		self.next_state = None
+		self.prev_state = None
+	    
+		# register transition to this activity from ActivityManager (top level manager)
+		# use ':' as delim for multiple recognizable inputs
+		self.registerTransition("test:testing")
+
+		#checking if state is root
+		for item in StateList:
+			try:
+				if item.label == "ROOT":
+					print "yes"
+			except AttributeError:
+					print "no"
+					
+		for item in StateList:
+			try:
+				if item.label == "INTIAL":
+					print "yes"
+			except AttributeError:
+					print "no"
+		
 		gramid = self.addGrammar(FILENAME+"_"+name+"_GRM")
 		self.grammarIDs[FILENAME+"_"+name] = gramid
 		for item in TransitionList:
@@ -193,4 +228,5 @@ def stateGenerator (States, TransitionList):
 				self.addTransition(ruleid, FILENAME+"_"+States.name, "Some String", item.to)
 				#ruleid = self.addGrammarRule(gramid, "TESTA_NEWS_R1", "exit")
 				#self.addTransition(ruleid, 'TESTA_NEWS', TESTA_EXIT_Func, 'TESTA_INI')
-		
+				
+stateGenerator(StateList, TransitionList, self)	
