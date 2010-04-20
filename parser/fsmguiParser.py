@@ -33,65 +33,96 @@ else:                         # optional, run block if no exception thrown
   print "Parsing:",FILENAME, "\n"
   
 mapping = {}
+
+count = 0
+StateList = []
+TransitionList = []
+
+class States:
+	def __init__(self):
+		self.thisname = name
+		self.thisid = id
+		self.thislabel = label
+		self.thisstateidle = stateidle
+		
+class Transitions:
+	def __init__(self):
+		self.thisfrom = fr
+		self.thisread = read
+		self.thisto = to
+		self.thisresponse = response
+		self.thiskeyword = keyword
   
 for node in doc.getElementsByTagName("state"):
   id = node.getAttribute("id")
   name = node.getAttribute("name")
   stateidle = node.getElementsByTagName("stateIdleResp")
   label = node.getElementsByTagName("label")
+  x = States()
+  x.id = id
+  x.name = name
   for node2 in stateidle:
 	stateidle = ""
   for node3 in node2.childNodes:
 	if node3.nodeType == Node.TEXT_NODE:
 		stateidle += node3.data	
+		x.stateidle = stateidle
+		#save to state object put into lists
   for node2 in label:
 	label = ""
   for node3 in node2.childNodes:
 	if node3.nodeType == Node.TEXT_NODE:
 		label += node3.data	
-		
-  mapping[stateidle] = "stateidle: " + stateidle
-  mapping[label] = "label: " + label
-
+		x.label = label
+  StateList.append(x)
+  
 for node in doc.getElementsByTagName("transition"):
   fr = node.getElementsByTagName("from")
   read = node.getElementsByTagName("read")
   to = node.getElementsByTagName("to")
   response = node.getElementsByTagName("response")
   keyword = node.getElementsByTagName("keyword")
+  y = Transitions()
+  
   for node2 in fr:
 	fr = ""
   for node3 in node2.childNodes:
 	if node3.nodeType == Node.TEXT_NODE:
 		fr += node3.data	  
+		y.fr = fr
   for node2 in read:
 	read = ""
   for node3 in node2.childNodes:
 	if node3.nodeType == Node.TEXT_NODE:
-		read += node3.data	  
+		read += node3.data
+		y.read = read
   for node2 in to:
 	to	= ""
   for node3 in node2.childNodes:
 	if node3.nodeType == Node.TEXT_NODE:
 		to += node3.data
+		y.to = to
   for node2 in response:
 	response = ""
   for node3 in node2.childNodes:
 	if node3.nodeType == Node.TEXT_NODE:
-		response += node3.data	  
+		response += node3.data
+		y.response = response
   for node2 in keyword:
 	keyword	= ""
   for node3 in node2.childNodes:
 	if node3.nodeType == Node.TEXT_NODE:
-		keyword += node3.data	
+		keyword += node3.data
+		y.keyword = keyword
+		
+  TransitionList.append(y)
 
-  mapping[fr] = "fr: " + fr 
-  mapping[to] = "to: " + to
-  mapping[response] = "resp: " + response
-  mapping[keyword] = "key: " + keyword
-  mapping[read] = "read: " + read		
-pprint.pprint(mapping)
+for item in StateList:
+	print "yes"
 
+for item in TransitionList:
+	print "okay"
+	
 def initialize( self ):
 
 		# Map (input, current_state) --> (action, next_state)
@@ -152,5 +183,14 @@ def initialize( self ):
 		ruleid = self.addGrammarRule(gramid, "TESTA_WEATHER_R1", "exit")
 		self.addTransition(ruleid, 'TESTA_WEATHER', TESTA_EXIT_Func, 'TESTA_INI')
 
-		
+def stateGenerator (States, TransitionList):
+		gramid = self.addGrammar(FILENAME+"_"+name+"_GRM")
+		self.grammarIDs[FILENAME+"_"+name] = gramid
+		for item in TransitionList:
+			if States.id == item.fr:
+				count = count+1
+				ruleid = self.addGrammarRule(gramid, FILENAME+"_"+States.name+"R"+count, item.keyword)
+				self.addTransition(ruleid, FILENAME+"_"+States.name, "Some String", item.to)
+				#ruleid = self.addGrammarRule(gramid, "TESTA_NEWS_R1", "exit")
+				#self.addTransition(ruleid, 'TESTA_NEWS', TESTA_EXIT_Func, 'TESTA_INI')
 		
