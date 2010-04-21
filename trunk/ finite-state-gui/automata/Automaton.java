@@ -486,76 +486,6 @@ public class Automaton implements Serializable, Cloneable {
 		return oldInitialState;
 	}
 	
-	/*
-	 * Author Karan Chakrapani
-	 * make root only possible on 1 node
-	 */
-	public void setRootState(State newRootState)
-	{
-		
-		if(newRootState.equals(this.rootState))
-		{
-			this.rootState.setLabel("");
-			this.rootState = null;
-			return;
-		}
-		else if(newRootState.equals(this.initState))
-		{
-			this.initState = null;
-			if(this.rootState != null)
-			{
-				this.rootState.setLabel("");
-			}
-			this.rootState = newRootState;
-			this.rootState.setLabel("ROOT");
-			return;			
-		}
-		else
-		{
-			if (this.rootState != null)
-			{
-				this.rootState.setLabel("");
-			}
-			this.rootState = newRootState;
-			this.rootState.setLabel("ROOT");
-			return;
-		}
-	}
-	
-	/*
-	 * Author Karan Chakrapani
-	 * make root only possible on 1 node
-	 */
-	public void setInitState(State newInitState)
-	{		
-		if(newInitState.equals(this.initState))
-		{
-			this.initState.setLabel("");
-			this.initState = null;
-			return;
-		}
-		else if(newInitState.equals(this.rootState))
-		{
-			this.rootState = null;
-			if(this.initState != null)
-			{	
-				this.initState.setLabel("");
-			}
-			this.initState = newInitState;
-			this.initState.setLabel("INITIAL");
-			return;			
-		}
-		else
-		{
-			if (this.initState != null)
-			{
-				this.initState.setLabel("");
-			}
-			this.initState = newInitState;
-			this.initState.setLabel("INTIAL");
-		}
-	}	
-
 	/**
 	 * Returns the start state for this automaton.
 	 * 
@@ -1046,24 +976,6 @@ public class Automaton implements Serializable, Cloneable {
 
 	private transient HashSet<AutomataNoteListener> noteListeners = new HashSet<AutomataNoteListener>();
 	
-	/*
-	 * Author Karan Chakrapani
-	 * 
-	 * Root state and topic states
-	 */
-	
-	protected State rootState = null;
-	protected State initState = null;
-	
-	public State getInitState() {
-		return initState;
-	}
-
-	public State getRootState() {
-		return rootState;
-	}
-
-
 	
 	/**
 	 * Reset all non-transient data structures.

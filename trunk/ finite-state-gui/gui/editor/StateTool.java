@@ -73,6 +73,7 @@ public class StateTool extends Tool {
 		if (getDrawer().getAutomaton().getEnvironmentFrame() !=null)
     		((AutomatonEnvironment)getDrawer().getAutomaton().getEnvironmentFrame().getEnvironment()).saveStatus();
 		state = getAutomaton().createState(event.getPoint());
+		state.setName("S" + state.getID());
 		if(state.getID() == 0)
 		{
 			state.setLabel("ROOT");
