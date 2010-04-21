@@ -184,18 +184,18 @@ for item in TransitionList:
 	
 #class PythonActivity( LLActivityBase ):	
 
-def stateGenerator (States, TransitionList):		
-		for item in TransitionList:
+def stateGenerator (States, TransitionList, self):		
+		for Transitions in TransitionList:
 			if States.id == item.fr:
 				count = count+1
-				ruleid = self.addGrammarRule(gramid, FILENAME+"_"+States.name+"R"+count, item.keyword)
-				item.remove(Transitions)
-				self.addTransition(ruleid, FILENAME+"_"+States.name, "Some String", item.to)
+				ruleid = self.addGrammarRule(gramid, FILENAME+"_"+States.name+"R"+count, Transitions.keyword)
+				Transitions.remove(Transitions)
+				self.addTransition(ruleid, FILENAME+"_"+States.name, Transitions.keyword, Transitions.to)
 				remove(States) #at this id
 				#ruleid = self.addGrammarRule(gramid, "TESTA_NEWS_R1", "exit")
 				#self.addTransition(ruleid, 'TESTA_NEWS', TESTA_EXIT_Func, 'TESTA_INI')
 
-def RootInitGenerator(StateList,TranistionsList):		
+def RootInitGenerator(StateList,TranistionsList, self):		
 
 		# Map (input, current_state) --> (action, next_state)
 		# action is state related function assigned to it
@@ -228,7 +228,7 @@ def RootInitGenerator(StateList,TranistionsList):
 							count = count+1
 							ruleid = self.addGrammarRule(gramid, FILENAME+"_"+States.name+"ROOT", Transitions.keyword)
 							StateList.remove(States)
-							self.addTransition(ruleid, FILENAME+"_"+States.name, "Some String", Transitions.to)
+							self.addTransition(ruleid, FILENAME+"_"+States.name, Transitions.keyword, Transitions.to)
 							Tranitions.remove(Transitions)
 			except AttributeError:
 					print "no"
@@ -245,10 +245,10 @@ def RootInitGenerator(StateList,TranistionsList):
 			except AttributeError:
 					print "no" 
 		for States in StateList:
-			statesGenerator(States,TransitionList)
+			statesGenerator(States,TransitionList,self)
 		if not States:
 			print "end of StatesList"
 			os._exit(99)
 
 					
-RootInitGenerator(StateList, TransitionList)	
+RootInitGenerator(StateList, TransitionList, self)	
