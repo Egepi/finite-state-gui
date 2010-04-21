@@ -13,7 +13,7 @@ from xml.dom.minidom import Node
 
 #Path of the folder where all the files are stored.
 #Note: CHANGE THIS TO INCORPORATE THE XML FILES YOU WANT TO BE PARSED
-path = 'C:\Users\YT\Documents\EVL\Parser\pyscripts'
+path = 'C:\Users\YT\Documents\EVL\ProjectLifelike\FSMGUI\parser'
 # parse through all .xml documents within given path
 for infile in glob.glob(os.path.join(path, '*.jff')):
     
@@ -183,7 +183,24 @@ for item in TransitionList:
 		# self.addTransition(ruleid, 'TESTA_WEATHER', TESTA_EXIT_Func, 'TESTA_INI')
 	
 #class PythonActivity( LLActivityBase ):	
-def RootInitGenerator(StatesList,TranistionsList,self):		
+
+def stateGenerator (States, TransitionList):		
+		for item in TransitionList:
+			if States.id == item.fr:
+				count = count+1
+				ruleid = self.addGrammarRule(gramid, FILENAME+"_"+States.name+"R"+count, item.keyword)
+				item.remove(Transitions)
+				self.addTransition(ruleid, FILENAME+"_"+States.name, "Some String", item.to)
+				remove(States) #at this id
+				#ruleid = self.addGrammarRule(gramid, "TESTA_NEWS_R1", "exit")
+				#self.addTransition(ruleid, 'TESTA_NEWS', TESTA_EXIT_Func, 'TESTA_INI')
+				if TransitionList:  #python check if list is containing something
+					stateGenerator(States,TransitionList)
+				else:
+					os._exit(99)
+
+
+def RootInitGenerator(StateList,TranistionsList):		
 
 		# Map (input, current_state) --> (action, next_state)
 		# action is state related function assigned to it
@@ -211,34 +228,35 @@ def RootInitGenerator(StatesList,TranistionsList,self):
 		for item in StateList:
 			try:
 				if item.label == "ROOT":
-					for item in TransitionList:
-						if States.id == item.fr:
+					for item1 in TransitionList:
+						if States.id == item1.fr:
 							count = count+1
-							ruleid = self.addGrammarRule(gramid, FILENAME+"_"+States.name+"ROOT", item.keyword)
-							self.addTransition(ruleid, FILENAME+"_"+States.name, "Some String", item.to)
+							ruleid = self.addGrammarRule(gramid, FILENAME+"_"+States.name+"ROOT", item1.keyword)
+							item.remove(States)
+							self.addTransition(ruleid, FILENAME+"_"+States.name, "Some String", item1.to)
+							item1.remove(Transitions)
 			except AttributeError:
 					print "no"
-			item.remove(States)
-		for item in StateList:
+		for item2 in StateList:
 			try:
-				if item.label == "INTIAL":
-					for item in TransitionList:
-						if States.id == item.fr:
+				if item2.label == "INTIAL":
+					for item3 in TransitionList:
+						if States.id == item3.fr:
 							count = count+1
-							ruleid = self.addGrammarRule(gramid, FILENAME+"_"+States.name+"INIT", item.keyword)
-							self.addTransition(ruleid, FILENAME+"_"+States.name, "Some String", item.to)
+							ruleid = self.addGrammarRule(gramid, FILENAME+"_"+States.name+"INIT", item3.keyword)
+							item2.remove(States)
+							self.addTransition(ruleid, FILENAME+"_"+States.name, "Some String", item3.to)					
+							item3.remove(Transitions)
 			except AttributeError:
-					print "no"
-			item.remove(States)
-		
-def stateGenerator (States, TransitionList):
-		
-		for item in TransitionList:
-			if States.id == item.fr:
+					print "no" 
+		for item4 in TransitionList:
+			if States.id == item4.fr:
 				count = count+1
-				ruleid = self.addGrammarRule(gramid, FILENAME+"_"+States.name+"R"+count, item.keyword)
-				self.addTransition(ruleid, FILENAME+"_"+States.name, "Some String", item.to)
-				#ruleid = self.addGrammarRule(gramid, "TESTA_NEWS_R1", "exit")
-				#self.addTransition(ruleid, 'TESTA_NEWS', TESTA_EXIT_Func, 'TESTA_INI')
-				
-#stateGenerator(States, TransitionList)	
+				ruleid = self.addGrammarRule(gramid, FILENAME+"_"+States.name+"_"+count, item4.keyword)
+				item4.remove(Transitions)
+				self.addTransition(ruleid, FILENAME+"_"+States.name, "Some String", item4.to)
+				remove(States) #at this id
+				statesGenerator(States,TransitionList)
+
+					
+RootInitGenerator(StateList, TransitionList)	
