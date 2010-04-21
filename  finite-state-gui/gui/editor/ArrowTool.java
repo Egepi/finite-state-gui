@@ -36,7 +36,6 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import javax.swing.Icon;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
@@ -418,14 +417,6 @@ public class ArrowTool extends Tool {
 			idleResponse = new JMenuItem("Idle Response");
 			idleResponse.addActionListener(this);
 			this.add(idleResponse);
-			
-			makeRoot = new JMenuItem("Make Root");
-			makeRoot.addActionListener(this);
-			this.add(makeRoot);
-			
-			makeInit = new JMenuItem("Make Initial");
-			makeInit.addActionListener(this);
-			this.add(makeInit);
 						
 			setName = new JMenuItem("Set Name");
 			setName.addActionListener(this);
@@ -463,38 +454,13 @@ public class ArrowTool extends Tool {
 				thePane.updateLabels(state);
 			}
 			/************************************************************/
-			
-			
-			
-            if (item == makeRoot) {            	
-				/****************************************
-				 * Code to make the root node
-				 ****************************************/
-				getAutomaton().setRootState(state);
-				thePane.updateLabels(state);
-			
-            }
-            else if(item == makeInit)
-            {
-				/****************************************
-				 * Code to make the init node
-				 ****************************************/
-				getAutomaton().setInitState(state);  
-				thePane.updateLabels(state);
-            }
             
 			getView().repaint();
 		}
 		
 	    private State state;
-
-        /*
-         * Changed this from private to protected so I can remove
-         * "Final State" option from Moore and Mealy machines.
-         */
-		protected JCheckBoxMenuItem makeFinal, makeInitial;
 		
-		protected JMenuItem makeRoot, makeInit, setName, idleResponse;
+		protected JMenuItem setName, idleResponse;
 	}
 
 	/**

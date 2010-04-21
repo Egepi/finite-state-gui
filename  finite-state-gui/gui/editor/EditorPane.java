@@ -27,15 +27,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
@@ -52,7 +49,7 @@ import automata.Transition;
  * @author Thomas Finley
  */
 @SuppressWarnings({"serial", "unchecked"})
-public class EditorPane extends JComponent implements ActionListener{
+public class EditorPane extends JComponent{
 	/**
 	 * Instantiates a new editor pane for the given automaton.
 	 * 
@@ -157,22 +154,10 @@ public class EditorPane extends JComponent implements ActionListener{
 		idleResponseLabel.setText("Idle Responses");
 				
 		nameLabel = new JLabel();
-		nameLabel.setText("Nane");
-		
-		root = new JRadioButtonMenuItem();
-		root.setText("Root");
-		root.setPreferredSize(new Dimension(85, 20));
-		root.addActionListener(this);
-		
-		initial = new JRadioButtonMenuItem();
-		initial.setText("Initial");		
-		initial.setPreferredSize(new Dimension(85, 20));		
-		initial.addActionListener(this);
+		nameLabel.setText("Name");
 		
 		editPanel = new JPanel();
 		editPanel.setPreferredSize(new Dimension(200, 500));
-		editPanel.add(root);
-		editPanel.add(initial);
 		editPanel.add(nameLabel);
 		editPanel.add(stateName);
 		editPanel.add(keywordsLabel);
@@ -270,8 +255,6 @@ public class EditorPane extends JComponent implements ActionListener{
 	JLabel keywordsLabel;
 	JLabel nameLabel;
 	
-	JRadioButtonMenuItem root;
-	JRadioButtonMenuItem initial;
 	/** The automaton. */
 	protected Automaton automaton;
 
@@ -330,29 +313,6 @@ public class EditorPane extends JComponent implements ActionListener{
 		this.idleResponseLabel.setVisible(true);
 		this.idleResponse.setText(lastClickedState.getIdleResponses());
 		this.idleResponse.requestFocus();
-		
-		this.root.setVisible(true);
-		this.initial.setVisible(true);
-		
-		if((getAutomaton().getRootState() != null) && (getAutomaton().getRootState().equals(lastClickedState)))
-		{
-			this.root.setSelected(true);
-		}
-		else
-		{
-			this.root.setSelected(false);
-		}
-		if((getAutomaton().getInitState() != null) && (getAutomaton().getInitState().equals(lastClickedState)))
-		{
-			this.initial.setSelected(true);
-		}
-		else
-		{
-			this.initial.setSelected(false);
-		}
-		
-		
-		
 	}
 
 	public void updateLabels(Transition lastClickedTransition) 
@@ -364,11 +324,7 @@ public class EditorPane extends JComponent implements ActionListener{
 		this.nameLabel.setVisible(false);
 		this.stateName.setVisible(false);
 		this.stateName.setText("");
-		this.root.setVisible(false);
-		this.root.setSelected(false);
-		this.initial.setVisible(false);
-		this.initial.setSelected(false);
-				
+
 		//Get Transition properties
 		this.response.setText(lastClickedTransition.getResponses());
 		this.response.setVisible(true);
@@ -384,10 +340,6 @@ public class EditorPane extends JComponent implements ActionListener{
 	{
 		this.editPanel.setVisible(false);
 		//Hide unneeded stuff
-		this.root.setVisible(false);
-		this.root.setSelected(false);
-		this.initial.setVisible(false);
-		this.initial.setSelected(false);
 		this.response.setText("");
 		this.response.setVisible(false);
 		this.responseLabel.setVisible(false);
@@ -402,28 +354,4 @@ public class EditorPane extends JComponent implements ActionListener{
 		this.stateName.setText("");
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent arg0) 
-	{
-		JMenuItem item = (JMenuItem) arg0.getSource();
-		Tool myTool = toolbar.getCurrentTool();
-		ArrowTool myArrowTool = (ArrowTool) myTool;
-		State tempState = myArrowTool.getLastState();
-		Automaton theAutomaton = getAutomaton();
-		
-		if (item == root)
-		{
-			theAutomaton.setRootState(tempState);
-			this.initial.setSelected(false);
-		}
-		else if(item == initial)
-		{
-			theAutomaton.setInitState(tempState);
-			this.root.setSelected(false);
-		}
-		else
-		{
-		}
-		
-	}
 }
