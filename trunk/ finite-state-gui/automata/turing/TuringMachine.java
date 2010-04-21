@@ -23,7 +23,6 @@ package automata.turing;
 import automata.Automaton;
 import automata.Transition;
 import automata.State;
-import automata.Note;
 import java.awt.Point;
 
 import java.util.HashMap;
@@ -290,11 +289,7 @@ public class TuringMachine extends Automaton {
 			}
 
         }
-		for(int k = 0; k < src.getNotes().size(); k++){
-			Note curNote = (Note)src.getNotes().get(k);		
-			dest.addNote(new Note(curNote.getAutoPoint(), curNote.getText()));
-            ((Note)dest.getNotes().get(k)).initializeForView(curNote.getView());
-		}
+        
         dest.setEnvironmentFrame(src.getEnvironmentFrame());
 //		EDebug.print("finished");
     }

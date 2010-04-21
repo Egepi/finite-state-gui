@@ -21,7 +21,6 @@
 package gui.viewer;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -35,7 +34,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 import automata.Automaton;
-import automata.Note;
 import automata.State;
 import automata.Transition;
 import automata.event.AutomataStateEvent;
@@ -209,13 +207,7 @@ public class AutomatonDrawer {
 		Rectangle rect = getBounds(states[0]);
 		for (int i = 1; i < states.length; i++)
 			rect.add(getBounds(states[i]));
-
-		ArrayList notes = getAutomaton().getNotes();
-		for(int k = 0; k < notes.size(); k++){
-			Note curNote = ((Note)notes.get(k));
-			Rectangle newBounds = new Rectangle(curNote.getAutoPoint(), new Dimension(curNote.getBounds().getSize()));
-			rect.add(newBounds);
-		}
+		
 		Iterator it = arrowToTransitionMap.keySet().iterator();
 		while (it.hasNext()) {
 			CurvedArrow arrow = (CurvedArrow) it.next();
