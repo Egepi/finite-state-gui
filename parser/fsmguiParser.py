@@ -184,13 +184,13 @@ for Transitions in TransitionList:
 	
 #class PythonActivity( LLActivityBase ):	
 
-def stateGenerator (States, TransitionList, self):		
+def stateGenerator (States, self):		
 		for Transitions in TransitionList:
 			if States.id == Transitions.fr:
 				count = count+1
-				ruleid = self.addGrammarRule(gramid, FILENAME+"_"+States.name+"R"+count, Transitions.keyword)
+				#ruleid = self.addGrammarRule(gramid, FILENAME+"_"+States.name+"R"+count, Transitions.keyword)
 				Transitions.remove(Transitions)
-				self.addTransition(ruleid, FILENAME+"_"+States.name, Transitions.keyword, Transitions.to)
+				#self.addTransition(ruleid, FILENAME+"_"+States.name, Transitions.keyword, Transitions.to)
 				StatesList.remove(States) #at this id
 				#ruleid = self.addGrammarRule(gramid, "TESTA_NEWS_R1", "exit")
 				#self.addTransition(ruleid, 'TESTA_NEWS', TESTA_EXIT_Func, 'TESTA_INI')
@@ -234,7 +234,7 @@ def RootInitGenerator(StateList,TranistionsList, self):
 					print "no"
 		for States in StateList:
 			try:
-				if Transitions.label == "INTIAL":
+				if States.label == "INTIAL":
 					for Transitions in TransitionList:
 						if States.id == Transitions.fr:
 							count = count+1
@@ -251,4 +251,4 @@ def RootInitGenerator(StateList,TranistionsList, self):
 			os._exit(99)
 
 					
-RootInitGenerator(StateList, TransitionList, self)	
+stateGenerator(States, self)	
