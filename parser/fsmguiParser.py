@@ -117,10 +117,10 @@ for node in doc.getElementsByTagName("transition"):
 		
   TransitionList.append(y)
 
-for item in StateList:
-	print item.id
-for item in TransitionList:
-	print item.to
+for States in StateList:
+	print States.id
+for Transitions in TransitionList:
+	print Transitions.to
 	
 # def initialize( self ):
 
@@ -186,12 +186,12 @@ for item in TransitionList:
 
 def stateGenerator (States, TransitionList, self):		
 		for Transitions in TransitionList:
-			if States.id == item.fr:
+			if States.id == Transitions.fr:
 				count = count+1
 				ruleid = self.addGrammarRule(gramid, FILENAME+"_"+States.name+"R"+count, Transitions.keyword)
 				Transitions.remove(Transitions)
 				self.addTransition(ruleid, FILENAME+"_"+States.name, Transitions.keyword, Transitions.to)
-				remove(States) #at this id
+				StatesList.remove(States) #at this id
 				#ruleid = self.addGrammarRule(gramid, "TESTA_NEWS_R1", "exit")
 				#self.addTransition(ruleid, 'TESTA_NEWS', TESTA_EXIT_Func, 'TESTA_INI')
 
@@ -240,7 +240,7 @@ def RootInitGenerator(StateList,TranistionsList, self):
 							count = count+1
 							ruleid = self.addGrammarRule(gramid, FILENAME+"_"+States.name+"INIT", Transitions.keyword)
 							States.remove(States)
-							self.addTransition(ruleid, FILENAME+"_"+States.name, "Some String", Transitions.to)					
+							self.addTransition(ruleid, FILENAME+"_"+States.name, Transitions.keyword, Transitions.to)					
 							Transitions.remove(Transitions)
 			except AttributeError:
 					print "no" 
