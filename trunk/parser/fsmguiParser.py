@@ -194,11 +194,6 @@ def stateGenerator (States, TransitionList):
 				remove(States) #at this id
 				#ruleid = self.addGrammarRule(gramid, "TESTA_NEWS_R1", "exit")
 				#self.addTransition(ruleid, 'TESTA_NEWS', TESTA_EXIT_Func, 'TESTA_INI')
-				if TransitionList:  #python check if list is containing something
-					stateGenerator(States,TransitionList)
-				else:
-					os._exit(99)
-
 
 def RootInitGenerator(StateList,TranistionsList):		
 
@@ -225,38 +220,35 @@ def RootInitGenerator(StateList,TranistionsList):
 		self.grammarIDs[FILENAME+"_"+name] = gramid
 
 		#checking if state is root
-		for item in StateList:
+		for States in StateList:
 			try:
-				if item.label == "ROOT":
-					for item1 in TransitionList:
-						if States.id == item1.fr:
+				if States.label == "ROOT":
+					for Transitions in TransitionList:
+						if States.id == Transitions.fr:
 							count = count+1
-							ruleid = self.addGrammarRule(gramid, FILENAME+"_"+States.name+"ROOT", item1.keyword)
-							item.remove(States)
-							self.addTransition(ruleid, FILENAME+"_"+States.name, "Some String", item1.to)
-							item1.remove(Transitions)
+							ruleid = self.addGrammarRule(gramid, FILENAME+"_"+States.name+"ROOT", Transitions.keyword)
+							StateList.remove(States)
+							self.addTransition(ruleid, FILENAME+"_"+States.name, "Some String", Transitions.to)
+							Tranitions.remove(Transitions)
 			except AttributeError:
 					print "no"
-		for item2 in StateList:
+		for States in StateList:
 			try:
-				if item2.label == "INTIAL":
-					for item3 in TransitionList:
-						if States.id == item3.fr:
+				if Transitions.label == "INTIAL":
+					for Transitions in TransitionList:
+						if States.id == Transitions.fr:
 							count = count+1
-							ruleid = self.addGrammarRule(gramid, FILENAME+"_"+States.name+"INIT", item3.keyword)
-							item2.remove(States)
-							self.addTransition(ruleid, FILENAME+"_"+States.name, "Some String", item3.to)					
-							item3.remove(Transitions)
+							ruleid = self.addGrammarRule(gramid, FILENAME+"_"+States.name+"INIT", Transitions.keyword)
+							States.remove(States)
+							self.addTransition(ruleid, FILENAME+"_"+States.name, "Some String", Transitions.to)					
+							Transitions.remove(Transitions)
 			except AttributeError:
 					print "no" 
-		for item4 in TransitionList:
-			if States.id == item4.fr:
-				count = count+1
-				ruleid = self.addGrammarRule(gramid, FILENAME+"_"+States.name+"_"+count, item4.keyword)
-				item4.remove(Transitions)
-				self.addTransition(ruleid, FILENAME+"_"+States.name, "Some String", item4.to)
-				remove(States) #at this id
-				statesGenerator(States,TransitionList)
+		for States in StateList:
+			statesGenerator(States,TransitionList)
+		if not States:
+			print "end of StatesList"
+			os._exit(99)
 
 					
 RootInitGenerator(StateList, TransitionList)	
