@@ -79,7 +79,7 @@ public class StateTool extends Tool {
 		}
 		else if(state.getID() == 1)
 		{
-			state.setLabel("INITAL");
+			state.setLabel("INITIAL");
 		}
 		getView().repaint();
 	}
