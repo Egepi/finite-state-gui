@@ -25,7 +25,6 @@ import gui.viewer.AutomatonDrawer;
 import gui.viewer.AutomatonPane;
 import gui.viewer.CurvedArrow;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -33,7 +32,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 
 import javax.swing.Icon;
 import javax.swing.JMenuItem;
@@ -41,7 +39,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
 
-import automata.Note;
 import automata.State;
 import automata.Transition;
 import debug.EDebug;
@@ -230,12 +227,6 @@ public class ArrowTool extends Tool {
 			initialPointClick.setLocation(event.getPoint());
 		}	
 		else {
-			ArrayList notes = getDrawer().getAutomaton().getNotes();
-			for(int k = 0; k < notes.size(); k++){
-				((Note)notes.get(k)).setEditable(false);
-				((Note)notes.get(k)).setEnabled(false);
-				((Note)notes.get(k)).setCaretColor(new Color(255, 255, 150));		
-			}
 
 			Rectangle bounds = new Rectangle(0, 0, -1, -1);
 			getView().getDrawer().getAutomaton().selectStatesWithinBounds(bounds);
