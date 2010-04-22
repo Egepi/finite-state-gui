@@ -267,9 +267,6 @@ public class Automaton implements Serializable, Cloneable {
 	 *            the transition object to add to the automaton
 	 */
 	public void addTransition(Transition trans) {
-		if (!getTransitionClass().isInstance(trans) || trans == null) {
-			throw (new IncompatibleTransitionException());
-		}
 		if (transitions.contains(trans))
 			return;
         if(trans.getToState() == null || trans.getFromState() == null) return;
@@ -299,9 +296,6 @@ public class Automaton implements Serializable, Cloneable {
 	 *            the transition object to add to the automaton
 	 */
 	public void replaceTransition(Transition oldTrans, Transition newTrans) {
-		if (!getTransitionClass().isInstance(newTrans)) {
-			throw new IncompatibleTransitionException();
-		}
 		if (oldTrans.equals(newTrans)) {
 			return;
 		}
