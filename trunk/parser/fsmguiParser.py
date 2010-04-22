@@ -1,7 +1,7 @@
 # FSMGUI XML ('jff') to Python Parser
 # Authors: Jennifer Kinahan & Karan Chakrapani
 
-#from LLActivityPlugin import *
+from LLActivityPlugin import *
 import pprint
 import os
 import xml
@@ -35,7 +35,7 @@ class Transitions:
 		response = ""
 		keyword = ""	
 
-class PythonActivity():
+class PythonActivity(LLActivityBase):
 
 	def setActive( self, str):
 
