@@ -21,9 +21,6 @@
 package gui.environment;
 
 import gui.editor.EditorPane;
-import gui.environment.tag.EditorTag;
-import gui.environment.tag.PermanentTag;
-import gui.environment.tag.Tag;
 
 import java.io.Serializable;
 
@@ -139,7 +136,7 @@ public class EnvironmentFactory {
 			Automaton aut = (Automaton) object;
 			Environment env = new AutomatonEnvironment(aut);
 			EditorPane editor = new EditorPane(aut);
-			env.add(editor, EDITOR_NAME, EDITOR_PERMANENT_TAG);
+			env.add(editor);
 			return env; 
 		} else {
 			JOptionPane.showMessageDialog(null, "Unknown type "
@@ -151,16 +148,4 @@ public class EnvironmentFactory {
 		
 	}
 
-	/**
-	 * A class for an editor, which in most applications one will want both
-	 * permanent and marked as an editor.
-	 */
-	public static class EditorPermanentTag implements EditorTag, PermanentTag {
-	};
-
-	/** An instance of such an editor permanent tag. */
-	private static final Tag EDITOR_PERMANENT_TAG = new EditorPermanentTag();
-
-	/** The name for editor panes. */
-	private static final String EDITOR_NAME = "Editor";
 }

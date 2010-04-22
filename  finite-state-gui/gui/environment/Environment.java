@@ -21,9 +21,6 @@
 package gui.environment;
 
 import file.Encoder;
-import gui.environment.tag.EditorTag;
-import gui.environment.tag.Satisfier;
-import gui.environment.tag.Tag;
 import java.awt.*;
 import java.io.File;
 import java.io.Serializable;
@@ -182,38 +179,6 @@ public abstract class Environment extends JPanel {
 	}
 
 	/**
-	 * Adds a new component to the environment. Presumably this added component
-	 * has some relevance to the current automaton or grammar held by the
-	 * environment, though this is not strictly required.
-	 * 
-	 * @param component
-	 *            the component to add, which should be unique for this
-	 *            environment
-	 * @param name
-	 *            the name this component should be labeled with, which is not
-	 *            necessarily a unique label
-	 * @param tags
-	 *            the tags associated with the component, or just a raw <CODE>Tag</CODE>
-	 *            implementor if this component has no special tags associated
-	 *            with it
-	 * @see gui.environment.tag
-	 */
-	public void add(Component component, String name, Tag tags) {
-		componentTags.put(component, tags);
-		tabbed.addTab(name, component);
-
-		// Takes care of the deactivation of EditorTag tagged
-		// components in the event that such action is appropriate.
-		if (tags instanceof gui.environment.tag.CriticalTag) {
-			criticalObjects++;
-			if (criticalObjects == 1)
-				setEnabledEditorTagged(false);
-		}
-
-		distributeChangeEvent();
-	}
-
-	/**
 	 * Returns if a particular component is part of this environment, as through
 	 * addition through one of the <CODE>add</CODE> methods
 	 * 
@@ -224,22 +189,6 @@ public abstract class Environment extends JPanel {
 	 */
 	public boolean contains(Component component) {
 		return tabbed.indexOfComponent(component) != -1;
-	}
-
-	/**
-	 * Deactivates or activates editor tagged objects in this environment.
-	 * 
-	 * @param enabled
-	 *            <CODE>true</CODE> if editor tagged objects should be
-	 *            enabled, <CODE>false</CODE> if editor tagged objects should
-	 *            be disabled
-	 */
-	public void setEnabledEditorTagged(boolean enabled) {
-		for (int i = 0; i < tabbed.getTabCount(); i++) {
-			Component c = tabbed.getComponentAt(i);
-			if (((Tag) componentTags.get(c)) instanceof EditorTag)
-				tabbed.setEnabledAt(i, enabled);
-		}
 	}
 
 	/**
@@ -256,10 +205,9 @@ public abstract class Environment extends JPanel {
 	 *            necessarily a unique label
 	 * @see #add(Component, String, Tag)
 	 */
-	public void add(Component component, String name) {
-		this.add(component, name, new Tag() {
-		});
-	}
+	//public void add(Component component, String name) {
+	//	this.add(component, name);
+	//}
 
 	/**
 	 * Programmatically sets the currently active component in this environment.
@@ -351,29 +299,7 @@ public abstract class Environment extends JPanel {
 	 */
 	public void remove(Component component) {
 		tabbed.remove(component);
-		Tag tag = (Tag) componentTags.remove(component);
-
-		// Takes care of the deactivation of EditorTag tagged
-		// components in the event that such action is appropriate.
-		if (tag instanceof gui.environment.tag.CriticalTag) {
-			criticalObjects--;
-			if (criticalObjects == 0)
-				setEnabledEditorTagged(true);
-		}
-
 		distributeChangeEvent();
-	}
-
-	/**
-	 * Returns the tag for a given component, provided this tag is in the
-	 * component.
-	 * 
-	 * @param component
-	 *            the component to get the tag for
-	 * @return the tag for the component
-	 */
-	public Tag getTag(Component component) {
-		return (Tag) componentTags.get(component);
 	}
 
 	/**
@@ -387,45 +313,7 @@ public abstract class Environment extends JPanel {
 			comps[i] = tabbed.getComponentAt(i);
 		return comps;
 	}
-
-	/**
-	 * Returns an array whose components and tags satisfy the given satisfier.
-	 * 
-	 * @param satisfier
-	 *            the satisfier all components and their tags must satisfy
-	 * @return an array containing all those components who, along with their
-	 *         tags, satisfied the satisfier
-	 */
-	public Component[] getComponents(Satisfier satisfier) {
-		ArrayList list = new ArrayList();
-		for (int i = 0; i < tabbed.getTabCount(); i++) {
-			Component c = tabbed.getComponentAt(i);
-			if (satisfier.satisfies(c, (Tag) componentTags.get(c)))
-				list.add(c);
-		}
-		return (Component[]) list.toArray(new Component[0]);
-	}
-
-	/**
-	 * Detects if there are any components in this environment that satisfy the
-	 * given satisfier. This method works in time linear in the number of
-	 * components in this environment.
-	 * 
-	 * @param satisfier
-	 *            the satisfier to check components and their tags against
-	 * @return <CODE>true</CODE> if the satisfier has managed to match at
-	 *         least one object, <CODE>false</CODE> if none of the objects in
-	 *         this satisfier are matched
-	 */
-	public boolean isPresent(Satisfier satisfier) {
-		for (int i = 0; i < tabbed.getTabCount(); i++) {
-			Component c = tabbed.getComponentAt(i);
-			if (satisfier.satisfies(c, (Tag) componentTags.get(c)))
-				return true;
-		}
-		return false;
-	}
-
+	
 	/**
 	 * Returns if this environment dirty. An environment is called dirty if the
 	 * object it holds has been modified since the last save.
@@ -475,9 +363,6 @@ public abstract class Environment extends JPanel {
 	/** The encoder for this document. */
 	private Encoder encoder = null;
 
-	/** The mapping of components to their respective tag objects. */
-	private HashMap componentTags = new HashMap();
-
 	/** The tabbed pane for this environment. */
 	public JTabbedPane tabbed;
 
@@ -492,11 +377,6 @@ public abstract class Environment extends JPanel {
 
 	/** The collection of file change listeners. */
 	private Set fileListeners = new HashSet();
-
-	/**
-	 * The number of "CriticalTag" tagged components. Hokey but fast.
-	 */
-	private int criticalObjects = 0;
 
 	/** The dirty bit. */
 	private boolean dirty = false;
