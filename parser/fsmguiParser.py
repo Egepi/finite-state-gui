@@ -42,11 +42,11 @@ class PythonActivity(LLActivityBase):
 	def __init__(self):
 		StateList = []
 		TransitionList = []
-		FILENAME = ""
-		infile = "testfile.jff"	
+		THEFILE = "testfile.jff"
+		FILENAME = "testfile"
+		infile = THEFILE
 		count = 0
 		#name of xml file in local
-		(PATH, FILENAME) = os.path.split(infile)
 		
 		self.getXML(infile, FILENAME, StateList, TransitionList, States, Transitions)
 		self.RootInitGenerator(FILENAME, StateList, TransitionList)
