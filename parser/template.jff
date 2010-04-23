@@ -11,9 +11,8 @@
 		<state id="1" name="q1">&#13;
 			<x>230.0</x>&#13;
 			<y>124.0</y>&#13;
-			<stateIdleResp>hi, whos this&#13;
-</stateIdleResp>&#13;
-			<label>INTIAL</label>&#13;
+			<stateIdleResp>hi, whos this&#13;</stateIdleResp>&#13;
+			<label>INITIAL</label>&#13;
 		</state>&#13;
 		<state id="2" name="q2">&#13;
 			<x>110.0</x>&#13;

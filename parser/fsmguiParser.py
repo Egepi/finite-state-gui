@@ -201,7 +201,7 @@ class PythonActivity(LLActivityBase):
 				count = count+1 
 		
 		for States in StateList:
-				statesGenerator(self, FILENAME, States, TransitionList)
+				statesGenerator(FILENAME, States, TransitionList)
 		if not States:
 			print "end of StatesList"
 			os._exit(99)
