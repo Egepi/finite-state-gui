@@ -38,9 +38,18 @@ class Transitions:
 		keyword = ""	
 
 class PythonActivity(LLActivityBase):
-	StateList = []
-	TransitionList = []
-	FILENAME = ""	
+	#initialize
+	def __init__(self):
+		StateList = []
+		TransitionList = []
+		FILENAME = ""
+		infile = "template.jff"	
+		count = 0
+		#name of xml file in local
+		(PATH, FILENAME) = os.path.split(infile)
+		
+		self.getXML(infile, FILENAME, StateList, TransitionList, States, Transitions)
+		self.rootInitGenerator(FILENAME, StateList, TranistionList)
 	
 	################################################################
 	# Copied from sample
@@ -128,7 +137,7 @@ class PythonActivity(LLActivityBase):
 	###################################################################
 	
 	#Create and add a state and all of its transitions
-	def stateGenerator (aelf, States, TransitionList):
+	def stateGenerator (self, FILENAME, States, TransitionList):
 		count = 0
 		tempName = FILENAME + "_" + States.name
 		gramid = self.addGrammar(tempName + "_GRM")
@@ -143,7 +152,7 @@ class PythonActivity(LLActivityBase):
 		StateList.remove(States) #at this i
 	
 	#create root/init states then call state generator
-	def RootInitGenerator(self, StateList, TranistionList):		
+	def RootInitGenerator(self, FILENAME, StateList, TranistionList):		
 		# Map (input, current_state) --> (action, next_state)
 		# action is state related function assigned to it
 		self.state_transitions = {}
@@ -192,16 +201,14 @@ class PythonActivity(LLActivityBase):
 				count = count+1 
 		
 		for States in StateList:
-				statesGenerator(self, States, TransitionList)
+				statesGenerator(self, FILENAME, States, TransitionList)
 		if not States:
 			print "end of StatesList"
 			os._exit(99)
 			
 	#XML parsing
-	def getXML(StateList, TransitionList):
-		#name of xml file in local
-		infile = "template.jff"
-		(PATH, FILENAME) = os.path.split(infile)
+	def getXML(self, infile, FILENAME, StateList, TransitionList, States, Transitions):
+
 		try:                          
 			doc = xml.dom.minidom.parse(infile)
 		except IOError:               # catch IOError and deriving exceptions
@@ -274,11 +281,6 @@ class PythonActivity(LLActivityBase):
 					
 			TransitionList.append(y)
 			
-	#initialize
-	def initialize( self ):
-		count = 0
-		getXML(StateList, TransitionList)
-		RootInitGenerator(self, StateList, TranistionList)
 
 
 
