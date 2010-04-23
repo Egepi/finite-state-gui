@@ -43,13 +43,17 @@ class PythonActivity(LLActivityBase):
 		StateList = []
 		TransitionList = []
 		FILENAME = ""
-		infile = "template.jff"	
+		infile = "testfile.jff"	
 		count = 0
 		#name of xml file in local
 		(PATH, FILENAME) = os.path.split(infile)
 		
 		self.getXML(infile, FILENAME, StateList, TransitionList, States, Transitions)
 		self.RootInitGenerator(FILENAME, StateList, TransitionList)
+		theLEN = len(StateList)
+		for a in range(0, theLEN):
+			theStates = StateList.pop(0)
+			self.stateGenerator(FILENAME, theStates, TransitionList)		
 	
 	################################################################
 	# Copied from sample
@@ -136,21 +140,22 @@ class PythonActivity(LLActivityBase):
 	# End copy from sample
 	###################################################################
 	
-	#Create and add a state and all of its transitions
+		#Create and add a state and all of its transitions
 	def stateGenerator (self, FILENAME, States, TransitionList):
 		count = 0
 		tempName = FILENAME + "_" + States.name
 		gramid = self.addGrammar(tempName + "_GRM")
 		self.currentGrammarID = gramid
 		self.grammarIDs[tempName] = gramid
-		for Transitions in TransitionList:
+		theTransLen = len(TransitionList)
+		for b in range(0, theTransLen):
+			Transitions = TransitionList.pop(0)
 			if States.id == Transitions.fr:
 				ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, Transitions.keyword)
 				self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
-				TransitionList.remove(Transitions)
-				count = count+1
-		StateList.remove(States) #at this i
-	
+				count = count+1	
+			else:
+				TransitionList.append(Transitions)
 	#create root/init states then call state generator
 	def RootInitGenerator(self, FILENAME, StateList, TransitionList):		
 		# Map (input, current_state) --> (action, next_state)
@@ -175,36 +180,35 @@ class PythonActivity(LLActivityBase):
 		#ROOT STATE 
 		count = 0;
 		States = StateList.pop(0);
-		tempName = FILENAME + "_" + States.label
+		tempName = FILENAME + "_ROOT"
 		gramid = self.addGrammar(tempName+"_GRM")
 		self.grammarIDs[tempName] = gramid
-		print tempName
-		for Transitions in TransitionList:
+		theTransLen = len(TransitionList)
+		for b in range(0, theTransLen):
+			Transitions = TransitionList.pop(0)
 			if States.id == Transitions.fr:
-				ruleid = self.addGrammarRule(gramid, tempName+"_R"+count, Transitions.keyword)
+				ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, Transitions.keyword)
 				self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
-				TransitionList.remove(Transitions);
-				count = count + 1
+				count = count+1	
+			else:
+				TransitionList.append(Transitions)
 		
 		#INI STATE
 		count = 0;
-		States = StateList.pop(1);
-		tempName = FILENAME + "_" + States.label
+		States = StateList.pop(0);
+		tempName = FILENAME + "_INI"
 		gramid = self.addGrammar(tempName + "_GRM")
 		self.grammarIDs[tempName] = gramid
 
-		for Transitions in TransitionList:
+		theTransLen = len(TransitionList)
+		for b in range(0, theTransLen):
+			Transitions = TransitionList.pop(0)
 			if States.id == Transitions.fr:
-				ruleid = self.addGrammarRule(gramid, tempName + "_R" + count, Transitions.keyword)
+				ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, Transitions.keyword)
 				self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
-				TransitionList.remove(Transitions);
-				count = count+1 
-		
-		for States in StateList:
-				statesGenerator(FILENAME, States, TransitionList)
-		if not States:
-			print "end of StatesList"
-			os._exit(99)
+				count = count+1	
+			else:
+				TransitionList.append(Transitions)
 			
 	#XML parsing
 	def getXML(self, infile, FILENAME, StateList, TransitionList, States, Transitions):

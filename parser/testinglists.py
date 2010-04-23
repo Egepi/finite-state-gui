@@ -51,6 +51,7 @@ class WTH():
 		for a in range(0, theLEN):
 			theStates = StateList.pop(0)
 			self.stateGenerator(FILENAME, theStates, TransitionList)		
+	
 	#Create and add a state and all of its transitions
 	def stateGenerator (self, FILENAME, States, TransitionList):
 		count = 0
