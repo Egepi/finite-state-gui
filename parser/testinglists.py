@@ -8,6 +8,14 @@ import glob
 import xml.dom.minidom
 from xml.dom.minidom import Node
 
+# INI state function
+def FSM_INI_Func(activity, str):
+	activity.speak('what do you want to know? I can tell you weather or news.')
+
+# Testing state function
+def FSM_TEST_Func(activity, str):
+	activity.speak('hi i am testin this.')
+
 class States:
 	def __init__(self):
 		#initialize values to empty or 0 values
@@ -35,6 +43,7 @@ class WTH():
 		infile = "template.jff"	
 		count = 0
 		self.getXML(infile, StateList, TransitionList, States, Transitions)
+		self.RootInitGenerator(StateList,TransitionList,FILENAME)
 				
 	def getXML(self, infile, StateList, TransitionList, States, Transitions):
 		#name of xml file in local
@@ -115,5 +124,59 @@ class WTH():
 				print Tran.response
 		except AttributeError:
 			print ""		
+		
+	def RootInitGenerator(self, StateList, TranistionList, FILENAME):		
+		# Map (input, current_state) --> (action, next_state)
+		# action is state related function assigned to it
+		self.state_transitions = {}
+		self.grammarIDs = {}
+		self.exiting = False
+		self.active = False
+			
+		# initial state
+		self.initial_state = FILENAME + '_INI'
+		self.current_state = self.initial_state
+		self.action = FSM_INI_Func
+		self.initial_action = FSM_INI_Func
+		self.next_state = None
+		self.prev_state = None
+			
+		# register transition to this activity from ActivityManager (top level manager)
+		# use ':' as delim for multiple recognizable inputs
+		self.registerTransition("test:testing")
+		
+		#ROOT STATE 
+		count = 0;
+		States = StateList.pop(0);
+		tempName = FILENAME + "_" + States.label
+		gramid = self.addGrammar(tempName+"_GRM")
+		self.grammarIDs[tempName] = gramid
+		print tempName
+		for Transitions in TransitionList:
+			if States.id == Transitions.fr:
+				ruleid = self.addGrammarRule(gramid, tempName+"_R"+count, Transitions.keyword)
+				self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
+				Transitions.remove(Transitions);
+				count = count + 1
+		
+		#INI STATE
+		count = 0;
+		States = StateList.pop(1);
+		tempName = FILENAME + "_" + States.label
+		gramid = self.addGrammar(tempName + "_GRM")
+		self.grammarIDs[tempName] = gramid
+
+		for Transitions in TransitionList:
+			if States.id == Transitions.fr:
+				ruleid = self.addGrammarRule(gramid, tempName + "_R" + count, Transitions.keyword)
+				self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
+				Transitions.remove(Transitions);
+				count = count+1 
+		
+		for States in StateList:
+				statesGenerator(self, States, TransitionList)
+		if not States:
+			print "end of StatesList"
+			os._exit(99)
 	
 A  = WTH()
