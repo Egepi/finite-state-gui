@@ -51,25 +51,22 @@ class WTH():
 		for a in range(0, theLEN):
 			theStates = StateList.pop(0)
 			self.stateGenerator(FILENAME, theStates, TransitionList)		
-		for adf in TransitionList:
-			print adf.response
-			print "A"
 	#Create and add a state and all of its transitions
 	def stateGenerator (self, FILENAME, States, TransitionList):
-		#States = StateList.pop(0); 
 		count = 0
 		tempName = FILENAME + "_" + States.name
 		#gramid = self.addGrammar(tempName + "_GRM")
 		#self.currentGrammarID = gramid
 		#self.grammarIDs[tempName] = gramid
-
-		for Transitions in TransitionList:
+		theTransLen = len(TransitionList)
+		for b in range(0, theTransLen):
+			Transitions = TransitionList.pop(0)
 			if States.id == Transitions.fr:
 				#ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, Transitions.keyword)
 				#self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
-				TransitionList.remove(Transitions)
-				count = count+1
-				
+				count = count+1	
+			else:
+				TransitionList.append(Transitions)
 	#create root/init states then call state generator
 	def RootInitGenerator(self, FILENAME, StateList, TransitionList):		
 		# Map (input, current_state) --> (action, next_state)
@@ -97,12 +94,15 @@ class WTH():
 		tempName = FILENAME + "_ROOT"
 		#gramid = self.addGrammar(tempName+"_GRM")
 		#self.grammarIDs[tempName] = gramid
-		for Transitions in TransitionList:
+		theTransLen = len(TransitionList)
+		for b in range(0, theTransLen):
+			Transitions = TransitionList.pop(0)
 			if States.id == Transitions.fr:
-				#ruleid = self.addGrammarRule(gramid, tempName+"_R"+count, Transitions.keyword)
+				#ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, Transitions.keyword)
 				#self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
-				TransitionList.remove(Transitions);
-				count = count + 1
+				count = count+1	
+			else:
+				TransitionList.append(Transitions)
 		
 		#INI STATE
 		count = 0;
@@ -111,12 +111,15 @@ class WTH():
 		#gramid = self.addGrammar(tempName + "_GRM")
 		#self.grammarIDs[tempName] = gramid
 
-		for Transitions in TransitionList:
+		theTransLen = len(TransitionList)
+		for b in range(0, theTransLen):
+			Transitions = TransitionList.pop(0)
 			if States.id == Transitions.fr:
-				#ruleid = self.addGrammarRule(gramid, tempName + "_R" + count, Transitions.keyword)
+				#ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, Transitions.keyword)
 				#self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
-				TransitionList.remove(Transitions);
-				count = count+1 
+				count = count+1	
+			else:
+				TransitionList.append(Transitions)
 			
 	#XML parsing
 	def getXML(self, infile, FILENAME, StateList, TransitionList, States, Transitions):
