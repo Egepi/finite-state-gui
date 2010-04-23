@@ -47,32 +47,29 @@ class WTH():
 		
 		self.getXML(infile, FILENAME, StateList, TransitionList, States, Transitions)
 		self.RootInitGenerator(FILENAME, StateList, TransitionList)
-		self.stateGenerator(FILENAME, States, TransitionList)		
-		for Statesa in StateList:
-			print Statesa.name
+		theLEN = len(StateList)
+		for a in range(0, theLEN):
+			theStates = StateList.pop(0)
+			self.stateGenerator(FILENAME, theStates, TransitionList)		
+		for adf in TransitionList:
+			print adf.response
 			print "A"
 	#Create and add a state and all of its transitions
-	def stateGenerator (self, FILENAME, StateList, TransitionList):
-		for States in StateList:
-			#States = StateList.pop(0); 
-			count = 0
-			tempName = FILENAME + "_" + States.name
-			#gramid = self.addGrammar(tempName + "_GRM")
-			#self.currentGrammarID = gramid
-			#self.grammarIDs[tempName] = gramid
-			print States.name
-			print "Z"
-			for Transitions in TransitionList:
-				if States.id == Transitions.fr:
-					#ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, Transitions.keyword)
-					#self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
-					TransitionList.remove(Transitions)
-					count = count+1
-			StateList.pop(0) #at this i
-			#if not States:
-			#	print "end of StatesList"
-			#	os._exit(99)
-	
+	def stateGenerator (self, FILENAME, States, TransitionList):
+		#States = StateList.pop(0); 
+		count = 0
+		tempName = FILENAME + "_" + States.name
+		#gramid = self.addGrammar(tempName + "_GRM")
+		#self.currentGrammarID = gramid
+		#self.grammarIDs[tempName] = gramid
+
+		for Transitions in TransitionList:
+			if States.id == Transitions.fr:
+				#ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, Transitions.keyword)
+				#self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
+				TransitionList.remove(Transitions)
+				count = count+1
+				
 	#create root/init states then call state generator
 	def RootInitGenerator(self, FILENAME, StateList, TransitionList):		
 		# Map (input, current_state) --> (action, next_state)
