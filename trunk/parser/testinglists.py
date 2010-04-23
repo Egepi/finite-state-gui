@@ -39,11 +39,11 @@ class WTH():
 	def __init__(self):
 		StateList = []
 		TransitionList = []
-		FILENAME = ""
-		infile = "testfile.jff"	
+		THEFILE = "testfile.jff"
+		FILENAME = "testfile"
+		infile = THEFILE
 		count = 0
 		#name of xml file in local
-		(PATH, FILENAME) = os.path.split(infile)
 		
 		self.getXML(infile, FILENAME, StateList, TransitionList, States, Transitions)
 		self.RootInitGenerator(FILENAME, StateList, TransitionList)
@@ -63,6 +63,7 @@ class WTH():
 		for b in range(0, theTransLen):
 			Transitions = TransitionList.pop(0)
 			if States.id == Transitions.fr:
+				print States.id + ":  " + Transitions.to
 				#ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, Transitions.keyword)
 				#self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
 				count = count+1	
@@ -99,6 +100,7 @@ class WTH():
 		for b in range(0, theTransLen):
 			Transitions = TransitionList.pop(0)
 			if States.id == Transitions.fr:
+				print States.id + ":  " + Transitions.to
 				#ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, Transitions.keyword)
 				#self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
 				count = count+1	
@@ -109,6 +111,7 @@ class WTH():
 		count = 0;
 		States = StateList.pop(0);
 		tempName = FILENAME + "_INI"
+		print tempName
 		#gramid = self.addGrammar(tempName + "_GRM")
 		#self.grammarIDs[tempName] = gramid
 
@@ -116,6 +119,7 @@ class WTH():
 		for b in range(0, theTransLen):
 			Transitions = TransitionList.pop(0)
 			if States.id == Transitions.fr:
+				print States.id + ":  " + Transitions.to
 				#ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, Transitions.keyword)
 				#self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
 				count = count+1	
