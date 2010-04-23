@@ -1,7 +1,7 @@
 # FSMGUI XML ('jff') to Python Parser
 # Authors: Jennifer Kinahan & Karan Chakrapani
 
-#from LLActivityPlugin import *
+from LLActivityPlugin import *
 import pprint
 import os
 import xml
@@ -24,7 +24,7 @@ class States:
 	def __init__(self):
 		#initialize values to empty or 0 values
 		name = ""
-		id = 0;
+		id = 0
 		label = ""
 		stateidle = ""
 		
@@ -38,13 +38,12 @@ class Transitions:
 		keyword = ""	
 
 class PythonActivity(LLActivityBase):
-		
-	def initialize( self ):
-		count = 0
-		StateList = []
-		TransitionList = []
-		FILENAME = ""
-
+	StateList = []
+	TransitionList = []
+	FILENAME = ""	
+	
+	################################################################
+	# Copied from sample
 	def setActive( self, str):
 
 		if self.grammarIDs.has_key(self.current_state):
@@ -125,8 +124,11 @@ class PythonActivity(LLActivityBase):
 
 	def msg_received (self, msg):
 		pass
-		
-	def stateGenerator (States,TransitionList):
+	# End copy from sample
+	###################################################################
+	
+	#Create and add a state and all of its transitions
+	def stateGenerator (aelf, States, TransitionList):
 		count = 0
 		tempName = FILENAME + "_" + States.name
 		gramid = self.addGrammar(tempName + "_GRM")
@@ -139,8 +141,9 @@ class PythonActivity(LLActivityBase):
 				Transitions.remove(Transitions)
 				count = count+1
 		StateList.remove(States) #at this i
-			
-	def RootInitGenerator(StateList,TranistionList):		
+	
+	#create root/init states then call state generator
+	def RootInitGenerator(self, StateList, TranistionList):		
 		# Map (input, current_state) --> (action, next_state)
 		# action is state related function assigned to it
 		self.state_transitions = {}
@@ -189,11 +192,12 @@ class PythonActivity(LLActivityBase):
 				count = count+1 
 		
 		for States in StateList:
-				statesGenerator(States,TransitionList,self)
+				statesGenerator(self, States, TransitionList)
 		if not States:
 			print "end of StatesList"
 			os._exit(99)
 			
+	#XML parsing
 	def getXML(StateList, TransitionList):
 		#name of xml file in local
 		infile = "template.jff"
@@ -269,7 +273,14 @@ class PythonActivity(LLActivityBase):
 					y.keyword = keyword
 					
 			TransitionList.append(y)
-	
+			
+	#initialize
+	def initialize( self ):
+		count = 0
+		getXML(StateList, TransitionList)
+		RootInitGenerator(self, StateList, TranistionList)
+
+
 
 
 	
