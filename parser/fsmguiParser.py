@@ -49,7 +49,7 @@ class PythonActivity(LLActivityBase):
 		(PATH, FILENAME) = os.path.split(infile)
 		
 		self.getXML(infile, FILENAME, StateList, TransitionList, States, Transitions)
-		self.rootInitGenerator(FILENAME, StateList, TranistionList)
+		self.RootInitGenerator(FILENAME, StateList, TransitionList)
 	
 	################################################################
 	# Copied from sample
@@ -147,12 +147,12 @@ class PythonActivity(LLActivityBase):
 			if States.id == Transitions.fr:
 				ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, Transitions.keyword)
 				self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
-				Transitions.remove(Transitions)
+				TransitionList.remove(Transitions)
 				count = count+1
 		StateList.remove(States) #at this i
 	
 	#create root/init states then call state generator
-	def RootInitGenerator(self, FILENAME, StateList, TranistionList):		
+	def RootInitGenerator(self, FILENAME, StateList, TransitionList):		
 		# Map (input, current_state) --> (action, next_state)
 		# action is state related function assigned to it
 		self.state_transitions = {}
@@ -183,7 +183,7 @@ class PythonActivity(LLActivityBase):
 			if States.id == Transitions.fr:
 				ruleid = self.addGrammarRule(gramid, tempName+"_R"+count, Transitions.keyword)
 				self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
-				Transitions.remove(Transitions);
+				TransitionList.remove(Transitions);
 				count = count + 1
 		
 		#INI STATE
@@ -197,7 +197,7 @@ class PythonActivity(LLActivityBase):
 			if States.id == Transitions.fr:
 				ruleid = self.addGrammarRule(gramid, tempName + "_R" + count, Transitions.keyword)
 				self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
-				Transitions.remove(Transitions);
+				TransitionList.remove(Transitions);
 				count = count+1 
 		
 		for States in StateList:
