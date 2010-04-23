@@ -42,8 +42,8 @@ class PythonActivity(LLActivityBase):
 	def __init__(self):
 		StateList = []
 		TransitionList = []
-		THEFILE = "testfile.jff"
-		FILENAME = "testfile"
+		THEFILE = "te.jff"
+		FILENAME = "te"
 		infile = THEFILE
 		count = 0
 		#name of xml file in local
