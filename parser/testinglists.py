@@ -1,3 +1,7 @@
+# FSMGUI XML ('jff') to Python Parser
+# Authors: Jennifer Kinahan & Karan Chakrapani
+
+#from LLActivityPlugin import *
 import pprint
 import os
 import xml
@@ -32,7 +36,6 @@ class Transitions:
 		to = 0
 		response = ""
 		keyword = ""	
-
 
 class WTH():
 	#initialize
@@ -100,7 +103,6 @@ class WTH():
 		for b in range(0, theTransLen):
 			Transitions = TransitionList.pop(0)
 			if States.id == Transitions.fr:
-				print States.id + ":  " + Transitions.to
 				#ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, Transitions.keyword)
 				#self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
 				count = count+1	
@@ -111,7 +113,6 @@ class WTH():
 		count = 0;
 		States = StateList.pop(0);
 		tempName = FILENAME + "_INI"
-		print tempName
 		#gramid = self.addGrammar(tempName + "_GRM")
 		#self.grammarIDs[tempName] = gramid
 
