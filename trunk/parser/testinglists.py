@@ -40,20 +40,19 @@ class WTH():
 		StateList = []
 		TransitionList = []
 		FILENAME = ""
-		infile = "template.jff"	
+		infile = "testfile.jff"	
 		count = 0
 		#name of xml file in local
 		(PATH, FILENAME) = os.path.split(infile)
 		
 		self.getXML(infile, FILENAME, StateList, TransitionList, States, Transitions)
 		self.RootInitGenerator(FILENAME, StateList, TransitionList)
-		self.stateGenerator(FILENAME, StateList, TransitionList)		
+		self.stateGenerator(FILENAME, States, TransitionList)		
 		for Statesa in StateList:
 			print Statesa.name
 			print "A"
 	#Create and add a state and all of its transitions
 	def stateGenerator (self, FILENAME, StateList, TransitionList):
-\
 		for States in StateList:
 			#States = StateList.pop(0); 
 			count = 0
@@ -69,7 +68,7 @@ class WTH():
 					#self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
 					TransitionList.remove(Transitions)
 					count = count+1
-			StateList.remove(States) #at this i
+			StateList.pop(0) #at this i
 			#if not States:
 			#	print "end of StatesList"
 			#	os._exit(99)
