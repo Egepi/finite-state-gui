@@ -284,9 +284,3 @@ class PythonActivity(LLActivityBase):
 					y.keyword = keyword
 					
 			TransitionList.append(y)
-			
-
-
-
-
-	
