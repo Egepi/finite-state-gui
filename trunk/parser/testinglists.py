@@ -39,8 +39,8 @@ class WTH():
 	def __init__(self):
 		StateList = []
 		TransitionList = []
-		THEFILE = "testfile.jff"
-		FILENAME = "testfile"
+		THEFILE = "te.jff"
+		FILENAME = "te"
 		infile = THEFILE
 		count = 0
 		#name of xml file in local
@@ -149,8 +149,9 @@ class WTH():
 				stateidle = ""
 			for node3 in node2.childNodes:
 				if node3.nodeType == Node.TEXT_NODE:
-					stateidle += node3.data	
-					x.stateidle = stateidle
+						print node3.data
+						stateidle += node3.data	
+						x.stateidle = stateidle
 					#save to state object put into lists
 			for node2 in label:
 				label = ""
