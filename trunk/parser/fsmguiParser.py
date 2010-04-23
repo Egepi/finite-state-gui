@@ -1,7 +1,7 @@
 # FSMGUI XML ('jff') to Python Parser
 # Authors: Jennifer Kinahan & Karan Chakrapani
 
-from LLActivityPlugin import *
+#from LLActivityPlugin import *
 import pprint
 import os
 import xml
@@ -16,12 +16,13 @@ from xml.dom.minidom import Node
 def FSM_INI_Func(activity, str):
 	activity.speak('what do you want to know? I can tell you weather or news.')
 
-# News state function
+# Testing state function
 def FSM_TEST_Func(activity, str):
 	activity.speak('hi i am testin this.')
 
 class States:
 	def __init__(self):
+		#initialize values to empty or 0 values
 		name = ""
 		id = 0;
 		label = ""
@@ -29,6 +30,7 @@ class States:
 		
 class Transitions:
 	def __init__(self):
+		#initialize values to empty or 0 values
 		fr = 0
 		read = ""
 		to = 0
@@ -36,6 +38,12 @@ class Transitions:
 		keyword = ""	
 
 class PythonActivity(LLActivityBase):
+		
+	def initialize( self ):
+		count = 0
+		StateList = []
+		TransitionList = []
+		FILENAME = ""
 
 	def setActive( self, str):
 
@@ -261,14 +269,7 @@ class PythonActivity(LLActivityBase):
 					y.keyword = keyword
 					
 			TransitionList.append(y)
-		
 	
-	def initialize( self ):
-		count = 0
-	
-	StateList = []
-	TransitionList = []
-	FILENAME = ""
-	getXML(StateList, TransitionList)
-	RootInitGenerator(StateList, TransitionList)
+
+
 	
