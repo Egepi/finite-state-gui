@@ -141,8 +141,8 @@ public class ArrowTool extends Tool {
 			getView().repaint();
 			return;
 		}
-        EDebug.print("Beginning to Edit with creator "+ creator.getClass());
-		creator.editTransition(trans, event.getPoint());
+        //EDebug.print("Beginning to Edit with creator AHHHHH"+ creator.getClass());
+		//creator.editTransition(trans, event.getPoint());
 
 	}
 
