@@ -42,7 +42,7 @@ class PythonActivity(LLActivityBase):
 	def __init__(self):
 		StateList = []
 		TransitionList = []
-		THEFILE = "te.jff"
+		THEFILE = "../pyscripts/test.jff"
 		FILENAME = "te"
 		infile = THEFILE
 		count = 0
@@ -181,14 +181,10 @@ class PythonActivity(LLActivityBase):
 		count = 0;
 		States = StateList.pop(0);
 		tempName = FILENAME + "_ROOT"
-		gramid = self.addGrammar(tempName+"_GRM")
-		self.grammarIDs[tempName] = gramid
 		theTransLen = len(TransitionList)
 		for b in range(0, theTransLen):
 			Transitions = TransitionList.pop(0)
 			if States.id == Transitions.fr:
-				ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, Transitions.keyword)
-				self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
 				count = count+1	
 			else:
 				TransitionList.append(Transitions)
