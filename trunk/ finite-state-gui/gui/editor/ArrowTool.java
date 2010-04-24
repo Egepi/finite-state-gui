@@ -63,7 +63,7 @@ public class ArrowTool extends Tool {
 	public ArrowTool(AutomatonPane view, AutomatonDrawer drawer,
 			TransitionCreator creator) {
 		super(view, drawer);
-		this.creator = creator;
+		//this.creator = creator;
 	}
 
 	/**
@@ -77,14 +77,14 @@ public class ArrowTool extends Tool {
 	public ArrowTool(AutomatonPane view, AutomatonDrawer drawer) 
 	{
 		super(view, drawer);
-		this.creator = TransitionCreator.creatorForAutomaton(getAutomaton(), getView());
+		//this.creator = TransitionCreator.creatorForAutomaton(getAutomaton(), getView());
 	}
 
 	public ArrowTool(EditCanvas view, AutomatonDrawer drawer, EditorPane editorPane) 
 	{
 		super(view, drawer);
 		thePane = editorPane;
-		this.creator = TransitionCreator.creatorForAutomaton(getAutomaton(), getView());
+		//this.creator = TransitionCreator.creatorForAutomaton(getAutomaton(), getView());
 	}
 
 	/**
@@ -526,8 +526,7 @@ public class ArrowTool extends Tool {
 	{
 		return this.myLastClickedTransition;
 	}
-	/** The transition creator for editing transitions. */
-	private TransitionCreator creator;
+	
 	private EditorPane thePane;
 	/** The state that was last clicked. */
 	private State lastClickedState = null;
