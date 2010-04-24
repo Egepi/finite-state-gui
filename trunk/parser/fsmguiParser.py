@@ -43,7 +43,7 @@ class PythonActivity(LLActivityBase):
 		StateList = []
 		TransitionList = []
 		THEFILE = "../pyscripts/test.jff"
-		FILENAME = "te"
+		FILENAME = "test"
 		infile = THEFILE
 		count = 0
 		#name of xml file in local
@@ -201,7 +201,7 @@ class PythonActivity(LLActivityBase):
 			Transitions = TransitionList.pop(0)
 			if States.id == Transitions.fr:
 				ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, Transitions.keyword)
-				self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
+				self.addTransition(ruleid, tempName, FSM_INI_Func, Transitions.to)
 				count = count+1	
 			else:
 				TransitionList.append(Transitions)
