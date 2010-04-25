@@ -80,7 +80,7 @@ class PythonActivity( LLActivityBase ):
 		# use ':' as delim for multiple recognizable inputs
 		self.registerTransition("test:testing")
 		
-		self.getXML(infile, FILENAME, StateList, TransitionList, States, Transitions)
+		self.getXML(infile, StateList, TransitionList)
 		#self.RootInitGenerator(FILENAME, StateList, TransitionList)
 		#theLEN = len(StateList)
 		#for a in range(0, theLEN):
@@ -207,17 +207,14 @@ class PythonActivity( LLActivityBase ):
 	def msg_received (self, msg):
 		pass
 
-	#XML parsing
-	def getXML(self, infile, FILENAME, StateList, TransitionList, States, Transitions):
+	def getXML(self, infile, StateList, TransitionList):
 
 		try:                          
 			doc = xml.dom.minidom.parse(infile)
 		except IOError:               # catch IOError and deriving exceptions
 			print "Could not open\n"
 			os._exit(99)
-		else:                         # optional, run block if no exception thrown
-			print "Parsing:",FILENAME, "\n"
-			  
+			
 		for node in doc.getElementsByTagName("state"):
 			id = node.getAttribute("id")
 			name = node.getAttribute("name")
@@ -248,7 +245,6 @@ class PythonActivity( LLActivityBase ):
 			response = node.getElementsByTagName("response")
 			keyword = node.getElementsByTagName("keyword")
 			y = Transitions()
-			  
 			for node2 in fr:
 				fr = ""
 			for node3 in node2.childNodes:
@@ -279,5 +275,4 @@ class PythonActivity( LLActivityBase ):
 				if node3.nodeType == Node.TEXT_NODE:
 					keyword += node3.data
 					y.keyword = keyword
-					
-			TransitionList.append(y)	
+			TransitionList.append(y)
