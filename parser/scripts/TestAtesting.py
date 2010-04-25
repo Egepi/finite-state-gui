@@ -46,6 +46,7 @@ class Transitions:
 		to = 0
 		response = ""
 		keyword = ""	
+
 ###############################################################################
 # Activity Class Derived from C++
 ###############################################################################
@@ -60,7 +61,7 @@ class PythonActivity( LLActivityBase ):
 		FILENAME = "TESTA"
 		infile = THEFILE
 		count = 0
-		
+
 		# Map (input, current_state) --> (action, next_state)
 		# action is state related function assigned to it
 		self.state_transitions = {}
@@ -79,13 +80,13 @@ class PythonActivity( LLActivityBase ):
 		# register transition to this activity from ActivityManager (top level manager)
 		# use ':' as delim for multiple recognizable inputs
 		self.registerTransition("test:testing")
-		
-		self.getXML(infile, FILENAME, StateList, TransitionList, States, Transitions)
+				
+		#self.getXML(infile, FILENAME, StateList, TransitionList, States, Transitions)
 		#self.RootInitGenerator(FILENAME, StateList, TransitionList)
 		#theLEN = len(StateList)
 		#for a in range(0, theLEN):
 		#	theStates = StateList.pop(0)
-		#	self.stateGenerator(FILENAME, theStates, TransitionList)	
+		#	self.stateGenerator(FILENAME, theStates, TransitionList)		
 		
 		# initialize all states and its function
 		# step1: add grammar -> add default transition
@@ -206,6 +207,67 @@ class PythonActivity( LLActivityBase ):
 
 	def msg_received (self, msg):
 		pass
+	
+	#Create and add a state and all of its transitions
+	def stateGenerator (self, FILENAME, States, TransitionList):
+		count = 0
+		tempName = FILENAME + "_" + States.name
+		gramid = self.addGrammar(tempName + "_GRM")
+		self.currentGrammarID = gramid
+		self.grammarIDs[tempName] = gramid
+		theTransLen = len(TransitionList)
+		for b in range(0, theTransLen):
+			Transitions = TransitionList.pop(0)
+			if States.id == Transitions.fr:
+				ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, Transitions.keyword)
+				self.addTransition(ruleid, tempName, TESTA_WEATHER_Func, Transitions.to)
+				count = count+1	
+			else:
+				TransitionList.append(Transitions)
+
+	#create root/init states then call state generator
+	def RootInitGenerator(self, FILENAME, StateList, TransitionList):		
+
+		#ROOT STATE 
+		count = 0;
+		States = StateList.pop(0);
+		tempName = FILENAME + "_ROOT"
+		theTransLen = len(TransitionList)
+		for b in range(0, theTransLen):
+			Transitions = TransitionList.pop(0)
+			if States.id == Transitions.fr:
+				count = count+1	
+			else:
+				TransitionList.append(Transitions)
+
+		#gramid = self.addGrammar("TESTA_INI_GRM")
+		#self.currentGrammarID = gramid
+		#self.grammarIDs['TESTA_INI'] = gramid
+		
+		#ruleid = self.addGrammarRule(gramid, "TESTA_INI_R0", "news")
+		#self.addTransition(ruleid, 'TESTA_INI', TESTA_NEWS_Func, 'TESTA_NEWS')
+		#ruleid = self.addGrammarRule(gramid, "TESTA_INI_R1", "weather")
+		#self.addTransition(ruleid, 'TESTA_INI', TESTA_WEATHER_Func, 'TESTA_WEATHER')
+		#ruleid = self.addGrammarRule(gramid, "TESTA_INI_R2", "exit")
+		#self.addTransition(ruleid, 'TESTA_INI', TESTA_EXIT_Func, 'TESTA_INI')
+		
+		#INI STATE
+		count = 0;
+		States = StateList.pop(0);
+		tempName = FILENAME + "_INI"
+		gramid = self.addGrammar(tempName + "_GRM")
+		self.currentGrammarID = gramid
+		self.grammarIDs[tempName] = gramid
+
+		theTransLen = len(TransitionList)
+		for b in range(0, theTransLen):
+			Transitions = TransitionList.pop(0)
+			if States.id == Transitions.fr:
+				ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, Transitions.keyword)
+				self.addTransition(ruleid, tempName, TESTA_NEWS_Func, *Transitions.to*)  #need state not state id
+				count = count+1	
+			else:
+				TransitionList.append(Transitions)
 
 	#XML parsing
 	def getXML(self, infile, FILENAME, StateList, TransitionList, States, Transitions):
@@ -280,4 +342,4 @@ class PythonActivity( LLActivityBase ):
 					keyword += node3.data
 					y.keyword = keyword
 					
-			TransitionList.append(y)	
+			TransitionList.append(y)			
