@@ -122,22 +122,44 @@ class PythonActivity( LLActivityBase ):
 				count = count+1	
 		#END INI STATE
 
+		theLEN = len(StateList)
+		for a in range(2, theLEN):
+			theStates = StateList[a]
+			count = 0
+			theTransLen = len(TransitionList)
+			tempName = FILENAME + "_" + str(theStates.name)
+			gramid = self.addGrammar(tempName + "_GRM")
+			self.currentGrammarID = gramid
+			self.grammarIDs[tempName] = gramid
+			theTransLen = len(TransitionList)
+			for b in range(0, theTransLen):
+				theTransition = TransitionList[b]
+				for st in StateList:
+					if theTransition.to == st.id: 
+					   newTo = FILENAME + "_" + str(st.name)
+				if theTransition.fr == theStates.id:
+					thing = tempName + "_R"  + str(count)
+					theKey = str(theTransition.keyword)
+					ruleid = self.addGrammarRule(gramid, thing, theKey)
+					self.addTransition(ruleid, tempName, TESTA_TEST_Func, newTo)
+					count = count+1				
+				
 
-		# News state (transition to ini/exit)
-		gramid = self.addGrammar("TESTA_NEWS_GRM")
-		self.grammarIDs['TESTA_NEWS'] = gramid
-		ruleid = self.addGrammarRule(gramid, "TESTA_NEWS_R0", "menu")
-		self.addTransition(ruleid, 'TESTA_NEWS', TESTA_INI_Func, 'TESTA_INI')
-		ruleid = self.addGrammarRule(gramid, "TESTA_NEWS_R1", "exit")
-		self.addTransition(ruleid, 'TESTA_NEWS', TESTA_EXIT_Func, 'TESTA_INI')
+		# # News state (transition to ini/exit)
+		# gramid = self.addGrammar("TESTA_NEWS_GRM")
+		# self.grammarIDs['TESTA_NEWS'] = gramid
+		# ruleid = self.addGrammarRule(gramid, "TESTA_NEWS_R0", "menu")
+		# self.addTransition(ruleid, 'TESTA_NEWS', TESTA_INI_Func, 'TESTA_INI')
+		# ruleid = self.addGrammarRule(gramid, "TESTA_NEWS_R1", "exit")
+		# self.addTransition(ruleid, 'TESTA_NEWS', TESTA_EXIT_Func, 'TESTA_INI')
 
-		# Weather state (transition to ini/exit)
-		gramid = self.addGrammar("TESTA_WEATHER_GRM")
-		self.grammarIDs['TESTA_WEATHER'] = gramid
-		ruleid = self.addGrammarRule(gramid, "TESTA_WEATHER_R0", "menu")
-		self.addTransition(ruleid, 'TESTA_WEATHER', TESTA_INI_Func, 'TESTA_INI')
-		ruleid = self.addGrammarRule(gramid, "TESTA_WEATHER_R1", "exit")
-		self.addTransition(ruleid, 'TESTA_WEATHER', TESTA_EXIT_Func, 'TESTA_INI')
+		# # Weather state (transition to ini/exit)
+		# gramid = self.addGrammar("TESTA_WEATHER_GRM")
+		# self.grammarIDs['TESTA_WEATHER'] = gramid
+		# ruleid = self.addGrammarRule(gramid, "TESTA_WEATHER_R0", "menu")
+		# self.addTransition(ruleid, 'TESTA_WEATHER', TESTA_INI_Func, 'TESTA_INI')
+		# ruleid = self.addGrammarRule(gramid, "TESTA_WEATHER_R1", "exit")
+		# self.addTransition(ruleid, 'TESTA_WEATHER', TESTA_EXIT_Func, 'TESTA_INI')
 
 	def setActive( self, str):
 
