@@ -1,3 +1,6 @@
+# FSMGUI XML ('jff') to Python Parser
+# Authors: Jennifer Kinahan & Karan Chakrapani
+
 from LLActivityPlugin import *
 import pprint
 import os
@@ -9,10 +12,6 @@ import glob
 import xml.dom.minidom
 from xml.dom.minidom import Node
 
-###############################################################################
-# here is a series of state function
-# we need to figure out where we should put this stuff related to fsm tool
-###############################################################################
 # INI state function
 def TESTA_INI_Func(activity, str):
 	activity.speak('what do you want to know? I can tell you weather or news.')
@@ -46,21 +45,17 @@ class Transitions:
 		to = 0
 		response = ""
 		keyword = ""	
-###############################################################################
-# Activity Class Derived from C++
-###############################################################################
-class PythonActivity( LLActivityBase ):
 
-	# class initialization
-	# We should use fsm xml file to generte this function
-	def initialize( self ):
+class PythonActivity(LLActivityBase):
+	#initialize
+	def __init__(self):
 		StateList = []
 		TransitionList = []
-		THEFILE = "../pyscripts/TestA.jff"
-		FILENAME = "TESTA"
+		THEFILE = "../pyscripts/test.jff"
+		FILENAME = "test"
 		infile = THEFILE
 		count = 0
-		
+
 		# Map (input, current_state) --> (action, next_state)
 		# action is state related function assigned to it
 		self.state_transitions = {}
@@ -79,51 +74,16 @@ class PythonActivity( LLActivityBase ):
 		# register transition to this activity from ActivityManager (top level manager)
 		# use ':' as delim for multiple recognizable inputs
 		self.registerTransition("test:testing")
-		
-		self.getXML(infile, FILENAME, StateList, TransitionList, States, Transitions)
+				
+		#self.getXML(infile, FILENAME, StateList, TransitionList, States, Transitions)
 		#self.RootInitGenerator(FILENAME, StateList, TransitionList)
 		#theLEN = len(StateList)
 		#for a in range(0, theLEN):
 		#	theStates = StateList.pop(0)
-		#	self.stateGenerator(FILENAME, theStates, TransitionList)	
-		
-		# initialize all states and its function
-		# step1: add grammar -> add default transition
-		# step2: add rule -> add transition with rule id
-		#  repeat step2 till all required transitions added
-		
-		# Initial state (initial one) to news/weather/exit
-		# 1. add grammar to speech recognition engine
-		# 2. store grammar id and add it to map
-		# 3. add speech rules under grammar (this rule represent transition input)
-		# 4. add rule to transition map
-		# repeate 3~4 as many times as the number of transiton assigned to this state
-		gramid = self.addGrammar("TESTA_INI_GRM")
-		self.currentGrammarID = gramid
-		self.grammarIDs['TESTA_INI'] = gramid
-		ruleid = self.addGrammarRule(gramid, "TESTA_INI_R0", "news")
-		self.addTransition(ruleid, 'TESTA_INI', TESTA_NEWS_Func, 'TESTA_NEWS')
-		ruleid = self.addGrammarRule(gramid, "TESTA_INI_R1", "weather")
-		self.addTransition(ruleid, 'TESTA_INI', TESTA_WEATHER_Func, 'TESTA_WEATHER')
-		ruleid = self.addGrammarRule(gramid, "TESTA_INI_R2", "exit")
-		self.addTransition(ruleid, 'TESTA_INI', TESTA_EXIT_Func, 'TESTA_INI')
-		
-		
-		# News state (transition to ini/exit)
-		gramid = self.addGrammar("TESTA_NEWS_GRM")
-		self.grammarIDs['TESTA_NEWS'] = gramid
-		ruleid = self.addGrammarRule(gramid, "TESTA_NEWS_R0", "menu")
-		self.addTransition(ruleid, 'TESTA_NEWS', TESTA_INI_Func, 'TESTA_INI')
-		ruleid = self.addGrammarRule(gramid, "TESTA_NEWS_R1", "exit")
-		self.addTransition(ruleid, 'TESTA_NEWS', TESTA_EXIT_Func, 'TESTA_INI')
-
-		# Weather state (transition to ini/exit)
-		gramid = self.addGrammar("TESTA_WEATHER_GRM")
-		self.grammarIDs['TESTA_WEATHER'] = gramid
-		ruleid = self.addGrammarRule(gramid, "TESTA_WEATHER_R0", "menu")
-		self.addTransition(ruleid, 'TESTA_WEATHER', TESTA_INI_Func, 'TESTA_INI')
-		ruleid = self.addGrammarRule(gramid, "TESTA_WEATHER_R1", "exit")
-		self.addTransition(ruleid, 'TESTA_WEATHER', TESTA_EXIT_Func, 'TESTA_INI')
+		#	self.stateGenerator(FILENAME, theStates, TransitionList)		
+	
+	################################################################
+	# Copied from sample
 
 	def setActive( self, str):
 
@@ -207,6 +167,57 @@ class PythonActivity( LLActivityBase ):
 	def msg_received (self, msg):
 		pass
 
+	# End copy from sample
+	###################################################################
+	
+		#Create and add a state and all of its transitions
+	def stateGenerator (self, FILENAME, States, TransitionList):
+		count = 0
+		tempName = FILENAME + "_" + States.name
+		gramid = self.addGrammar(tempName + "_GRM")
+		self.currentGrammarID = gramid
+		self.grammarIDs[tempName] = gramid
+		theTransLen = len(TransitionList)
+		for b in range(0, theTransLen):
+			Transitions = TransitionList.pop(0)
+			if States.id == Transitions.fr:
+				ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, Transitions.keyword)
+				self.addTransition(ruleid, tempName, FSM_TEST_Func, Transitions.to)
+				count = count+1	
+			else:
+				TransitionList.append(Transitions)
+	#create root/init states then call state generator
+	def RootInitGenerator(self, FILENAME, StateList, TransitionList):		
+
+		#ROOT STATE 
+		count = 0;
+		States = StateList.pop(0);
+		tempName = FILENAME + "_ROOT"
+		theTransLen = len(TransitionList)
+		for b in range(0, theTransLen):
+			Transitions = TransitionList.pop(0)
+			if States.id == Transitions.fr:
+				count = count+1	
+			else:
+				TransitionList.append(Transitions)
+		
+		#INI STATE
+		count = 0;
+		States = StateList.pop(0);
+		tempName = FILENAME + "_INI"
+		gramid = self.addGrammar(tempName + "_GRM")
+		self.grammarIDs[tempName] = gramid
+
+		theTransLen = len(TransitionList)
+		for b in range(0, theTransLen):
+			Transitions = TransitionList.pop(0)
+			if States.id == Transitions.fr:
+				ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, Transitions.keyword)
+				self.addTransition(ruleid, tempName, TESTA_NEWS_Func, Transitions.to)
+				count = count+1	
+			else:
+				TransitionList.append(Transitions)
+			
 	#XML parsing
 	def getXML(self, infile, FILENAME, StateList, TransitionList, States, Transitions):
 
@@ -280,4 +291,4 @@ class PythonActivity( LLActivityBase ):
 					keyword += node3.data
 					y.keyword = keyword
 					
-			TransitionList.append(y)	
+			TransitionList.append(y)
