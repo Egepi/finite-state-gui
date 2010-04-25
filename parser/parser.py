@@ -28,8 +28,11 @@ class Test:
 	def __init__(self):
 		StateList = []
 		TransitionList = []
+		StateList2 = []
+		TransitionList2 = []
 		FILENAME = ""	
 		infile = "testfull.jff"
+		someAttr = ""
 		self.getXML(infile, StateList, TransitionList)
 		try:	
 			for St in StateList:
@@ -45,6 +48,32 @@ class Test:
 				print Tran.read
 		except AttributeError:
 			print ""	
+		someAttr = StateList[3]
+		print someAttr.name
+		print self
+		
+		States = StateList[1]
+		Transitions 
+		count = 0
+		theTransition = ""
+		newTo = ""
+		tempName = FILENAME + "_" + States.name
+		#gramid = self.addGrammar(tempName + "_GRM")
+		#self.currentGrammarID = gramid
+		#self.grammarIDs[tempName] = gramid
+		theTransLen = len(TransitionList)
+		for b in range(0, theTransLen):
+			theTransition = TransitionList[b]
+			for st in StateList:
+			    if theTransition.to == st.id: 
+				   newTo = st.name
+			if States.id == theTransition.fr:
+				#ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, theTransition.keyword)
+				#self.addTransition(ruleid, tempName, TESTA_WEATHER_Func, FILNAME + "_" + newTo)
+				count = count+1	
+				print newTo+"x"
+		
+			
 	def getXML(self, infile, StateList, TransitionList):
 		#name of xml file in local
 		(PATH, FILENAME) = os.path.split(infile)
@@ -114,4 +143,5 @@ class Test:
 					keyword += node3.data
 					y.keyword = keyword
 			TransitionList.append(y)
+			print self
 a = Test()
