@@ -230,15 +230,13 @@ class PythonActivity( LLActivityBase ):
 
 		#ROOT STATE 
 		count = 0;
-		States = StateList.pop(0);
+		States = StateList[0];
 		tempName = FILENAME + "_ROOT"
 		theTransLen = len(TransitionList)
 		for b in range(0, theTransLen):
-			Transitions = TransitionList.pop(0)
+			Transitions = TransitionList[0]
 			if States.id == Transitions.fr:
 				count = count+1	
-			else:
-				TransitionList.append(Transitions)
 
 		#gramid = self.addGrammar("TESTA_INI_GRM")
 		#self.currentGrammarID = gramid

@@ -29,6 +29,12 @@ def TESTA_WEATHER_Func(activity, str):
 def TESTA_EXIT_Func(activity, str):
 	activity.speak('good bye.')
 	activity.exiting = True	
+	
+# Test state function
+def TESTA_TEST_Func(activity, str):
+	activity.speak('I am tesing cool things here')
+	
+	
 
 class States:
 	def __init__(self):
@@ -81,11 +87,6 @@ class PythonActivity( LLActivityBase ):
 		self.registerTransition("test:testing")
 		
 		self.getXML(infile, StateList, TransitionList)
-		#self.RootInitGenerator(FILENAME, StateList, TransitionList)
-		#theLEN = len(StateList)
-		#for a in range(0, theLEN):
-		#	theStates = StateList.pop(0)
-		#	self.stateGenerator(FILENAME, theStates, TransitionList)	
 		
 		# initialize all states and its function
 		# step1: add grammar -> add default transition
@@ -98,17 +99,30 @@ class PythonActivity( LLActivityBase ):
 		# 3. add speech rules under grammar (this rule represent transition input)
 		# 4. add rule to transition map
 		# repeate 3~4 as many times as the number of transiton assigned to this state
-		gramid = self.addGrammar("TESTA_INI_GRM")
+
+		#INIT STATE
+		count = 0;
+		States = StateList[1];
+		theTransLen = len(TransitionList)
+		tempName = FILENAME + "_INI"
+		gramid = self.addGrammar(tempName + "_GRM")
 		self.currentGrammarID = gramid
-		self.grammarIDs['TESTA_INI'] = gramid
-		ruleid = self.addGrammarRule(gramid, "TESTA_INI_R0", "news")
-		self.addTransition(ruleid, 'TESTA_INI', TESTA_NEWS_Func, 'TESTA_NEWS')
-		ruleid = self.addGrammarRule(gramid, "TESTA_INI_R1", "weather")
-		self.addTransition(ruleid, 'TESTA_INI', TESTA_WEATHER_Func, 'TESTA_WEATHER')
-		ruleid = self.addGrammarRule(gramid, "TESTA_INI_R2", "exit")
-		self.addTransition(ruleid, 'TESTA_INI', TESTA_EXIT_Func, 'TESTA_INI')
-		
-		
+		self.grammarIDs[tempName] = gramid
+		theTransLen = len(TransitionList)
+		for b in range(0, theTransLen):
+			theTransition = TransitionList[b]
+			for st in StateList:
+			    if theTransition.to == st.id: 
+				   newTo = FILENAME + "_" + str(st.name)
+			if theTransition.fr == States.id:
+				thing = tempName + "_R"  + str(count)
+				theKey = str(theTransition.keyword)
+				ruleid = self.addGrammarRule(gramid, thing, theKey)
+				self.addTransition(ruleid, tempName, TESTA_TEST_Func, newTo)
+				count = count+1	
+		#END INI STATE
+
+
 		# News state (transition to ini/exit)
 		gramid = self.addGrammar("TESTA_NEWS_GRM")
 		self.grammarIDs['TESTA_NEWS'] = gramid
