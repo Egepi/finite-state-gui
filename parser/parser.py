@@ -30,7 +30,7 @@ class Test:
 		TransitionList = []
 		StateList2 = []
 		TransitionList2 = []
-		FILENAME = ""	
+		FILENAME = "TESTA"
 		infile = "testfull.jff"
 		someAttr = ""
 		self.getXML(infile, StateList, TransitionList)
@@ -50,10 +50,8 @@ class Test:
 			print ""	
 		someAttr = StateList[3]
 		print someAttr.name
-		print self
 		
 		States = StateList[1]
-		Transitions 
 		count = 0
 		theTransition = ""
 		newTo = ""
@@ -66,13 +64,16 @@ class Test:
 			theTransition = TransitionList[b]
 			for st in StateList:
 			    if theTransition.to == st.id: 
-				   newTo = st.name
+				   newTo = FILENAME + "_" + str(st.name)
+				   print newTo+"XXXXXX"
 			if States.id == theTransition.fr:
+				theFunc = action(newTo + "_Func")
+				print theFunc
 				#ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, theTransition.keyword)
 				#self.addTransition(ruleid, tempName, TESTA_WEATHER_Func, FILNAME + "_" + newTo)
 				count = count+1	
-				print newTo+"x"
-		
+
+
 			
 	def getXML(self, infile, StateList, TransitionList):
 		#name of xml file in local
