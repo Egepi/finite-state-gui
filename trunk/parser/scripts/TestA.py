@@ -122,7 +122,7 @@ class PythonActivity( LLActivityBase ):
 				count = count+1	
 		thing = tempName + "_R"  + str(count)
 		ruleid = self.addGrammarRule(gramid, thing, "exit")
-		self.addTransition(ruleid, tempName, TESTA_EXIT_Func, str(FILENAME+ "_INI")
+		self.addTransition(ruleid, tempName, TESTA_EXIT_Func, str(FILENAME+ "_INI"))	
 		#END INI STATE
 
 		theLEN = len(StateList)
