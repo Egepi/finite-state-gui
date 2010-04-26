@@ -120,6 +120,9 @@ class PythonActivity( LLActivityBase ):
 				ruleid = self.addGrammarRule(gramid, thing, theKey)
 				self.addTransition(ruleid, tempName, TESTA_TEST_Func, newTo)
 				count = count+1	
+		thing = tempName + "_R"  + str(count)
+		ruleid = self.addGrammarRule(gramid, thing, "exit")
+		self.addTransition(ruleid, tempName, TESTA_EXIT_Func, str(FILENAME+ "_INI")
 		#END INI STATE
 
 		theLEN = len(StateList)
@@ -142,8 +145,15 @@ class PythonActivity( LLActivityBase ):
 					theKey = str(theTransition.keyword)
 					ruleid = self.addGrammarRule(gramid, thing, theKey)
 					self.addTransition(ruleid, tempName, TESTA_TEST_Func, newTo)
-					count = count+1				
-				
+					count = count+1	
+					
+			thing = tempName + "_R"  + str(count)
+			ruleid = self.addGrammarRule(gramid, thing, "menu")
+			self.addTransition(ruleid, tempName, TESTA_INI_Func, str(FILENAME+ "_INI"))
+			count = count+1
+			thing = tempName + "_R"  + str(count)
+			ruleid = self.addGrammarRule(gramid, thing, "exit")
+			self.addTransition(ruleid, tempName, TESTA_EXIT_Func, str(FILENAME+ "_INI"))		
 
 		# # News state (transition to ini/exit)
 		# gramid = self.addGrammar("TESTA_NEWS_GRM")
