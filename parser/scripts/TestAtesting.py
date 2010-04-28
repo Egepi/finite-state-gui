@@ -211,32 +211,37 @@ class PythonActivity( LLActivityBase ):
 	#Create and add a state and all of its transitions
 	def stateGenerator (self, FILENAME, States, TransitionList):
 		count = 0
+		theTransition = ""
+		newTo = ""
 		tempName = FILENAME + "_" + States.name
 		gramid = self.addGrammar(tempName + "_GRM")
 		self.currentGrammarID = gramid
 		self.grammarIDs[tempName] = gramid
 		theTransLen = len(TransitionList)
 		for b in range(0, theTransLen):
-			Transitions = TransitionList.pop(0)
+			theTransition = TransitionList[b]
+			for st in StateList:
+			    if theTransition.to == st.id: 
+				   newTo = st.name
 			if States.id == Transitions.fr:
-				ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, Transitions.keyword)
-				self.addTransition(ruleid, tempName, TESTA_WEATHER_Func, Transitions.to)
+				ruleid = self.addGrammarRule(gramid, tempName + "_R"+count, theTransition.keyword)
+				self.addTransition(ruleid, tempName, TESTA_WEATHER_Func, FILNAME + "_" + newTo)
 				count = count+1	
-			else:
-				TransitionList.append(Transitions)
 
 	#create root/init states then call state generator
 	def RootInitGenerator(self, FILENAME, StateList, TransitionList):		
 
 		#ROOT STATE 
 		count = 0;
-		States = StateList[0];
+		States = StateList.pop(0);
 		tempName = FILENAME + "_ROOT"
 		theTransLen = len(TransitionList)
 		for b in range(0, theTransLen):
-			Transitions = TransitionList[0]
+			Transitions = TransitionList.pop(0)
 			if States.id == Transitions.fr:
 				count = count+1	
+			else:
+				TransitionList.append(Transitions)
 
 		#gramid = self.addGrammar("TESTA_INI_GRM")
 		#self.currentGrammarID = gramid
