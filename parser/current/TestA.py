@@ -14,28 +14,22 @@ from xml.dom.minidom import Node
 # we need to figure out where we should put this stuff related to fsm tool
 ###############################################################################
 # INI state function
-def TESTA_INI_Func(activity, str):
-	activity.speak('what do you want to know? I can tell you weather or news.')
-
-# News state function
-def TESTA_NEWS_Func(activity, str):
-	activity.speak('here is news for you.')
-
-# Weather state function
-def TESTA_WEATHER_Func(activity, str):
-	activity.speak('here is weather information for you.')
+def TESTA_ROOT_Func(activity, str):
+	activity.speak('I am root,  Say Hello to me.')
 
 # Exit state function: this is not exactly the state function
 def TESTA_EXIT_Func(activity, str):
 	activity.speak('good bye.')
 	activity.exiting = True	
 	
-# Test state function
-def TESTA_TEST_Func(activity, str):
-	activity.speak('I am tesing cool things here')
 	
+# # Test state function
+# def TESTA_TEST_Func(activity, str):
+	# activity.speak('I am testing cool things here')
 	
-
+def setString(activity, str):
+	activity.speak(theResp)
+	
 class States:
 	def __init__(self):
 		#initialize values to empty or 0 values
@@ -66,6 +60,7 @@ class PythonActivity( LLActivityBase ):
 		FILENAME = "TESTA"
 		infile = THEFILE
 		count = 0
+		theResp = ""
 		
 		# Map (input, current_state) --> (action, next_state)
 		# action is state related function assigned to it
@@ -77,8 +72,8 @@ class PythonActivity( LLActivityBase ):
 		# initial state
 		self.initial_state = 'TESTA_INI'
 		self.current_state = self.initial_state
-		self.action = TESTA_INI_Func
-		self.initial_action = TESTA_INI_Func
+		self.action = TESTA_ROOT_Func
+		self.initial_action = TESTA_ROOT_Func
 		self.next_state = None
 		self.prev_state = None
 		
@@ -117,15 +112,15 @@ class PythonActivity( LLActivityBase ):
 			if theTransition.fr == States.id:
 				thing = tempName + "_R"  + str(count)
 				theKey = str(theTransition.keyword)
-				#theResp = str(theTransition.response)
+				theResp = str(theTransition.response)
 				ruleid = self.addGrammarRule(gramid, thing, theKey)
 				#self.addTransition(ruleid, tempName, action.speak(theResp), newTo)
 				#self.addTransition(ruleid, tempName, self.speak(theResp), newTo)
-				self.addTransition(ruleid, tempName, TESTA_TEST_Func, newTo)
+				self.addTransition(ruleid, tempName, theResp, newTo)
 				count = count+1	
 		thing = tempName + "_R"  + str(count)
 		ruleid = self.addGrammarRule(gramid, thing, "exit")
-		self.addTransition(ruleid, tempName, TESTA_EXIT_Func, str(FILENAME+ "_INI"))	
+		self.addTransition(ruleid, tempName, "exiting", str(FILENAME+ "_INI"))	
 		#END INI STATE
 
 		theLEN = len(StateList)
@@ -146,17 +141,20 @@ class PythonActivity( LLActivityBase ):
 				if theTransition.fr == theStates.id:
 					thing = tempName + "_R"  + str(count)
 					theKey = str(theTransition.keyword)
+					theResp = str(theTransition.response)
 					ruleid = self.addGrammarRule(gramid, thing, theKey)
-					self.addTransition(ruleid, tempName, TESTA_TEST_Func, newTo)
+					#self.addTransition(ruleid, tempName, action.speak(theResp), newTo)
+					#self.addTransition(ruleid, tempName, self.speak(theResp), newTo)
+					self.addTransition(ruleid, tempName, theResp, newTo)
 					count = count+1	
 					
 			thing = tempName + "_R"  + str(count)
 			ruleid = self.addGrammarRule(gramid, thing, "menu")
-			self.addTransition(ruleid, tempName, TESTA_INI_Func, str(FILENAME+ "_INI"))
+			self.addTransition(ruleid, tempName, "menu", str(FILENAME+ "_INI"))
 			count = count+1
 			thing = tempName + "_R"  + str(count)
 			ruleid = self.addGrammarRule(gramid, thing, "exit")
-			self.addTransition(ruleid, tempName, TESTA_EXIT_Func, str(FILENAME+ "_INI"))		
+			self.addTransition(ruleid, tempName, "exiting", str(FILENAME+ "_INI"))		
 
 		# # News state (transition to ini/exit)
 		# gramid = self.addGrammar("TESTA_NEWS_GRM")
@@ -173,7 +171,7 @@ class PythonActivity( LLActivityBase ):
 		# self.addTransition(ruleid, 'TESTA_WEATHER', TESTA_INI_Func, 'TESTA_INI')
 		# ruleid = self.addGrammarRule(gramid, "TESTA_WEATHER_R1", "exit")
 		# self.addTransition(ruleid, 'TESTA_WEATHER', TESTA_EXIT_Func, 'TESTA_INI')
-
+		
 	def setActive( self, str):
 
 		if self.grammarIDs.has_key(self.current_state):
@@ -183,15 +181,15 @@ class PythonActivity( LLActivityBase ):
 		
 		self.active = True
 
-	def processRecognition( self, gid, rid, conf, listened, rulename ):
+	def processRecognition( self, gid, rid, conf, listened, rulename):
 		
 		# gid: current state, rid: FSM input
 		# conf: SR confidence, str: recognized string
-
 		(self.action, self.next_state) = self.getTransition(rid, self.current_state)
 		if self.action is not None:
-			self.action(self, listened)
-
+			self.speak(self.action)
+		 	
+			
 		# update status
 		self.prev_state = self.current_state
 		self.current_state = self.next_state
