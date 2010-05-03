@@ -36,19 +36,30 @@ class PythonActivity( LLActivityBase ):
 	# class initialization
 	# We should use fsm xml file to generte this function
 	def initialize( self ):
-		StateList = []
-		TransitionList = []
+		
+		#path name of the file. If you need to change jff files just change the final portion and leave the path the same
 		THEFILE = "../pyscripts/TestA.jff"
-		FILENAME = "TESTA"
+		# note above is the only line you should need to change
+		
+		#used for naming purposes
+		FILENAME = "FILE"
+		#for the XML parsing function
 		infile = THEFILE
 		count = 0
+		#list for transition responses
 		theResp = []
+		#list for exit responses
 		exitResp = ["exiting"]
+		#list of states
+		StateList = []
+		#list of transitions
+		TransitionList = []
 		
 		# register transition to this activity from ActivityManager (top level manager)
  		# use ':' as delim for multiple recognizable inputs
 		self.registerTransition("test:testing")
 		
+		#call XML parser function with the filename, state list and transition list as the parameters
 		self.getXML(infile, StateList, TransitionList)
 		
 		# Map (input, current_state) --> (action, next_state)
@@ -70,11 +81,14 @@ class PythonActivity( LLActivityBase ):
 		# 4. add rule to transition map
 		# repeate 3~4 as many times as the number of transiton assigned to this state
 
-		#INIT STATE
+		#statelist[0] is root but we do not add it to the conversation
+		
+		#Adding INITIAL state tot he conversation
 		count = 0;
 		#start at the first node in the list
 		States = StateList[1];
 		theTransLen = len(TransitionList)
+		#create a temporary name for the state
 		tempName = FILENAME + "_INI"
 		gramid = self.addGrammar(tempName + "_GRM")
 		self.currentGrammarID = gramid
@@ -82,7 +96,6 @@ class PythonActivity( LLActivityBase ):
 		theTransLen = len(TransitionList)
 		theMenuRespList = States.stateidleList
 		
-		# initial state initialiaztion
 		self.initial_state = 'TESTA_INI'
 		self.current_state = self.initial_state
 		self.action = theMenuRespList
@@ -105,13 +118,11 @@ class PythonActivity( LLActivityBase ):
 				theResp = str(theTransition.response)
 				#assigning the responselist to theresplist
 				theRespList = theTransition.responseList
-				theRespList = theTransition.responseList
 				ruleid = self.addGrammarRule(gramid, thing, theKey)
 				self.addTransition(ruleid, tempName, theRespList, newTo)
 				#counter used to adding transitions 
-				self.addTransition(ruleid, tempName, theRespList, newTo)		
 				count = count+1	
-		#adding exit
+		#adding exit transition		
 		thing = tempName + "_R"  + str(count)
 		ruleid = self.addGrammarRule(gramid, thing, "exit")
 		self.addTransition(ruleid, tempName, exitResp, str(FILENAME+ "_INI"))	
@@ -143,15 +154,15 @@ class PythonActivity( LLActivityBase ):
 					theResp = str(theTransition.response)
 					#assign the current responselist to theresplist
 					theRespList = theTransition.responseList
-					theRespList = theTransition.responseList
 					ruleid = self.addGrammarRule(gramid, thing, theKey)
 					self.addTransition(ruleid, tempName, theRespList, newTo)
 					count = count+1	
-			#adding init and exit 		
+			#adding return to menu transition		
 			thing = tempName + "_R"  + str(count)
 			ruleid = self.addGrammarRule(gramid, thing, "menu")
 			self.addTransition(ruleid, tempName, theMenuRespList, str(FILENAME+ "_INI"))
 			count = count+1
+			#adding exit transition 
 			thing = tempName + "_R"  + str(count)
 			ruleid = self.addGrammarRule(gramid, thing, "exit")
 			self.addTransition(ruleid, tempName, exitResp, str(FILENAME+ "_INI"))
