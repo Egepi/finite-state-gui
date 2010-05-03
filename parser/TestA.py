@@ -72,6 +72,7 @@ class PythonActivity( LLActivityBase ):
 
 		#INIT STATE
 		count = 0;
+		#start at the first node in the list
 		States = StateList[1];
 		theTransLen = len(TransitionList)
 		tempName = FILENAME + "_INI"
@@ -91,19 +92,26 @@ class PythonActivity( LLActivityBase ):
 		
 		# adding transitions for the init state
 		for b in range(0, theTransLen):
+			#for each transition in transition list
 			theTransition = TransitionList[b]
 			for st in StateList:
+				# when the transitions to element == states id element
 			    if theTransition.to == st.id: 
 				   newTo = FILENAME + "_" + str(st.name)
 			if theTransition.fr == States.id:
+				#casting things as strings 
 				thing = tempName + "_R"  + str(count)
 				theKey = str(theTransition.keyword)
 				theResp = str(theTransition.response)
+				#assigning the responselist to theresplist
+				theRespList = theTransition.responseList
 				theRespList = theTransition.responseList
 				ruleid = self.addGrammarRule(gramid, thing, theKey)
 				self.addTransition(ruleid, tempName, theRespList, newTo)
-				
+				#counter used to adding transitions 
+				self.addTransition(ruleid, tempName, theRespList, newTo)		
 				count = count+1	
+		#adding exit
 		thing = tempName + "_R"  + str(count)
 		ruleid = self.addGrammarRule(gramid, thing, "exit")
 		self.addTransition(ruleid, tempName, exitResp, str(FILENAME+ "_INI"))	
@@ -113,6 +121,7 @@ class PythonActivity( LLActivityBase ):
 		# adding all states after the init state
 		theLEN = len(StateList)
 		for a in range(2, theLEN):
+			#theStates is the current state of StateList
 			theStates = StateList[a]
 			count = 0
 			theTransLen = len(TransitionList)
@@ -126,15 +135,19 @@ class PythonActivity( LLActivityBase ):
 				for st in StateList:
 					if theTransition.to == st.id: 
 					   newTo = FILENAME + "_" + str(st.name)
+				#when the transitions from == the states id element
 				if theTransition.fr == theStates.id:
+					#cast elements as strings
 					thing = tempName + "_R"  + str(count)
 					theKey = str(theTransition.keyword)
 					theResp = str(theTransition.response)
+					#assign the current responselist to theresplist
+					theRespList = theTransition.responseList
 					theRespList = theTransition.responseList
 					ruleid = self.addGrammarRule(gramid, thing, theKey)
 					self.addTransition(ruleid, tempName, theRespList, newTo)
 					count = count+1	
-					
+			#adding init and exit 		
 			thing = tempName + "_R"  + str(count)
 			ruleid = self.addGrammarRule(gramid, thing, "menu")
 			self.addTransition(ruleid, tempName, theMenuRespList, str(FILENAME+ "_INI"))
@@ -149,6 +162,7 @@ class PythonActivity( LLActivityBase ):
 		if self.grammarIDs.has_key(self.current_state):
 			self.setCurrentGrammar(self.grammarIDs[self.current_state])
 		if self.action is not None:
+			#random output for the menu response
 			randInt2 = random.randint(0, (len(self.action)-1))
 			menuResponse = self.action[randInt2]
 			self.speak(menuResponse)
@@ -230,14 +244,16 @@ class PythonActivity( LLActivityBase ):
 	def msg_received (self, msg):
 		pass
 
+	#getting the xml file
 	def getXML(self, infile, StateList, TransitionList):
-
+		# file input
 		try:                          
 			doc = xml.dom.minidom.parse(infile)
 		except IOError:               # catch IOError and deriving exceptions
 			print "Could not open\n"
 			os._exit(99)
-			
+		
+	    #initializing the elements within each state tag
 		for node in doc.getElementsByTagName("state"):
 			id = node.getAttribute("id")
 			name = node.getAttribute("name")
@@ -247,6 +263,7 @@ class PythonActivity( LLActivityBase ):
 			x = States()
 			x.id = id
 			x.name = name
+			# checks nodes for stateidle responses
 			for node2 in stateidle:
 				stateidle = ""
 			for node3 in node2.childNodes:
@@ -254,19 +271,26 @@ class PythonActivity( LLActivityBase ):
 					stateidle += node3.data	
 					x.stateidle = stateidle
 					try:
+						#parsing state idle transitions into a list
 						strStateIdle = str(stateidle)
 						x.stateidleList = strStateIdle.split(":")
 					except AttributeError:
 						print("")	
-					#save to state object put into lists
+					try:
+						strStateIdle = str(stateidle)
+						x.stateidleList = strStateIdle.split(":")
+					except AttributeError:
+						print("")	
+			#save to state object put into lists
 			for node2 in label:
 				label = ""
 			for node3 in node2.childNodes:
 				if node3.nodeType == Node.TEXT_NODE:
 					label += node3.data	
 					x.label = label
+			#appends the state to the state list		
 			StateList.append(x)
-			  
+		#parsing for all elements in transition	  
 		for node in doc.getElementsByTagName("transition"):
 			fr = node.getElementsByTagName("from")
 			read = node.getElementsByTagName("read")
@@ -280,6 +304,7 @@ class PythonActivity( LLActivityBase ):
 			for node3 in node2.childNodes:
 				if node3.nodeType == Node.TEXT_NODE:
 					fr += node3.data	  
+					#assigns the fr data to the transition
 					y.fr = fr
 			for node2 in read:
 				read = ""
@@ -300,6 +325,12 @@ class PythonActivity( LLActivityBase ):
 					response += node3.data
 					y.response = response
 					try:
+						# parses the responses into a list
+						strResp = str(response)
+						y.responseList = strResp.split(":")
+					except AttributeError:
+						print("")						
+					try:
 						strResp = str(response)
 						y.responseList = strResp.split(":")
 					except AttributeError:
@@ -310,4 +341,5 @@ class PythonActivity( LLActivityBase ):
 				if node3.nodeType == Node.TEXT_NODE:
 					keyword += node3.data
 					y.keyword = keyword
+			#appends the transition to the TransitionList		
 			TransitionList.append(y)
