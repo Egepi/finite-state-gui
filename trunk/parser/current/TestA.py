@@ -10,23 +10,6 @@ import random
 import xml.dom.minidom
 from xml.dom.minidom import Node
 
-###############################################################################
-# here is a series of state function
-# we need to figure out where we should put this stuff related to fsm tool
-###############################################################################
-
-# Exit state function: this is not exactly the state function
-def TESTA_EXIT_Func(activity, str):
-	activity.speak('good bye.')
-	activity.exiting = True	
-	
-# # Test state function
-# def TESTA_TEST_Func(activity, str):
-	# activity.speak('I am testing cool things here')
-	
-def setString(activity, str):
-	activity.speak(theResp)
-	
 class States:
 	def __init__(self):
 		#initialize values to empty or 0 values
@@ -60,6 +43,7 @@ class PythonActivity( LLActivityBase ):
 		infile = THEFILE
 		count = 0
 		theResp = []
+		exitResp = ["exiting"]
 		
 		# register transition to this activity from ActivityManager (top level manager)
  		# use ':' as delim for multiple recognizable inputs
@@ -86,8 +70,6 @@ class PythonActivity( LLActivityBase ):
 		# 4. add rule to transition map
 		# repeate 3~4 as many times as the number of transiton assigned to this state
 
-		
-
 		#INIT STATE
 		count = 0;
 		States = StateList[1];
@@ -97,10 +79,9 @@ class PythonActivity( LLActivityBase ):
 		self.currentGrammarID = gramid
 		self.grammarIDs[tempName] = gramid
 		theTransLen = len(TransitionList)
-		#menuResp = str(States.stateidle)
 		theMenuRespList = States.stateidleList
 		
-		# initial state
+		# initial state initialiaztion
 		self.initial_state = 'TESTA_INI'
 		self.current_state = self.initial_state
 		self.action = theMenuRespList
@@ -108,6 +89,7 @@ class PythonActivity( LLActivityBase ):
 		self.next_state = None
 		self.prev_state = None
 		
+		# adding transitions for the init state
 		for b in range(0, theTransLen):
 			theTransition = TransitionList[b]
 			for st in StateList:
@@ -119,16 +101,16 @@ class PythonActivity( LLActivityBase ):
 				theResp = str(theTransition.response)
 				theRespList = theTransition.responseList
 				ruleid = self.addGrammarRule(gramid, thing, theKey)
-				#self.addTransition(ruleid, tempName, theResp, newTo)
 				self.addTransition(ruleid, tempName, theRespList, newTo)
 				
 				count = count+1	
 		thing = tempName + "_R"  + str(count)
 		ruleid = self.addGrammarRule(gramid, thing, "exit")
-		self.addTransition(ruleid, tempName, "exiting", str(FILENAME+ "_INI"))	
+		self.addTransition(ruleid, tempName, exitResp, str(FILENAME+ "_INI"))	
 		count = count + 1
 		#END INI STATE
 
+		# adding all states after the init state
 		theLEN = len(StateList)
 		for a in range(2, theLEN):
 			theStates = StateList[a]
@@ -150,7 +132,6 @@ class PythonActivity( LLActivityBase ):
 					theResp = str(theTransition.response)
 					theRespList = theTransition.responseList
 					ruleid = self.addGrammarRule(gramid, thing, theKey)
-					#self.addTransition(ruleid, tempName, theResp, newTo)
 					self.addTransition(ruleid, tempName, theRespList, newTo)
 					count = count+1	
 					
@@ -160,24 +141,8 @@ class PythonActivity( LLActivityBase ):
 			count = count+1
 			thing = tempName + "_R"  + str(count)
 			ruleid = self.addGrammarRule(gramid, thing, "exit")
-			self.addTransition(ruleid, tempName, "exiting", str(FILENAME+ "_INI"))
+			self.addTransition(ruleid, tempName, exitResp, str(FILENAME+ "_INI"))
 			count = count+1
-
-		# # News state (transition to ini/exit)
-		# gramid = self.addGrammar("TESTA_NEWS_GRM")
-		# self.grammarIDs['TESTA_NEWS'] = gramid
-		# ruleid = self.addGrammarRule(gramid, "TESTA_NEWS_R0", "menu")
-		# self.addTransition(ruleid, 'TESTA_NEWS', TESTA_INI_Func, 'TESTA_INI')
-		# ruleid = self.addGrammarRule(gramid, "TESTA_NEWS_R1", "exit")
-		# self.addTransition(ruleid, 'TESTA_NEWS', TESTA_EXIT_Func, 'TESTA_INI')
-
-		# # Weather state (transition to ini/exit)
-		# gramid = self.addGrammar("TESTA_WEATHER_GRM")
-		# self.grammarIDs['TESTA_WEATHER'] = gramid
-		# ruleid = self.addGrammarRule(gramid, "TESTA_WEATHER_R0", "menu")
-		# self.addTransition(ruleid, 'TESTA_WEATHER', TESTA_INI_Func, 'TESTA_INI')
-		# ruleid = self.addGrammarRule(gramid, "TESTA_WEATHER_R1", "exit")
-		# self.addTransition(ruleid, 'TESTA_WEATHER', TESTA_EXIT_Func, 'TESTA_INI')
 		
 	def setActive( self, str):
 
@@ -185,8 +150,8 @@ class PythonActivity( LLActivityBase ):
 			self.setCurrentGrammar(self.grammarIDs[self.current_state])
 		if self.action is not None:
 			randInt2 = random.randint(0, (len(self.action)-1))
-			this2 = self.action[randInt2]
-			self.speak(this2)
+			menuResponse = self.action[randInt2]
+			self.speak(menuResponse)
 		
 		self.active = True
 
@@ -196,12 +161,10 @@ class PythonActivity( LLActivityBase ):
 		# conf: SR confidence, str: recognized string
 		(self.action, self.next_state) = self.getTransition(rid, self.current_state)
 		if self.action is not None:
-			#ls = ["X", "Y", "Z"]
+			# random output
 			randInt = random.randint(0, (len(self.action)-1))
-			#chosenString = theRespList[0])
-			#self.speak(someString)
-			this = self.action[randInt]
-		 	self.speak(this)
+			myResponse = self.action[randInt]
+		 	self.speak(myResponse)
 			
 		# update status
 		self.prev_state = self.current_state
