@@ -5,6 +5,7 @@ import xml
 import sys
 import re
 import glob
+import random
 
 import xml.dom.minidom
 from xml.dom.minidom import Node
@@ -13,15 +14,11 @@ from xml.dom.minidom import Node
 # here is a series of state function
 # we need to figure out where we should put this stuff related to fsm tool
 ###############################################################################
-# INI state function
-def TESTA_ROOT_Func(activity, str):
-	activity.speak('I am root,  Say Hello to me.')
 
 # Exit state function: this is not exactly the state function
 def TESTA_EXIT_Func(activity, str):
 	activity.speak('good bye.')
 	activity.exiting = True	
-	
 	
 # # Test state function
 # def TESTA_TEST_Func(activity, str):
@@ -37,6 +34,7 @@ class States:
 		id = 0
 		label = ""
 		stateidle = ""
+		stateidleList = []
 		
 class Transitions:
 	def __init__(self):
@@ -46,6 +44,7 @@ class Transitions:
 		to = 0
 		response = ""
 		keyword = ""	
+		responseList = []
 ###############################################################################
 # Activity Class Derived from C++
 ###############################################################################
@@ -60,7 +59,13 @@ class PythonActivity( LLActivityBase ):
 		FILENAME = "TESTA"
 		infile = THEFILE
 		count = 0
-		theResp = ""
+		theResp = []
+		
+		# register transition to this activity from ActivityManager (top level manager)
+ 		# use ':' as delim for multiple recognizable inputs
+		self.registerTransition("test:testing")
+		
+		self.getXML(infile, StateList, TransitionList)
 		
 		# Map (input, current_state) --> (action, next_state)
 		# action is state related function assigned to it
@@ -68,20 +73,6 @@ class PythonActivity( LLActivityBase ):
 		self.grammarIDs = {}
 		self.exiting = False
 		self.active = False
-		
-		# initial state
-		self.initial_state = 'TESTA_INI'
-		self.current_state = self.initial_state
-		self.action = TESTA_ROOT_Func
-		self.initial_action = TESTA_ROOT_Func
-		self.next_state = None
-		self.prev_state = None
-		
-		# register transition to this activity from ActivityManager (top level manager)
-		# use ':' as delim for multiple recognizable inputs
-		self.registerTransition("test:testing")
-		
-		self.getXML(infile, StateList, TransitionList)
 		
 		# initialize all states and its function
 		# step1: add grammar -> add default transition
@@ -95,6 +86,8 @@ class PythonActivity( LLActivityBase ):
 		# 4. add rule to transition map
 		# repeate 3~4 as many times as the number of transiton assigned to this state
 
+		
+
 		#INIT STATE
 		count = 0;
 		States = StateList[1];
@@ -104,6 +97,17 @@ class PythonActivity( LLActivityBase ):
 		self.currentGrammarID = gramid
 		self.grammarIDs[tempName] = gramid
 		theTransLen = len(TransitionList)
+		#menuResp = str(States.stateidle)
+		theMenuRespList = States.stateidleList
+		
+		# initial state
+		self.initial_state = 'TESTA_INI'
+		self.current_state = self.initial_state
+		self.action = theMenuRespList
+		self.initial_action = theMenuRespList
+		self.next_state = None
+		self.prev_state = None
+		
 		for b in range(0, theTransLen):
 			theTransition = TransitionList[b]
 			for st in StateList:
@@ -113,14 +117,16 @@ class PythonActivity( LLActivityBase ):
 				thing = tempName + "_R"  + str(count)
 				theKey = str(theTransition.keyword)
 				theResp = str(theTransition.response)
+				theRespList = theTransition.responseList
 				ruleid = self.addGrammarRule(gramid, thing, theKey)
-				#self.addTransition(ruleid, tempName, action.speak(theResp), newTo)
-				#self.addTransition(ruleid, tempName, self.speak(theResp), newTo)
-				self.addTransition(ruleid, tempName, theResp, newTo)
+				#self.addTransition(ruleid, tempName, theResp, newTo)
+				self.addTransition(ruleid, tempName, theRespList, newTo)
+				
 				count = count+1	
 		thing = tempName + "_R"  + str(count)
 		ruleid = self.addGrammarRule(gramid, thing, "exit")
 		self.addTransition(ruleid, tempName, "exiting", str(FILENAME+ "_INI"))	
+		count = count + 1
 		#END INI STATE
 
 		theLEN = len(StateList)
@@ -142,19 +148,20 @@ class PythonActivity( LLActivityBase ):
 					thing = tempName + "_R"  + str(count)
 					theKey = str(theTransition.keyword)
 					theResp = str(theTransition.response)
+					theRespList = theTransition.responseList
 					ruleid = self.addGrammarRule(gramid, thing, theKey)
-					#self.addTransition(ruleid, tempName, action.speak(theResp), newTo)
-					#self.addTransition(ruleid, tempName, self.speak(theResp), newTo)
-					self.addTransition(ruleid, tempName, theResp, newTo)
+					#self.addTransition(ruleid, tempName, theResp, newTo)
+					self.addTransition(ruleid, tempName, theRespList, newTo)
 					count = count+1	
 					
 			thing = tempName + "_R"  + str(count)
 			ruleid = self.addGrammarRule(gramid, thing, "menu")
-			self.addTransition(ruleid, tempName, "menu", str(FILENAME+ "_INI"))
+			self.addTransition(ruleid, tempName, theMenuRespList, str(FILENAME+ "_INI"))
 			count = count+1
 			thing = tempName + "_R"  + str(count)
 			ruleid = self.addGrammarRule(gramid, thing, "exit")
-			self.addTransition(ruleid, tempName, "exiting", str(FILENAME+ "_INI"))		
+			self.addTransition(ruleid, tempName, "exiting", str(FILENAME+ "_INI"))
+			count = count+1
 
 		# # News state (transition to ini/exit)
 		# gramid = self.addGrammar("TESTA_NEWS_GRM")
@@ -177,7 +184,9 @@ class PythonActivity( LLActivityBase ):
 		if self.grammarIDs.has_key(self.current_state):
 			self.setCurrentGrammar(self.grammarIDs[self.current_state])
 		if self.action is not None:
-			self.action(self, str)
+			randInt2 = random.randint(0, (len(self.action)-1))
+			this2 = self.action[randInt2]
+			self.speak(this2)
 		
 		self.active = True
 
@@ -187,8 +196,12 @@ class PythonActivity( LLActivityBase ):
 		# conf: SR confidence, str: recognized string
 		(self.action, self.next_state) = self.getTransition(rid, self.current_state)
 		if self.action is not None:
-			self.speak(self.action)
-		 	
+			#ls = ["X", "Y", "Z"]
+			randInt = random.randint(0, (len(self.action)-1))
+			#chosenString = theRespList[0])
+			#self.speak(someString)
+			this = self.action[randInt]
+		 	self.speak(this)
 			
 		# update status
 		self.prev_state = self.current_state
@@ -267,6 +280,7 @@ class PythonActivity( LLActivityBase ):
 			name = node.getAttribute("name")
 			stateidle = node.getElementsByTagName("stateIdleResp")
 			label = node.getElementsByTagName("label")
+			stateidleList = []
 			x = States()
 			x.id = id
 			x.name = name
@@ -276,6 +290,11 @@ class PythonActivity( LLActivityBase ):
 				if node3.nodeType == Node.TEXT_NODE:
 					stateidle += node3.data	
 					x.stateidle = stateidle
+					try:
+						strStateIdle = str(stateidle)
+						x.stateidleList = strStateIdle.split(":")
+					except AttributeError:
+						print("")	
 					#save to state object put into lists
 			for node2 in label:
 				label = ""
@@ -291,6 +310,7 @@ class PythonActivity( LLActivityBase ):
 			to = node.getElementsByTagName("to")
 			response = node.getElementsByTagName("response")
 			keyword = node.getElementsByTagName("keyword")
+			responseList = []
 			y = Transitions()
 			for node2 in fr:
 				fr = ""
@@ -316,6 +336,11 @@ class PythonActivity( LLActivityBase ):
 				if node3.nodeType == Node.TEXT_NODE:
 					response += node3.data
 					y.response = response
+					try:
+						strResp = str(response)
+						y.responseList = strResp.split(":")
+					except AttributeError:
+						print("")						
 			for node2 in keyword:
 				keyword	= ""
 			for node3 in node2.childNodes:
