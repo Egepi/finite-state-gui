@@ -320,7 +320,7 @@ public class EnvironmentFrame extends JFrame {
 	private int myNumber = 0xdeadbeef;
 
 	/** The default title for these frames. */
-	private static final String DEFAULT_TITLE = "JFLAP";
+	private static final String DEFAULT_TITLE = "FSM GUI";
 
 	/**
 	 * The window listener for this frame.
