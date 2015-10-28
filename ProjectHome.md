@@ -1,0 +1,1 @@
+This is the program that will be used to make a finite state machine like structure to be incorporated into project life like.
